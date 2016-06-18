@@ -1,0 +1,3 @@
+http://www.hardware.com.br/dicas/baixando-sites-wget.html
+
+wget -c -i arquivostd.txt
