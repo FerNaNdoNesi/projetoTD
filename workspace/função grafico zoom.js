@@ -14,40 +14,42 @@ $(function () {
         for(i=0;i<r_01.length;i++){
             if(valAnterior != r_01[i][1]){
                 vetResultado01 = vetResultado01.concat({name: r_01[i][1], turboThreshold:10000, data: []});
-        		valAnterior = r_01[i][1];
-        	}
-        }//alert(vetResultado01);
+                valAnterior = r_01[i][1];
+            }
+        }
         
         for(j=0;j<vetResultado01.length;j++){
         for(i=0;i<r_01.length;i++){ //Para cada linha do vetor vetDrill, percorre o v2 (vetor do banco)
-        	if(r_01[i][1] === vetResultado01[j].name){//compara se a linha atual do vetDrill corresponde ao serviço do v2 (vetor do banco)
+            if(r_01[i][1] === vetResultado01[j].name){//compara se a linha atual do vetDrill corresponde ao serviço do v2 (vetor do banco)
                 vetDataBase.push([r_01[i][2]]);
-    			// vetDataBase.push([[r_01[i][0]],[r_01[i][2]]]); //Acrescenta dados ao subvetor data obedecendo a estrutura [texto,valor]
+                // vetDataBase.push([[r_01[i][0]],[r_01[i][2]]]); //Acrescenta dados ao subvetor data obedecendo a estrutura [texto,valor]
                 // vetDataBase = vetDataBase.concat({y: r_01[i][2]});
-    			if(i===r_01.length-1){ //Verifica se é a última linha do vetor para não deixar o último registro de fora
-    				vetResultado01[j].data = vetDataBase;
-    			}
-    		}else{//Caso a linha atual de vetDrill não seja correspondente a linha atual de v2, ou seja, acabou de ler um grupo de linhas de um serviço
-    			if(vetDataBase.length > 0){// e Vetor data não estiver vazio
-    				vetResultado01[j].data = vetDataBase; //acrescenta dados
-    			}
-    			vetDataBase = []; //Limpa vetor
-    		}
-    	}
+                if(i===r_01.length-1){ //Verifica se é a última linha do vetor para não deixar o último registro de fora
+                    vetResultado01[j].data = vetDataBase;
+                }
+            }else{//Caso a linha atual de vetDrill não seja correspondente a linha atual de v2, ou seja, acabou de ler um grupo de linhas de um serviço
+                if(vetDataBase.length > 0){// e Vetor data não estiver vazio
+                    vetResultado01[j].data = vetDataBase; //acrescenta dados
+                }
+                vetDataBase = []; //Limpa vetor
+            }
+        }
     }
     
         
-        
+        var saldo_inicial = Dashboards.getParameterValue("saldo_inicial");
+        var deposito_mensal = Dashboards.getParameterValue("deposito_mensal");
+        var rendimento_objetivo = Dashboards.getParameterValue("rendimento_objetivo");
         $('#container').highcharts({
             chart: {
                 zoomType: 'x'
             },
             title: {
-                text: 'USD to EUR exchange rate over time'
+                text: 'Investindo R$'+deposito_mensal+' por mês você se aposenta com um salario de R$'+rendimento_objetivo
             },
             subtitle: {
-                text: document.ontouchstart === undefined ?
-                        'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                text: 'Em menos de 10 anos você pode se aposentar'//document.ontouchstart === undefined ?
+                        //'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
             },
             xAxis: {
                 // type: 'trendline'
@@ -58,7 +60,15 @@ $(function () {
             },
             yAxis: {
                 title: {
-                    text: 'Exchange rate'
+                    text: 'Valores em R$'
+                }
+            },
+            tooltip: {
+                // valuePrefix: 'R$ ',
+                // valueDecimals: 2,
+                formatter: function() {
+                          return '<b>'+ this.series.name +'</b><br/>'+
+                          'Em '+this.x +' é '+'R$ '+ this.y.toFixed(2).replace(".",",");
                 }
             },
             legend: {
