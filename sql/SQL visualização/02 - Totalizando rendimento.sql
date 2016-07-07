@@ -1,7 +1,7 @@
 ﻿with
 
 parametros as (
-  select 6000 as rendimento_objetivo,
+  select 3000 as rendimento_objetivo,
          60000 as saldo_inicial,
          3000 as deposito_mensal,
          '2016/07/01'::date as dt_inicial,
@@ -72,8 +72,8 @@ resultado as (
                     1 as ordem,
                     rendimento_com_deposito
                from resultado
-               where rendimento_com_deposito <= rendimento_objetivo
-           order by periodo_dia desc limit 1
+               where rendimento_com_deposito >= rendimento_objetivo
+           order by periodo_dia limit 1
             )
             union all
             (select periodo_dia,
@@ -83,8 +83,8 @@ resultado as (
                     2 as ordem,
                     rendimento_com_deposito
                from resultado
-              where rendimento_com_deposito <= rendimento_objetivo
-           order by periodo_dia desc limit 1
+              where rendimento_com_deposito >= rendimento_objetivo
+           order by periodo_dia limit 1
             )
     order by ordem, periodo_dia
     ) as query
