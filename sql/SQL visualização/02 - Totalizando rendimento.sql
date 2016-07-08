@@ -63,7 +63,7 @@ resultado as (
     from calcula_juros as  tout
 )
 
-  select periodo_mes, composto, valor, rendimento_com_deposito
+  select composto, valor, rendimento_com_deposito, periodo_dia, periodo_mes
     from (
             (select periodo_dia,
                     to_char(periodo_dia::date,'MM/yyyy') as periodo_mes,
