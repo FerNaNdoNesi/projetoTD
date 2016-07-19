@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+  h1 Módulo 02 | Listar
+  br
+  br
+  .col-lg-6
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Tabela para listar
+        .ibox-tools
+          a.collapse-link
+            i.fa.fa-chevron-up          
+          a.close-link
+            i.fa.fa-times
+      .ibox-content
+        table.table
+          thead
+            tr
+              th ID
+              th Nome:
+              th Login:
+              th Senha:
+              th Data:
+          tbody
+            each linha, i in lista
+              tr
+                td #{linha._id}
+                td #{linha.nome}
+                td #{linha.login}
+                td #{linha.senha}
+                td #{linha.data_cad}
+    br
+    br
+    br
+    br
+    a.h2(href="/modulo02" title="Módulo 02") Voltar

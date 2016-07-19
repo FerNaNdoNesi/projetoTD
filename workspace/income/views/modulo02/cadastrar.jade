@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+  h1 Módulo 02 | Cadastrar
+  br
+  br
+  .col-lg-6
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Formulário para cadastro
+        .ibox-tools
+          a.collapse-link
+            i.fa.fa-chevron-up          
+          a.close-link
+            i.fa.fa-times
+      .ibox-content
+       form.form-horizontal(method='POST', action="/modulo02/postCadastrar")
+        .form-group
+          label.col-sm-2.control-label Nome:
+          .col-sm-10
+           input.form-control(type='text' name="nome")
+           br
+          label.col-sm-2.control-label Login:
+          .col-sm-9
+           input.form-control(type='text' name="login")
+           br
+          label.col-sm-2.control-label Senha:
+          .col-sm-9
+           input.form-control(type='password' name="senha")
+        .hr-line-dashed
+        .form-group
+          .col-sm-4.col-sm-offset-2
+           button.btn.btn-primary(type='submit' valur="Cadastrar") Cadastrar
+
+
+    br
+    br
+    br
+    br
+    a.h2(href="/modulo02" title="Módulo 02") Voltar
