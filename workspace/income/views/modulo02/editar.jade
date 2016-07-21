@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+  .ibox-title
+   h1 Módulo 02 | Edição de usuários
+  br
+  br
+  .col-lg-2
+  .col-lg-8
+    .btn.btn-info.pull-right
+      a.h4(href="/modulo02/listar" title="Listar") Listar
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Formulário para cadastro
+        .ibox-tools
+          a.collapse-link
+            i.fa.fa-chevron-up          
+          a.close-link
+            i.fa.fa-times
+      .ibox-content
+       form.form-horizontal(method='POST', action="/modulo02/atualizar/#{lista._id}", role="form")
+        input(type="hidden" name="_method" value="put")
+        .form-group
+          label.col-sm-2.control-label Nome:
+          .col-sm-10
+           input.form-control(type='text', name="nome", value="#{lista.nome}")
+           br
+          label.col-sm-2.control-label Login:
+          .col-sm-10
+           input.form-control(type='text', name="login", value="#{lista.login}")
+        .hr-line-dashed
+        .form-group
+          .col-sm-4.col-sm-offset-2
+           button.btn.btn-primary(type='submit', value="Atualizar") Atualizar
+     .ibox-title(style="text-align: right")
+      .label.label-primary.pull-right
+        a.h4(href="/modulo02" title="Módulo 02") Voltar
+  .footer
+    .pull-right
+      h4 Desenvolvido por Fernando Nesi

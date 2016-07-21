@@ -6,6 +6,8 @@ var logger        = require('morgan');
 var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 var mongoose      = require('mongoose');
+var flash         = require('express-flash');
+var session       = require('express-session');
 
 var app = express();
 mongoose.connect('mongodb://localhost/income', function (err) {
@@ -22,13 +24,17 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', routes);
-// app.use('/pagina01', routes);
-// app.use('/pagina02', routes);
-// app.use('/users', users);
+// incluso devido ao express-flash
+app.use(cookieParser());
+app.use(session({ secret: 'keyboard cat income',
+                  resave: false,
+                  saveUninitialized: true
+                  // ,cookie: { maxAge: 60000}
+                })
+);
+app.use(flash());
 
 load('models').then('controllers').then('routes').into(app);
 

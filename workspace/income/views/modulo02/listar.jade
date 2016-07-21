@@ -1,10 +1,14 @@
 extends ../layout
 
 block content
-  h1 Módulo 02 | Listar
+  .ibox-title
+    h1 Módulo 02 | Listar usuários
   br
   br
-  .col-lg-6
+  .col-lg-1
+  .col-lg-10
+    .btn.btn-info.pull-right
+        a.h4(href="/modulo02/cadastrar" title="Cadastrar") Cadastrar
     .ibox.float-e-margins
       .ibox-title
         h5 Tabela para listar
@@ -22,6 +26,7 @@ block content
               th Login:
               th Senha:
               th Data:
+              th Ações:
           tbody
             each linha, i in lista
               tr
@@ -29,9 +34,16 @@ block content
                 td #{linha.nome}
                 td #{linha.login}
                 td #{linha.senha}
-                td #{linha.data_cad}
-    br
-    br
-    br
-    br
-    a.h2(href="/modulo02" title="Módulo 02") Voltar
+                td #{moment(linha.data_cad).format('DD/MM/YYYY | HH:MM:SS')}
+                td.pull-right
+                  a.btn.btn-info(href="editar/#{linha._id}", title="Editar")
+                   span.glyphicon.glyphicon-pencil
+                  &nbsp
+                  a.btn.btn-default(href="show/#{linha._id}", title="Visualizar")
+                   span.glyphicon.glyphicon-search
+    .ibox-title(style="text-align: right")
+      .label.label-primary.pull-right
+        a.h4(href="/modulo02" title="Módulo 02") Voltar
+//- .footer
+//-   .pull-right
+//-     h4 Desenvolvido por Fernando Nesi

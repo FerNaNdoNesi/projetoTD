@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+  .ibox-title
+    h1 Módulo 02 | Usuário
+  br
+  br
+  .col-lg-1
+  .col-lg-10
+    .btn.btn-info.pull-right
+        a.h4(href="/modulo02/listar" title="Listar") Listar
+    .ibox.float-e-margins
+      .ibox-title
+        h5 Cadastro do usuário
+        .ibox-tools
+          a.collapse-link
+            i.fa.fa-chevron-up          
+          a.close-link
+            i.fa.fa-times
+      .ibox-content
+        h1 #{lista.nome}
+        br
+        p ID: #{lista._id}
+        p Login: #{ lista.login}
+        p Data cadastro: #{lista.data_cad}
+        //- p= lista.data_cad // imprimir somente variavel
+        br
+        form.form-horizontal(method='POST', action="/modulo02/excluir/#{lista._id}", role="form")
+         input(type="hidden" name="_method" value="delete")
+         .form-group
+           .col-sm-4
+            button.btn.btn-danger(type='submit', value="Excluir") Excluir
+             &nbsp
+             span.glyphicon.glyphicon-trash
+        br
+    .ibox-title(style="text-align: right")
+      .label.label-primary.pull-right
+        a.h4(href="/modulo02" title="Módulo 02") Voltar
+   .footer
+     .pull-right
+       h4 Desenvolvido por Fernando Nesi

@@ -1,10 +1,14 @@
 extends ../layout
 
 block content
-  h1 Módulo 02 | Cadastrar
+  .ibox-title
+   h1 Módulo 02 | Cadastrar novo usuário
   br
   br
-  .col-lg-6
+  .col-lg-2
+  .col-lg-8
+    .btn.btn-info.pull-right
+      a.h4(href="/modulo02/listar" title="Cadastrar") Listar
     .ibox.float-e-margins
       .ibox-title
         h5 Formulário para cadastro
@@ -31,10 +35,9 @@ block content
         .form-group
           .col-sm-4.col-sm-offset-2
            button.btn.btn-primary(type='submit' valur="Cadastrar") Cadastrar
-
-
-    br
-    br
-    br
-    br
-    a.h2(href="/modulo02" title="Módulo 02") Voltar
+     .ibox-title(style="text-align: right")
+      .label.label-primary.pull-right
+        a.h4(href="/modulo02" title="Módulo 02") Voltar
+  .footer
+    .pull-right
+      h4 Desenvolvido por Fernando Nesi
