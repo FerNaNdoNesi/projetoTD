@@ -10,13 +10,14 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.13.4",
-    "express-load": "*",
-    "jade": "~1.11.0",
-    "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0",
-    "mongoose": "*",
     "express-flash": "*",
+    "express-load": "*",
     "express-session": "*",
-    "moment": "*"
+    "highcharts": "^4.2.5",
+    "jade": "~1.11.0",
+    "moment": "*",
+    "mongoose": "*",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0"
   }
 }

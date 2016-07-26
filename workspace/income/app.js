@@ -8,6 +8,7 @@ var bodyParser    = require('body-parser');
 var mongoose      = require('mongoose');
 var flash         = require('express-flash');
 var session       = require('express-session');
+var Highcharts    = require('highcharts');
 
 var app = express();
 mongoose.connect('mongodb://localhost/income', function (err) {
