@@ -3,6 +3,25 @@ extends ../layout
 block content
  .wrapper.wrapper-content.animated.fadeInRight
   .row
+   .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5
+          | Tabela valores &nbsp;
+          small Esta tabela lista os valores. (#{lista})
+        div(ibox-tools='')
+      .ibox-content
+        #tabelaValores
+          div
+           table
+            tr
+              td 1
+              td 2
+              td 3
+            tr
+              td 4
+              td 5
+  .row
    .col-lg-6
     .ibox.float-e-margins
       .ibox-title
