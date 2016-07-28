@@ -1,0 +1,85 @@
+doctype html
+html(lang="pt-BR")
+	head
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		title INCOME.ME | Análise de rendimentos
+		link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+		link(href='/bootstrap/font-awesome/css/font-awesome.css', rel='stylesheet')
+		link(href='/bootstrap/css/animate.css', rel='stylesheet')
+		link(href='/bootstrap/css/style.css', rel='stylesheet')
+	body
+		#wrapper
+			nav.navbar-default.navbar-static-side(role='navigation')
+				.sidebar-collapse
+					ul#side-menu.nav.metismenu
+						li.nav-header
+							.dropdown.profile-element
+								span
+									img.img-circle(alt='image', src='img/profile_small2.jpg')
+								a.dropdown-toggle(data-toggle='dropdown', href='#')
+									span.clear
+										span.block.m-t-xs
+											strong.font-bold Income.me
+										span.text-muted.text-xs.block Art Director 
+							.logo-element
+								| IN+
+						block menu
+						//Local do menu
+
+			#page-wrapper.gray-bg
+				.row.border-bottom
+					nav.navbar.navbar-static-top(role='navigation', style='margin-bottom: 0')
+						.navbar-header
+							a.navbar-minimalize.minimalize-styl-2.btn.btn-primary(href='#')
+								i.fa.fa-arrow-left
+						ul.nav.navbar-top-links.navbar-right
+							li
+								span.m-r-sm.text-muted.welcome-message Bem-Vindo ao INCOME+
+							li
+								a(href='login.html')
+									i.fa.fa-sign-in
+									|  Entrar
+							li
+								a(href='criar.html')
+									i.fa.fa-users
+									|  Cadastre-se
+				block painel
+				//Local do painel
+
+				.footer
+					.pull-right
+						| 10GB of 
+						strong 250GB
+						|  Free.
+					div
+						strong Copyright
+						|  Income.me © 2016
+				script.
+					$(document).ready(function() {
+						setTimeout(function() {
+							toastr.options = {
+								closeButton: true,
+								progressBar: true,
+								showMethod: 'slideDown',
+								timeOut: 4000
+							};
+						toastr.success('Responsive Admin Theme', 'Welcome to INSPINIA');
+						}, 1300);
+					});
+// Mainly scripts
+script(src='/bootstrap/js/jquery-2.1.1.js')
+script(src='/bootstrap/js/bootstrap.min.js')
+script(src='/bootstrap/js/plugins/metisMenu/jquery.metisMenu.js')
+script(src='/bootstrap/js/plugins/slimscroll/jquery.slimscroll.min.js')
+// Flot
+script(src='/bootstrap/js/plugins/flot/jquery.flot.js')
+script(src='/bootstrap/js/plugins/flot/jquery.flot.tooltip.min.js')
+script(src='/bootstrap/js/plugins/flot/jquery.flot.resize.js')
+script(src='/bootstrap/js/plugins/flot/jquery.flot.pie.js')
+// Custom and plugin javascript
+script(src='/bootstrap/js/inspinia.js')
+script(src='/bootstrap/js/plugins/pace/pace.min.js')
+// ChartJS
+script(src='/bootstrap/js/plugins/chartJs/Chart.min.js')
+script(src='/bootstrap/js/demo/chartjs-demo.js')

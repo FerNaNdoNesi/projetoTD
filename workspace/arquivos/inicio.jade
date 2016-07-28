@@ -1,0 +1,43 @@
+extends ../dashboard
+
+block menu
+	li.active
+		a(href='default-pagina.html')
+			i.fa.fa-home
+			span.nav-label Página default
+	li
+		a(href='default-pagina.html')
+			i.fa.fa-home
+			span.nav-label Página default
+	li
+		a(href='#')
+			i.fa.fa-th-large
+			span.nav-label Dashboards
+			span.fa.arrow
+		ul.nav.nav-second-level
+			li.active
+				a(href='index-2.html') Dashboard v.1
+			li
+				a(href='dashboard_2.html') Dashboard v.2
+			li
+				a(href='dashboard_3.html') Dashboard v.3
+			li
+				a(href='dashboard_4_1.html') Dashboard v.4
+			li
+				a(href='dashboard_5.html')
+					| Dashboard v.5 
+					span.label.label-primary.pull-right NEW
+	li
+		a(href='default-pagina.html')
+			i.fa.fa-home
+			span.nav-label Página default
+block painel
+	.row.wrapper.border-bottom.white-bg.page-heading
+		.col-lg-10
+			h2 Página default
+			ol.breadcrumb
+				li
+					a(href='index-2.html') Módulo 00
+				li.active
+					strong Página default
+		.col-lg-2
