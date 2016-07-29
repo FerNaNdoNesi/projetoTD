@@ -1,0 +1,63 @@
+extends ../dashboard
+
+block content
+	#wrapper
+			nav.navbar-default.navbar-static-side(role='navigation')
+				.sidebar-collapse
+					ul#side-menu.nav.metismenu
+						li.nav-header
+							.dropdown.profile-element
+								span
+									img.img-circle(alt='image', src='img/profile_small2.jpg')
+								a.dropdown-toggle(data-toggle='dropdown', href='#')
+									span.clear
+										span.block.m-t-xs
+											strong.font-bold Income.me
+										span.text-muted.text-xs.block Art Director 
+							.logo-element
+								| IN+
+						li.active
+							a(href='dashboard.html')
+								i.fa.fa-home
+								span.nav-label Inicio
+						// block content
+						li
+							a(href='#')
+								i.fa.fa-twitch
+								span.nav-label Sobre nós
+			#page-wrapper.gray-bg
+				.row.border-bottom
+					nav.navbar.navbar-static-top(role='navigation', style='margin-bottom: 0')
+						.navbar-header
+							a.navbar-minimalize.minimalize-styl-2.btn.btn-primary(href='#')
+								i.fa.fa-arrow-left
+							button(onclick='myFunction()') Try it
+						ul.nav.navbar-top-links.navbar-right
+							li
+								span.m-r-sm.text-muted.welcome-message Bem-vindo ao INCOME+
+							li
+								a(href='login.html')
+									i.fa.fa-sign-in
+									|  Entrar
+							li
+								a(href='criar.html')
+									i.fa.fa-users
+									|  Cadastre-se
+				// block painel
+				.row.wrapper.border-bottom.white-bg.page-heading
+					.col-lg-10
+						h2 Página default
+						ol.breadcrumb
+							li
+								a(href='index-2.html') Módulo 00
+							li.active
+								strong Página default
+					.col-lg-2
+				.footer
+					.pull-right
+						| 10GB of 
+						strong 250GB
+						|  Free.
+					div
+						strong Copyright
+						|  Income.me © 2016

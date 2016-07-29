@@ -1,0 +1,92 @@
+doctype html
+html(lang="pt-BR")
+	head
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		title INCONE.ME | Investimento em renda fixa
+		link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+		link(href='/bootstrap/font-awesome/css/font-awesome.css', rel='stylesheet')
+		link(href='/bootstrap/css/animate.css', rel='stylesheet')
+		link(href='/bootstrap/css/style.css', rel='stylesheet')
+	body
+		#wrapper
+			nav.navbar-default.navbar-static-side(role='navigation')
+				.sidebar-collapse
+					ul#side-menu.nav.metismenu
+						li.nav-header
+							.dropdown.profile-element
+								span
+									img.img-circle(alt='image', src='img/profile_small2.jpg')
+								a.dropdown-toggle(data-toggle='dropdown', href='#')
+									span.clear
+										span.block.m-t-xs
+											strong.font-bold Income.me
+										span.text-muted.text-xs.block Art Director 
+							.logo-element
+								| IN+
+						li.active
+							a(href='dashboard.html')
+								i.fa.fa-home
+								span.nav-label Inicio
+						// block content
+						li
+							a(href='#')
+								i.fa.fa-twitch
+								span.nav-label Sobre nós
+			#page-wrapper.gray-bg
+				.row.border-bottom
+					nav.navbar.navbar-static-top(role='navigation', style='margin-bottom: 0')
+						.navbar-header
+							a.navbar-minimalize.minimalize-styl-2.btn.btn-primary(href='#')
+								i.fa.fa-arrow-left
+						ul.nav.navbar-top-links.navbar-right
+							li
+								span.m-r-sm.text-muted.welcome-message Bem-vindo ao INCOME+
+							li
+								a(href='login.html')
+									i.fa.fa-sign-in
+									|  Entrar
+							li
+								a(href='criar.html')
+									i.fa.fa-users
+									|  Cadastre-se
+				// block painel
+				.row.wrapper.border-bottom.white-bg.page-heading
+					.col-lg-10
+						h2 Página default
+						ol.breadcrumb
+							li
+								a(href='index-2.html') Módulo 00
+							li.active
+								strong Página default
+					.col-lg-2
+				.footer
+					.pull-right
+						| 10GB of 
+						strong 250GB
+						|  Free.
+					div
+						strong Copyright
+						|  Income.me © 2016
+			block content
+			
+			// Mainly scripts
+			script(src='/bootstrap/js/jquery-2.1.1.js')
+			script(src='/bootstrap/js/bootstrap.min.js')
+			script(src='/bootstrap/js/plugins/metisMenu/jquery.metisMenu.js')
+			script(src='/bootstrap/js/plugins/slimscroll/jquery.slimscroll.min.js')
+			// Flot
+			script(src='/bootstrap/js/plugins/flot/jquery.flot.js')
+			script(src='/bootstrap/js/plugins/flot/jquery.flot.tooltip.min.js')
+			script(src='/bootstrap/js/plugins/flot/jquery.flot.resize.js')
+			script(src='/bootstrap/js/plugins/flot/jquery.flot.pie.js')
+			// Custom and plugin javascript
+			script(src='/bootstrap/js/inspinia.js')
+			script(src='/bootstrap/js/plugins/pace/pace.min.js')
+			// ChartJS
+			//- script(src='/bootstrap/js/plugins/chartJs/Chart.min.js')
+			//- script(src='/bootstrap/js/demo/chartjs-demo.js')
+			// HighCharts
+			script(src='/bootstrap/js/highcharts.js')
+			script(src='/bootstrap/js/modules/exporting.js')
+			script(src='/javascripts/highcharts/graficosHighCharts.js')			

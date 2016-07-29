@@ -1,40 +1,6 @@
 extends ../layout
 
-
 block content
- .ibox-title
-  h1 Módulo 02
-  .ibox-content
-   .label.label-primary.pull-left
-    a.h4(href="/modulo02/listar" title="Listar") Listar
-   .label.label-primary.pull-left
-    a.h4(href="/modulo02/cadastrar" title="Cadastrar") Cadastrar
-   .label.label-primary.pull-right
-    a.h4(href="/" title="Home") Voltar
-  br
-  hr
- if messages.cadastrado
-  br
-  br
-  .col-lg-10
-   .alert.alert-success.alert-dismissable
-    p= messages.cadastrado
-     button.close(aria-hidden='true', data-dismiss='alert', type='button') ×
- if messages.atualizado
-  br
-  br
-  .col-lg-10
-   .alert.alert-info.alert-dismissable
-    p= messages.atualizado
-     button.close(aria-hidden='true', data-dismiss='alert', type='button') ×
- if messages.excluido
-  br
-  br
-  .col-lg-10
-   .alert.alert-danger.alert-dismissable
-    p= messages.excluido
-     button.close(aria-hidden='true', data-dismiss='alert', type='button') ×
-
- .footer
-  .pull-right
-   h4 Desenvolvido por Fernando Nesi
+	h1 Módulo 02
+	br
+	a(href="/" title="Home") Voltar

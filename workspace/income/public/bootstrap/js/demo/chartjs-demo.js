@@ -42,11 +42,9 @@ $(function () {
         responsive: true,
     };
 
+
     var ctx = document.getElementById("lineChart").getContext("2d");
     var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
-
-    // var ctx = document.getElementById("lineChartZoom").getContext("2d");
-    // var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
 
     var barData = {
         labels: ["January", "February", "March", "April", "May", "June", "July"],
