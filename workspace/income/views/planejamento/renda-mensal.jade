@@ -1,0 +1,54 @@
+extends ../dashboard
+
+block painel
+	.row.wrapper.border-bottom.white-bg.page-heading
+		.col-lg-10
+			h2 Renda Mensal
+			ol.breadcrumb
+				li
+					a(href='/') Inicio
+				li
+					| Planejamento
+				li.active
+					strong Renda Mensal
+		.col-lg-2
+	.row.m-b-lg.m-t-lg
+		.col-md-6.col-md-offset-3
+			.profile-image
+				img.img-circle.circle-border.m-b-md(src='/images/small/10s.jpg', alt='profile')
+			.profile-info
+				div
+					div
+						h2.no-margins
+							| Alex Smith
+						h4 Founder of Groupeq
+						small
+							| There are many variations of passages of Lorem Ipsum available, but the majority
+							| have suffered alteration in some form Ipsum available.
+	.row
+		.col-lg-3
+			input#demo1(type='text', value='55', name='demo1')
+	.row
+		.col-lg-12
+			.ibox.float-e-margins
+				.ibox-title
+					h5
+						| Bar Chart Example 
+						small With custom colors.
+					.ibox-tools
+						a.collapse-link
+							i.fa.fa-chevron-up			
+						//- a.close-link
+							i.fa.fa-times
+				.ibox-content
+					#graficoLinhaBasico
+	script.
+		$("input[name='demo1']").TouchSpin({
+				min: 0,
+				max: 100,
+				step: 0.1,
+				decimals: 2,
+				boostat: 5,
+				maxboostedstep: 10,
+				postfix: '%'
+		});

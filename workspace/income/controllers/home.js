@@ -1,11 +1,16 @@
 module.exports = function(app){
 	
 	var HomeController = {
-		index:  function(req,res){
-			res.render('home/index');
-		},
 		inicio: function(req,res){
+			req.flash('inicio', true);
 			res.render('home/inicio');
+		},
+		sobre: function(req,res){
+			req.flash('sobre', true);
+			res.render('home/sobre');
+		},
+		default:  function(req,res){
+			res.render('home/default');
 		}
 	}
 	return HomeController;

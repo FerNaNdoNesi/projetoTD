@@ -1,3 +1,88 @@
 extends ../dashboard
 
-block content
+block painel
+	.row.wrapper.border-bottom.white-bg.page-heading
+		.col-lg-12
+			h2 Inicio
+			ol.breadcrumb
+				li
+					a(href='/') Inicio
+				li.active
+					strong Bem-vindo
+		.col-lg-2
+	.row.m-b-lg.m-t-lg
+		.col-md-6.col-md-offset-3
+			.profile-image
+				img.img-circle.circle-border.m-b-md(src='/images/small/11s.jpg', alt='profile')
+			.profile-info
+				div
+					div
+						h2.no-margins
+							| Alex Smith
+						h4 Founder of Groupeq
+						small
+							| There are many variations of passages of Lorem Ipsum available, but the majority
+							| have suffered alteration in some form Ipsum available.
+	.row
+		.col-lg-4.m-b-lg.col-lg-offset-4
+			#vertical-timeline.vertical-container.light-timeline.no-margins
+				.vertical-timeline-block
+					.vertical-timeline-icon.navy-bg
+						i.fa.fa-briefcase
+					.vertical-timeline-content
+						h2 Meeting
+						p
+							| Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
+						a.btn.btn-sm.btn-primary(href='#')  More info
+						span.vertical-date
+							| Today 
+							br
+							small Dec 24
+				.vertical-timeline-block
+					.vertical-timeline-icon.blue-bg
+						i.fa.fa-file-text
+					.vertical-timeline-content
+						h2 Send documents to Mike
+						p
+							| Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.
+						a.btn.btn-sm.btn-success(href='#')  Download document 
+						span.vertical-date
+							| Today 
+							br
+							small Dec 24
+				.vertical-timeline-block
+					.vertical-timeline-icon.lazur-bg
+						i.fa.fa-coffee
+					.vertical-timeline-content
+						h2 Coffee Break
+						p
+							| Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
+						a.btn.btn-sm.btn-info(href='#') Read more
+						span.vertical-date
+							| Yesterday 
+							br
+							small Dec 23
+				.vertical-timeline-block
+					.vertical-timeline-icon.yellow-bg
+						i.fa.fa-phone
+					.vertical-timeline-content
+						h2 Phone with Jeronimo
+						p
+							| Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.
+						span.vertical-date
+							| Yesterday 
+							br
+							small Dec 23
+				.vertical-timeline-block
+					.vertical-timeline-icon.navy-bg
+						i.fa.fa-comments
+					.vertical-timeline-content
+						h2 Chat with Monica and Sandra
+						p
+							| Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+						span.vertical-date
+							| Yesterday 
+							br
+							small Dec 
+	.row
+		h1 &nbsp

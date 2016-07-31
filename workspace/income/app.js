@@ -1,17 +1,23 @@
-var express = require('express');
-var load = require('express-load');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-//var routes = require('./routes/index');
-// var routes = require('./routes/');
-// var users = require('./routes/users');
-
+var express 		= require('express');
+var load			= require('express-load');
+var path 			= require('path');
+var favicon 		= require('serve-favicon');
+var logger 			= require('morgan');
+var cookieParser 	= require('cookie-parser');
+var bodyParser 		= require('body-parser');
+var mongoose      	= require('mongoose');
+var flash         	= require('express-flash');
+var session       	= require('express-session');
+var Highcharts    	= require('highcharts');
+// var touchspin 		= require("bootstrap-touchspin");
+// var jquery 			= require("jquery");
+// var jsdom 			= require("jsdom");
 
 var app = express();
+
+
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,22 +28,25 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', routes);
-// app.use('/pagina01', routes);
-// app.use('/pagina02', routes);
-// app.use('/users', users);
+// incluso devido ao express-flash
+app.use(cookieParser());
+app.use(session({ secret: 'keyboard cat income',
+                  resave: false,
+                  saveUninitialized: true
+                  // ,cookie: { maxAge: 60000}
+                })
+);
+app.use(flash());
 
 load('models').then('controllers').then('routes').into(app);
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Página não encontrada');
-  err.status = 404;
-  next(err);
+	var err = new Error('Página não encontrada');
+	err.status = 404;
+	next(err);
 });
 
 // error handlers
@@ -45,23 +54,23 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
+	app.use(function(err, req, res, next) {
+		res.status(err.status || 500);
+		res.render('error', {
+			message: err.message,
+			error: err
+		});
+	});
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+	res.status(err.status || 500);
+	res.render('error', {
+		message: err.message,
+		error: {}
+	});
 });
 
 

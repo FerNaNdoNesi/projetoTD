@@ -3,7 +3,7 @@ html(lang="pt-BR")
 	head
 		meta(charset='utf-8')
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		title INCONE.ME | Investimento em renda fixa
+		title INCOME.ME | Investimento em renda fixa
 		link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet')
 		link(href='/bootstrap/font-awesome/css/font-awesome.css', rel='stylesheet')
 		link(href='/bootstrap/css/animate.css', rel='stylesheet')
@@ -16,77 +16,124 @@ html(lang="pt-BR")
 						li.nav-header
 							.dropdown.profile-element
 								span
-									img.img-circle(alt='image', src='img/profile_small2.jpg')
-								a.dropdown-toggle(data-toggle='dropdown', href='#')
+									//- img.img-circle(alt='image', src='img/profile_small2.jpg')
+								a.dropdown-toggle(data-toggle='dropdown', href='/default')
 									span.clear
 										span.block.m-t-xs
 											strong.font-bold Income.me
 										span.text-muted.text-xs.block Art Director 
 							.logo-element
 								| IN+
-						li.active
-							a(href='dashboard.html')
-								i.fa.fa-home
-								span.nav-label Inicio
-						// block content
+							li(class=messages.inicio ? 'active' : '')
+								a(href='/')
+									i.fa.fa-home.fa-lg
+									span.nav-label Inicio
+							li(class=messages.planejamento ? 'active' : '')
+								a(href='/default')
+									i.fa.fa-line-chart.fa-lg
+									span.nav-label Planejamento
+									span.fa.arrow
+								ul.nav.nav-second-level.collapse
+									li
+										a(href='planejamento/renda-mensal') Renda Mensal
+									li
+										a(href='/default') Página 02
+									li
+										a(href='/default')
+											| Página 03
+											span.label.label-primary.pull-right NEW
+							li(class=menu3 ? 'active' : '')
+								a(href='/default')
+									i.fa.fa-bar-chart.fa-lg
+									span.nav-label Comparações
+									span.fa.arrow
+								ul.nav.nav-second-level.collapse
+									li
+										a(href='/default') Página 01
+									li
+										a(href='/default') Página 02
+									li
+										a(href='/default')
+											| Página 03
+											span.label.label-primary.pull-right NEW
+							li(class=menu4 ? 'active' : '')
+								a(href='/default')
+									i.fa.fa-area-chart.fa-lg
+									span.nav-label Histórico
+									span.fa.arrow
+								ul.nav.nav-second-level.collapse
+									li
+										a(href='/default') Página 01
+									li
+										a(href='/default') Página 02
+									li
+										a(href='/default')
+											| Página 03
+											span.label.label-primary.pull-right NEW
+							li(class=menu5 ? 'active' : '')
+								a(href='/default')
+									i.fa.fa-bank.fa-lg
+									span.nav-label Tesouro Direto
+									span.fa.arrow
+								ul.nav.nav-second-level.collapse
+									li
+										a(href='/default') Página 01
+									li
+										a(href='/default') Página 02
+									li
+										a(href='/default')
+											| Página 03
+											span.label.label-primary.pull-right NEW
+							li(class=messages.sobre ? 'active' : '')
+								a(href='/sobre')
+									i.fa.fa-twitch.fa-lg
+									span.nav-label Sobre nós
+		//INICIO CABEÇALHO
+		#page-wrapper.gray-bg
+			.row.border-bottom
+				nav.navbar.navbar-static-top(role='navigation', style='margin-bottom: 0')
+					.navbar-header
+						a.navbar-minimalize.minimalize-styl-2.btn.btn-primary(href='#')
+							i +MENU
+							//- .fa.fa-arrow-left
+					ul.nav.navbar-top-links.navbar-right
 						li
-							a(href='#')
-								i.fa.fa-twitch
-								span.nav-label Sobre nós
-			#page-wrapper.gray-bg
-				.row.border-bottom
-					nav.navbar.navbar-static-top(role='navigation', style='margin-bottom: 0')
-						.navbar-header
-							a.navbar-minimalize.minimalize-styl-2.btn.btn-primary(href='#')
-								i.fa.fa-arrow-left
-						ul.nav.navbar-top-links.navbar-right
-							li
-								span.m-r-sm.text-muted.welcome-message Bem-vindo ao INCOME+
-							li
-								a(href='login.html')
-									i.fa.fa-sign-in
-									|  Entrar
-							li
-								a(href='criar.html')
-									i.fa.fa-users
-									|  Cadastre-se
-				// block painel
-				.row.wrapper.border-bottom.white-bg.page-heading
-					.col-lg-10
-						h2 Página default
-						ol.breadcrumb
-							li
-								a(href='index-2.html') Módulo 00
-							li.active
-								strong Página default
-					.col-lg-2
-				.footer
-					.pull-right
-						| 10GB of 
-						strong 250GB
-						|  Free.
-					div
-						strong Copyright
-						|  Income.me © 2016
-			block content
-			
-			// Mainly scripts
-			script(src='/bootstrap/js/jquery-2.1.1.js')
-			script(src='/bootstrap/js/bootstrap.min.js')
-			script(src='/bootstrap/js/plugins/metisMenu/jquery.metisMenu.js')
-			script(src='/bootstrap/js/plugins/slimscroll/jquery.slimscroll.min.js')
-			// Flot
-			script(src='/bootstrap/js/plugins/flot/jquery.flot.js')
-			script(src='/bootstrap/js/plugins/flot/jquery.flot.tooltip.min.js')
-			script(src='/bootstrap/js/plugins/flot/jquery.flot.resize.js')
-			script(src='/bootstrap/js/plugins/flot/jquery.flot.pie.js')
-			// Custom and plugin javascript
-			script(src='/bootstrap/js/inspinia.js')
-			script(src='/bootstrap/js/plugins/pace/pace.min.js')
-			// ChartJS
-			//- script(src='/bootstrap/js/plugins/chartJs/Chart.min.js')
-			//- script(src='/bootstrap/js/demo/chartjs-demo.js')
-			// HighCharts
-			script(src='/bootstrap/js/highcharts.js')
-			script(src='/bootstrap/js/modules/exporting.js')
-			script(src='/javascripts/highcharts/graficosHighCharts.js')			
+							span.m-r-sm.text-muted.welcome-message Bem-vindo ao INCOME+
+						li
+							a(href='login')
+								i.fa.fa-sign-in
+								|  Entrar
+						li
+							a(href='cadastrar')
+								i.fa.fa-users
+								|  Cadastre-se
+			block painel
+			//INICIO RODAPÉ
+			.footer
+				.pull-right
+					| 10GB of 
+					strong 250GB
+					|  Free.
+				div
+					strong Copyright
+					|  Income.me © 2016
+// Mainly scripts
+script(src='/bootstrap/js/jquery-2.1.1.js')
+script(src='/bootstrap/js/bootstrap.min.js')
+script(src='/bootstrap/js/plugins/metisMenu/jquery.metisMenu.js')
+script(src='/bootstrap/js/plugins/slimscroll/jquery.slimscroll.min.js')
+// Flot
+script(src='/bootstrap/js/plugins/flot/jquery.flot.js')
+script(src='/bootstrap/js/plugins/flot/jquery.flot.tooltip.min.js')
+script(src='/bootstrap/js/plugins/flot/jquery.flot.resize.js')
+script(src='/bootstrap/js/plugins/flot/jquery.flot.pie.js')
+// Custom and plugin javascript
+script(src='/bootstrap/js/inspinia.js')
+script(src='/bootstrap/js/plugins/pace/pace.min.js')
+// ChartJS
+//- script(src='/bootstrap/js/plugins/chartJs/Chart.min.js')
+//- script(src='/bootstrap/js/demo/chartjs-demo.js')
+// HighCharts
+script(src='/bootstrap/js/highcharts.js')
+script(src='/bootstrap/js/modules/exporting.js')
+script(src='/javascripts/highcharts/graficosHighCharts.js')
