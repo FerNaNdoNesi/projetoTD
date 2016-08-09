@@ -11,6 +11,9 @@ module.exports = function(app){
 		},
 		default:  function(req,res){
 			res.render('home/default');
+		},
+		testes:  function(req,res){
+			res.render('home/testes');
 		}
 	}
 	return HomeController;
