@@ -26,8 +26,20 @@ block painel
 							| There are many variations of passages of Lorem Ipsum available, but the majority
 							| have suffered alteration in some form Ipsum available.
 	.row
-		.col-lg-3
-			input#demo1(type='text', value='55', name='demo1')
+		p#demo(onclick='myFunction()') Click me to change my text color.
+	.row
+		.col-md-4
+			p.font-bold
+				| Basic example with empty value
+			input.touchspin1#touchspin1(onclick='TouchSpin({buttondown_class: \'btn btn-white\',buttonup_class: \'btn btn-white\'})' type='text', value='', name='demo1')
+		.col-md-4
+			p.font-bold
+				| Example with postfix
+			input.touchspin2(type='text', value='55', name='demo2')
+		.col-md-4
+			p.font-bold
+				| Example with vertical button alignment:
+			input.touchspin3(type='text', value='', name='demo3')
 	.row
 		.col-lg-12
 			.ibox.float-e-margins
@@ -43,12 +55,48 @@ block painel
 				.ibox-content
 					#graficoLinhaBasico
 	script.
-		$("input[name='demo1']").TouchSpin({
-				min: 0,
-				max: 100,
-				step: 0.1,
-				decimals: 2,
-				boostat: 5,
-				maxboostedstep: 10,
-				postfix: '%'
+		function myFunction() {
+			document.getElementById("demo").style.color = "red";
+		//- 	document.getElementById("touchspin1").TouchSpin({
+		//- 	buttondown_class: 'btn btn-white',
+		//- 	buttonup_class: 'btn btn-white'
+		//- });
+		}
+		alert('transation');
+		$("touchspin1").TouchSpin({
+			buttondown_class: 'btn btn-white',
+			buttonup_class: 'btn btn-white'
+		});
+		$(".touchspin1").onclinck({
+			buttondown_class: 'btn btn-white',
+			buttonup_class: 'btn btn-white'
+		});
+		$("#touchspin1").onclinck({
+			buttondown_class: 'btn btn-white',
+			buttonup_class: 'btn btn-white'
+		});
+
+		$(document).ready(function(){
+			$("touchspin1").TouchSpin({
+					buttondown_class: 'btn btn-white',
+					buttonup_class: 'btn btn-white'
+			});
+
+			$(".touchspin2").TouchSpin({
+					min: 0,
+					max: 100,
+					step: 0.1,
+					decimals: 2,
+					boostat: 5,
+					maxboostedstep: 10,
+					postfix: '%',
+					buttondown_class: 'btn btn-white',
+					buttonup_class: 'btn btn-white'
+			});
+
+			$(".touchspin3").TouchSpin({
+					verticalbuttons: true,
+					buttondown_class: 'btn btn-white',
+					buttonup_class: 'btn btn-white'
+			});
 		});

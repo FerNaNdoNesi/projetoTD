@@ -9,9 +9,12 @@ var mongoose      	= require('mongoose');
 var flash         	= require('express-flash');
 var session       	= require('express-session');
 var Highcharts    	= require('highcharts');
-// var touchspin 		= require("bootstrap-touchspin");
+// global.jQuery = require('jquery');
+// global.jsdom 			= require("jsdom");
+// var TouchSpin 		= require("bootstrap-touchspin");
+// var bootstrap 		= require("bootstrap");
 // var jquery 			= require("jquery");
-// var jsdom 			= require("jsdom");
+
 
 var app = express();
 
