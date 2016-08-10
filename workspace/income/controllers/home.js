@@ -14,6 +14,9 @@ module.exports = function(app){
 		},
 		testes:  function(req,res){
 			res.render('home/testes');
+		},
+		testes2:  function(req,res){
+			res.render('home/testes2');
 		}
 	}
 	return HomeController;

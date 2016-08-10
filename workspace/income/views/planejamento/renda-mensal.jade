@@ -62,34 +62,75 @@ block painel
 							i.fa.fa-times
 				.ibox-content
 					#graficoLinhaBasico
+	.row
+		.col-lg-6
+			.ibox.float-e-margins
+				.ibox-title
+					h5 Basic Table
+					.ibox-tools
+						a.collapse-link
+							i.fa.fa-chevron-up
+				.ibox-content
+					table.table
+						thead
+							tr
+								th Column 01
+								th Column 02
+								th Column 03
+								th Column 04
+						tbody
+								td 1
+								td Mark
+								td Otto
+								td @mdo
+							tr
+								td 2
+								td Jacob
+								td Thornton
+								td @fat
+							tr
+								td 3
+								td Larry
+								td the Bird
+								td @twitter
+		.col-lg-6
+			-
+				//- list = hard()
+				list = ["Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis"]
+			each item in list
+				li= item
 
 	// TouchSpin
 	script(src='/bootstrap/js/jquery-2.1.1.js')
 	script(src='/bootstrap/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js')
 	script.
+		// var values, values2 = 10;
+		// for (var i = 10; i < 10; i++) {
+		// 	values.um = i;
+		// 	values.dois = i*2;
+		// 	values.tres = i*3;
+		// }
 		$(document).ready(function(){
-					$(".touchspin1").TouchSpin({
-							buttondown_class: 'btn btn-white',
-							buttonup_class: 'btn btn-white'
-					});
+			$(".touchspin1").TouchSpin({
+					buttondown_class: 'btn btn-white',
+					buttonup_class: 'btn btn-white'
+			});
 
-					$(".touchspin2").TouchSpin({
-							min: 0,
-							max: 100,
-							step: 0.1,
-							decimals: 2,
-							boostat: 5,
-							maxboostedstep: 10,
-							postfix: '%',
-							buttondown_class: 'btn btn-white',
-							buttonup_class: 'btn btn-white'
-					});
+			$(".touchspin2").TouchSpin({
+					min: 0,
+					max: 100,
+					step: 0.1,
+					decimals: 2,
+					boostat: 5,
+					maxboostedstep: 10,
+					postfix: '%',
+					buttondown_class: 'btn btn-white',
+					buttonup_class: 'btn btn-white'
+			});
 
-					$(".touchspin3").TouchSpin({
-							verticalbuttons: true,
-							buttondown_class: 'btn btn-white',
-							buttonup_class: 'btn btn-white'
-					});
-
-
-			});			
+			$(".touchspin3").TouchSpin({
+					verticalbuttons: true,
+					buttondown_class: 'btn btn-white',
+					buttonup_class: 'btn btn-white'
+			});
+		});			

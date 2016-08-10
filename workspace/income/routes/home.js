@@ -5,4 +5,5 @@ module.exports = function(app){
 	app.get('/sobre', home.sobre);
 	app.get('/default', home.default);
 	app.get('/testes', home.testes);
+	app.get('/testes2', home.testes2);
 }

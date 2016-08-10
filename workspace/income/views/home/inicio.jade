@@ -2,87 +2,143 @@ extends ../dashboard
 
 block painel
 	.row.wrapper.border-bottom.white-bg.page-heading
+		.col-lg-4
+			h2 TODO Small version
+			small This is example of small version of todo list
+				ul.todo-list.m-t.small-list.ui-sortable
+					li
+						a.check-link(href='#')
+							i.fa.fa-check-square
+						span.m-l-xs.todo-completed Buy a milk
+					li
+						a.check-link(href='#')
+							i.fa.fa-check-square
+						span.m-l-xs.todo-completed Go to shop and find some products.
+					li
+						a.check-link(href='#')
+							i.fa.fa-square-o
+						span.m-l-xs Send documents to Mike
+						small.label.label-primary
+							i.fa.fa-clock-o
+							|  1 mins
+					li
+						a.check-link(href='#')
+							i.fa.fa-square-o
+						span.m-l-xs Go to the doctor dr Smith
+					li
+						a.check-link(href='#')
+							i.fa.fa-square-o
+						span.m-l-xs Plan vacation
+		.col-lg-8
+			.ibox-content
+				canvas#barChart.barChart(height='90')
+
+	section#cd-timeline.cd-container
+		.cd-timeline-block
+			.cd-timeline-img.navy-bg
+				i.fa.fa-twitch.fa-lg
+			.cd-timeline-content
+				h2 Meeting
+				p
+					| Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
+				a.btn.btn-sm.btn-primary(href='#')  More info
+				span.cd-date
+					| 1º passo
+					br
+					small Planejando seus objetivos
+		.cd-timeline-block
+			.cd-timeline-img.blue-bg
+				i.fa.fa-info-circle.fa-lg
+			.cd-timeline-content
+				h2 Title of section 2
+				p
+					| Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?
+				a.cd-read-more(href='#0') Read more
+				span.cd-date
+					| 2º passo
+					br
+					small Estipulando valor a investir
+		.cd-timeline-block
+			.cd-timeline-img.lazur-bg
+				i.fa.fa-info.fa-lg
+			.cd-timeline-content
+				h2 Title of section 3
+				p
+					| Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, obcaecati, quisquam id molestias eaque asperiores voluptatibus cupiditate error assumenda delectus odit similique earum voluptatem doloremque dolorem ipsam quae rerum quis. Odit, itaque, deserunt corporis vero ipsum nisi eius odio natus ullam provident pariatur temporibus quia eos repellat consequuntur perferendis enim amet quae quasi repudiandae sed quod veniam dolore possimus rem voluptatum eveniet eligendi quis fugiat aliquam sunt similique aut adipisci.
+				a.cd-read-more(href='#0') Read more
+				span.cd-date
+					| 3º passo
+					br
+					small descrição do step
+		.cd-timeline-block
+			.cd-timeline-img.yellow-bg
+				i.fa.fa-bank.fa-lg
+			.cd-timeline-content
+				h2 Title of section 4
+				p
+					| Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.
+				a.cd-read-more(href='#0') Read more
+				span.cd-date
+					| 4º passo
+					br
+					small descrição do step
+		.cd-timeline-block
+			.cd-timeline-img.navy-bg
+				i.fa.fa-bank.fa-lg
+			.cd-timeline-content
+				h2 Title of section 5
+				p
+					| Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum.
+				a.cd-read-more(href='#0') Read more
+				span.cd-date
+					| 5º passo
+					br
+					small descrição do step
+		.cd-timeline-block
+			.cd-timeline-img.lazur-bg
+				i.fa.fa-bank.fa-lg
+			.cd-timeline-content
+				h2 Final Section
+				p This is the content of the last section
+				span.cd-date
+					| 7º passo
+					br
+					small descrição do step
+		.cd-timeline-block
+			.cd-timeline-img.lazur-bg
+				i.fa.fa-bank.fa-lg
+			.cd-timeline-content
+				h2 Final Section
+				p This is the content of the last section
+				span.cd-date
+					| 8º passo
+					br
+					small descrição do step
+		.cd-timeline-block
+			.cd-timeline-img.lazur-bg
+				i.fa.fa-bank.fa-lg
+			.cd-timeline-content
+				h2 Final Section
+				p This is the content of the last section
+				span.cd-date
+					| 9º passo
+					br
+					small descrição do step
+		.cd-timeline-block
+			.cd-timeline-img.lazur-bg
+				i.fa.fa-bank.fa-lg
+			.cd-timeline-content
+				h2 Final Section
+				p This is the content of the last section
+				span.cd-date
+					| 10º passo
+					br
+					small descrição do step
+	br
+	.row
 		.col-lg-12
-			h2 Inicio
-			ol.breadcrumb
-				li
-					a(href='/') Inicio
-				li.active
-					strong Bem-vindo
-		.col-lg-2
-	.row.m-b-lg.m-t-lg
-		.col-md-6.col-md-offset-3
-			.profile-image
-				img.img-circle.circle-border.m-b-md(src='/images/small/11s.jpg', alt='profile')
-			.profile-info
-				div
-					div
-						h2.no-margins
-							| Alex Smith
-						h4 Founder of Groupeq
-						small
-							| There are many variations of passages of Lorem Ipsum available, but the majority
-							| have suffered alteration in some form Ipsum available.
-	.row
-		.col-lg-4.m-b-lg.col-lg-offset-4
-			#vertical-timeline.vertical-container.light-timeline.no-margins
-				.vertical-timeline-block
-					.vertical-timeline-icon.navy-bg
-						i.fa.fa-briefcase
-					.vertical-timeline-content
-						h2 Meeting
-						p
-							| Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
-						a.btn.btn-sm.btn-primary(href='#')  More info
-						span.vertical-date
-							| Today 
-							br
-							small Dec 24
-				.vertical-timeline-block
-					.vertical-timeline-icon.blue-bg
-						i.fa.fa-file-text
-					.vertical-timeline-content
-						h2 Send documents to Mike
-						p
-							| Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.
-						a.btn.btn-sm.btn-success(href='#')  Download document 
-						span.vertical-date
-							| Today 
-							br
-							small Dec 24
-				.vertical-timeline-block
-					.vertical-timeline-icon.lazur-bg
-						i.fa.fa-coffee
-					.vertical-timeline-content
-						h2 Coffee Break
-						p
-							| Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
-						a.btn.btn-sm.btn-info(href='#') Read more
-						span.vertical-date
-							| Yesterday 
-							br
-							small Dec 23
-				.vertical-timeline-block
-					.vertical-timeline-icon.yellow-bg
-						i.fa.fa-phone
-					.vertical-timeline-content
-						h2 Phone with Jeronimo
-						p
-							| Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.
-						span.vertical-date
-							| Yesterday 
-							br
-							small Dec 23
-				.vertical-timeline-block
-					.vertical-timeline-icon.navy-bg
-						i.fa.fa-comments
-					.vertical-timeline-content
-						h2 Chat with Monica and Sandra
-						p
-							| Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-						span.vertical-date
-							| Yesterday 
-							br
-							small Dec 
-	.row
-		h1 &nbsp
+	script(src='/bootstrap/js/jquery-2.1.1.js')
+	script(src='/bootstrap/js/modernizr-timeline/main.js')
+	script(src='/bootstrap/js/modernizr-timeline/modernizr.js')
+	// ChartJS
+	script(src='/javascripts/chartjs/graficosChartJs.js')
