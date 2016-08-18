@@ -49,6 +49,8 @@ block painel
 								| Example with vertical button alignment:
 							input.touchspin3(type='text', value='', name='demo3')
 	.row
+		retorno
+	.row
 		.col-lg-12
 			.ibox.float-e-margins
 				.ibox-title
@@ -97,20 +99,58 @@ block painel
 			-
 				//- list = hard()
 				list = ["Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis"]
+				// retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);
 			each item in list
 				li= item
+			p retorno
+			p hello #{retorno} nda!
+
+			//- script.
+				retorno = buscarRendaMensalCalculandoRendimentos2(1000, 12, 100, 500);
+				alert("Ret: "+retorno.ObjValorInvestidoCapital[5].toFixed(2));
+			//- each obj in retorno
+				li= obj
 
 	// TouchSpin
 	script(src='/bootstrap/js/jquery-2.1.1.js')
 	script(src='/bootstrap/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js')
+	script(src='/javascripts/financesjs/funcoes_rendimento.js')
 	script.
+		$(document).ready(function(){
+			retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);
+			alert("Ret: "+retorno.ObjValorInvestidoCapital[5].toFixed(2));
+		});
+	script.
+		$(document).ready(function(){
+			//- alert("Alert ");
+			//- retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);
+			//- alert("Ret: "+retorno.ObjValorInvestidoCapital[5].toFixed(2));
+			//- for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
+			//- 	console.log("\n("+retorno.ObjPeriodo[i]+") "+retorno.ObjMesAno[i]+
+			//- 							"\n\t\t Capital \tDepositos \t Total\n Investimento \t"+
+			//- 							retorno.ObjValorInvestidoCapital[i].toFixed(2)+" \t"+
+			//- 							retorno.ObjValorInvestidoDepositos[i].toFixed(2)+" \t"+
+			//- 							retorno.ObjValorInvestidoTotal[i].toFixed(2)+"\n Rendimento \t"+
+										
+			//- 							retorno.ObjRendimentoCapital[i].toFixed(2)+" \t \t"+
+			//- 							retorno.ObjRendimentoDepositos[i].toFixed(2)+" \t \t"+
+			//- 							retorno.ObjRendimentoTotal[i].toFixed(2)+"\n Montante \t"+
+										
+			//- 							retorno.ObjMontanteCapital[i].toFixed(2)+"\t \t"+
+			//- 							retorno.ObjMontanteDepositos[i].toFixed(2)+"\t"+
+			//- 							retorno.ObjMontanteTotal[i].toFixed(2)+"\n\n Depósito: "+
+			//- 							retorno.ObjDepositoMensal[i].toFixed(2)+" | Objetivo: "+
+			//- 							retorno.ObjRendimentoObjetivo[i].toFixed(2)+" | Up: "+
+			//- 							retorno.ObjUpValor[i].toFixed(2)
+			//- 						);
+			//- }
 		// var values, values2 = 10;
 		// for (var i = 10; i < 10; i++) {
 		// 	values.um = i;
 		// 	values.dois = i*2;
 		// 	values.tres = i*3;
 		// }
-		$(document).ready(function(){
+		//- $(document).ready(function(){
 			$(".touchspin1").TouchSpin({
 					buttondown_class: 'btn btn-white',
 					buttonup_class: 'btn btn-white'
