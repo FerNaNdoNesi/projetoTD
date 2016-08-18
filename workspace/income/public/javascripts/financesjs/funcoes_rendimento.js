@@ -1,3 +1,4 @@
+// var moment = require('moment');
 /*
 FONTE FORMULAS BCB
 	https://www3.bcb.gov.br/CALCIDADAO/publico/calcularValorFuturoCapital.do
@@ -28,7 +29,7 @@ function buscarRendaMensalCalculandoRendimentos(capitalInicial, taxa, depositos,
 	var dtAtual = new Date(); // Em js getMonth() Mês 0~11
 	
 	var ObjPeriodo = [],
-			ObjdataPeriodo = [],
+			ObjDataPeriodo = [],
 			ObjMesAno = [],
 			ObjValorInvestidoDepositos = [],
 			ObjValorInvestidoCapital = [],
@@ -41,7 +42,8 @@ function buscarRendaMensalCalculandoRendimentos(capitalInicial, taxa, depositos,
 			ObjMontanteTotal = [],
 			ObjDepositoMensal = [],
 			ObjRendimentoObjetivo = [],
-			ObjUpValor = [];
+			ObjUpValor = [],
+			ObjPercentObjetivo = [];
 
 	do{ // enquanto não chegar ao rendimento mensal objetivo
 		periodo++;
@@ -59,6 +61,11 @@ function buscarRendaMensalCalculandoRendimentos(capitalInicial, taxa, depositos,
 		valorInvestidoDepositos = depositos * periodo;
 		valorInvestidoCapital = capitalInicial;
 		valorInvestidoTotal = capitalInicial + valorInvestidoDepositos;
+		if(rendimentoObj!= 0)
+			percentObjetivo = rendimentoTotal/rendimentoObj;
+		else
+			percentObjetivo = 0;
+		console.log("\n"+rendimentoObj+"/"+rendimentoTotal+"\n obj: "+percentObjetivo);
 
 		//Objetos referente aos valores
 		ObjPeriodo.push(periodo);			
@@ -74,16 +81,15 @@ function buscarRendaMensalCalculandoRendimentos(capitalInicial, taxa, depositos,
 		ObjDepositoMensal.push(depositos);
 		ObjRendimentoObjetivo.push(rendimentoObj);
 		ObjUpValor.push(upValor);		
+		ObjPercentObjetivo.push(percentObjetivo);
 		//Objetos referente ao período			
-		dtAtual.setMonth(dtAtual.getMonth()+1);		
-		ObjdataPeriodo.push(dtAtual.getTime());
-		ObjMesAno.push(dtAtual.getMonth()+"/"+dtAtual.getFullYear());
+		dtAtual.setMonth(dtAtual.getMonth()+1);
+		ObjDataPeriodo.push(new Date(dtAtual));
 
 	}while(rendimentoTotal <= rendimentoObj)
 
 	return ({ObjPeriodo: ObjPeriodo,
-					ObjdataPeriodo: ObjdataPeriodo,
-					ObjMesAno: ObjMesAno,
+					ObjDataPeriodo: ObjDataPeriodo,
 					//Valores Referente ao Capital
 					ObjValorInvestidoCapital: ObjValorInvestidoCapital,
 					ObjRendimentoCapital: ObjRendimentoCapital,
@@ -99,15 +105,44 @@ function buscarRendaMensalCalculandoRendimentos(capitalInicial, taxa, depositos,
 					//Valores Referente ao Parametros
 					ObjDepositoMensal: ObjDepositoMensal,
 					ObjRendimentoObjetivo: ObjRendimentoObjetivo,
-					ObjUpValor: ObjUpValor
+					ObjUpValor: ObjUpValor,
+					ObjPercentObjetivo: ObjPercentObjetivo
 				});
 }
 
+function calculaDias(date1, date2){
+	//formato do brasil 'pt-br'
+	moment.locale('pt-br');
+	//setando data1
+	var data1 = moment(date1,'DD/MM/YYYY');
+	//setando data2
+	var data2 = moment(date2,'DD/MM/YYYY');
+	//tirando a diferenca da data2 - data1 em dias
+	var diff  = data2.diff(data1, 'year');
+	
+	return diff;
+}
+
+$('.taxaJuros').blur(function(){
+		// alert($('.taxaJuros').val());
+		var retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);		
+		var maxDate=new Date(Math.max.apply(null,retorno.ObjDataPeriodo));
+		var minDate=new Date(Math.min.apply(null,retorno.ObjDataPeriodo));
+
+		// ultimo = Math.min(retorno.ObjPeriodo);
+		// alert(ultimo);
+		// $('.emAnos').text(maxDate.getFullYear());
+		// $('.emAnos').text(moment(maxDate).format('YYYY'));
+		var diferenca = calculaDias(minDate,maxDate)
+		$('.emAnos').text(diferenca);
+
+});	
 // retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);
-// //console.log(retorno);
+// // console.log(retorno);
 		
 // for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
-// 	console.log("\n("+retorno.ObjPeriodo[i]+") "+retorno.ObjMesAno[i]+
+// 	console.log("\n("+retorno.ObjPeriodo[i]+") "+
+// 							retorno.ObjDataPeriodo[i].getMonth()+"/"+retorno.ObjDataPeriodo[i].getFullYear()+
 // 							"\n\t\t Capital \tDepositos \t Total\n Investimento \t"+
 // 							retorno.ObjValorInvestidoCapital[i].toFixed(2)+" \t"+
 // 							retorno.ObjValorInvestidoDepositos[i].toFixed(2)+" \t"+
@@ -122,6 +157,7 @@ function buscarRendaMensalCalculandoRendimentos(capitalInicial, taxa, depositos,
 // 							retorno.ObjMontanteTotal[i].toFixed(2)+"\n\n Depósito: "+
 // 							retorno.ObjDepositoMensal[i].toFixed(2)+" | Objetivo: "+
 // 							retorno.ObjRendimentoObjetivo[i].toFixed(2)+" | Up: "+
-// 							retorno.ObjUpValor[i].toFixed(2)
+// 							retorno.ObjUpValor[i].toFixed(2)+" | Percent: "+
+// 							(retorno.ObjPercentObjetivo[i]*100).toFixed(2)+" %"
 // 						);
 // }

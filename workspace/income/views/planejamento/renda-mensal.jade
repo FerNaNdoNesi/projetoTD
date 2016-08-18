@@ -1,6 +1,7 @@
 extends ../dashboard
 
 block painel
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
 	.row.wrapper.border-bottom.white-bg.page-heading
 		.col-lg-10
 			h2 Renda Mensal
@@ -30,26 +31,26 @@ block painel
 			.ibox
 				.ibox-title
 					h5
-						| TouchSpin 
-						small http://www.virtuosoft.eu/code/bootstrap-touchspin/
+						| Rendimento mensal 
+						small Simule quando precisa investir ao mês para alcançar a sua independência financeira.
 				.ibox-content
-					p
-						| A mobile and touch friendly input spinner component for Bootstrap 3. It supports the mousewheel and the up/down keys.
-					.row
-						.col-md-4
+					.row.text-center
+						.col-md-3
 							p.font-bold
-								| Basic example with empty value
-							input.touchspin1(type='text', value='', name='demo1')
-						.col-md-4
+								| Objetivo de renda
+							input.rendimentoObjetivo(type='text', value='', name='Rendimento Objetivo')
+						.col-md-3
 							p.font-bold
-								| Example with postfix
-							input.touchspin2(type='text', value='55', name='demo2')
-						.col-md-4
+								| Investimento inicial
+							input.investimentoInicial(type='text', value='', name='Investimento Inicial')
+						.col-md-3
 							p.font-bold
-								| Example with vertical button alignment:
-							input.touchspin3(type='text', value='', name='demo3')
-	.row
-		retorno
+								| Investimento mensal
+							input.investimentoMensal(type='text', value='', name='investimento Mensal')
+						.col-md-3
+							p.font-bold
+								| Taxa de juros ao ano
+							input.taxaJuros(type='text', value='', name='Taxa Juros (ao ano)')
 	.row
 		.col-lg-12
 			.ibox.float-e-margins
@@ -59,11 +60,35 @@ block painel
 						small With custom colors.
 					.ibox-tools
 						a.collapse-link
-							i.fa.fa-chevron-up			
-						//- a.close-link
-							i.fa.fa-times
+							i.fa.fa-chevron-up
 				.ibox-content
-					#graficoLinhaBasico
+					.row
+						.col-lg-10
+							.container2
+						.col-lg-2
+							.widget.navy-bg.p-lg.text-center
+								.m-b-md
+									i.fa.fa-calendar.fa-4x
+									h1.m-xs 
+										.emAnos
+									h3.font-bold.no-margins
+										| anos
+									small 8 meses
+							.widget.style1.navy-bg
+								.row.vertical-align
+									.col-xs-3
+										i.fa.fa-money.fa-3x
+									.col-xs-9.text-right
+										h2.font-bold 10
+							.widget.style1.navy-bg
+								.row.vertical-align
+									.col-xs-3
+										i.fa.fa-rss.fa-3x
+									.col-xs-9.text-right
+										h2.font-bold 10
+					//- .graficoTesters
+					//- .graficoLinhaTempoRendimento
+					//- .graficoLinhaBasico
 	.row
 		.col-lg-6
 			.ibox.float-e-margins
@@ -115,10 +140,11 @@ block painel
 	script(src='/bootstrap/js/jquery-2.1.1.js')
 	script(src='/bootstrap/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js')
 	script(src='/javascripts/financesjs/funcoes_rendimento.js')
+	script(src='/javascripts/highcharts/graficosHighCharts.js')
 	script.
 		$(document).ready(function(){
 			retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);
-			alert("Ret: "+retorno.ObjValorInvestidoCapital[5].toFixed(2));
+			// alert("Ret: "+retorno.ObjValorInvestidoCapital[5].toFixed(2));
 		});
 	script.
 		$(document).ready(function(){
@@ -150,27 +176,57 @@ block painel
 		// 	values.dois = i*2;
 		// 	values.tres = i*3;
 		// }
-		//- $(document).ready(function(){
-			$(".touchspin1").TouchSpin({
-					buttondown_class: 'btn btn-white',
-					buttonup_class: 'btn btn-white'
+			/////////////////////////////////////////////////
+			$(".rendimentoObjetivo").TouchSpin({
+				prefix: 'R$',
+				buttondown_class: 'btn btn-white',
+				buttonup_class: 'btn btn-white',
+				decimals: 2,
+				initval: 1200,
+				min: 0,
+				max: 100000000000,
+				step: 100,
+				verticalbuttons: true,
+				verticalupclass: 'fa fa-plus',
+				verticaldownclass: 'fa fa-minus'
+			});   
+			$(".investimentoInicial").TouchSpin({
+				prefix: 'R$',
+				buttondown_class: 'btn btn-white',
+				buttonup_class: 'btn btn-white',
+				decimals: 2,
+				initval: 1000,
+				min: 0,
+				max: 100000000000,
+				step: 1000,
+				verticalbuttons: true,
+				verticalupclass: 'fa fa-plus',
+				verticaldownclass: 'fa fa-minus'
 			});
-
-			$(".touchspin2").TouchSpin({
-					min: 0,
-					max: 100,
-					step: 0.1,
+			$(".investimentoMensal").TouchSpin({
+				prefix: 'R$',
+				buttondown_class: 'btn btn-white',
+				buttonup_class: 'btn btn-white',
+				decimals: 2,
+				initval: 780,
+				min: 0,
+				max: 100000000000,
+				step: 100,
+				verticalbuttons: true,
+				verticalupclass: 'fa fa-plus',
+				verticaldownclass: 'fa fa-minus'
+			});
+			$(".taxaJuros").TouchSpin({
+					prefix: '%',
+					buttondown_class: 'btn btn-white',
+					buttonup_class: 'btn btn-white',
 					decimals: 2,
-					boostat: 5,
-					maxboostedstep: 10,
-					postfix: '%',
-					buttondown_class: 'btn btn-white',
-					buttonup_class: 'btn btn-white'
-			});
-
-			$(".touchspin3").TouchSpin({
+					initval: 12,
+					min: 0,
+					max: 100000000000,
+					step:0.1,
 					verticalbuttons: true,
-					buttondown_class: 'btn btn-white',
-					buttonup_class: 'btn btn-white'
+					verticalupclass: 'fa fa-plus',
+					verticaldownclass: 'fa fa-minus'
 			});
 		});			

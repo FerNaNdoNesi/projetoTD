@@ -8227,3 +8227,10 @@ body.md-skin {
     margin: 0;
   }
 }
+/*Atualizações income*/ 
+.input-group .form-control {
+    font-size: 1.575em;
+    letter-spacing: -0.5pt;
+    text-align: center;
+    width: 98%;
+}
