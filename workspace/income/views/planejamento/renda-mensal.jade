@@ -38,19 +38,19 @@ block painel
 						.col-md-3
 							p.font-bold
 								| Objetivo de renda
-							input.rendimentoObjetivo(type='text', value='', name='Rendimento Objetivo')
+							input.rendimentoObjetivo.single-line(type='text', value='', name='Rendimento Objetivo')
 						.col-md-3
 							p.font-bold
 								| Investimento inicial
-							input.investimentoInicial(type='text', value='', name='Investimento Inicial')
+							input.investimentoInicial.single-line(type='text', value='', name='Investimento Inicial')
 						.col-md-3
 							p.font-bold
 								| Investimento mensal
-							input.investimentoMensal(type='text', value='', name='investimento Mensal')
+							input.investimentoMensal.single-line(type='text', value='', name='investimento Mensal')
 						.col-md-3
 							p.font-bold
 								| Taxa de juros ao ano
-							input.taxaJuros(type='text', value='', name='Taxa Juros (ao ano)')
+							input.taxaJuros.single-line(type='text', value='', name='Taxa Juros (ao ano)')
 	.row
 		.col-lg-12
 			.ibox.float-e-margins
@@ -148,35 +148,6 @@ block painel
 		});
 	script.
 		$(document).ready(function(){
-			//- alert("Alert ");
-			//- retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);
-			//- alert("Ret: "+retorno.ObjValorInvestidoCapital[5].toFixed(2));
-			//- for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
-			//- 	console.log("\n("+retorno.ObjPeriodo[i]+") "+retorno.ObjMesAno[i]+
-			//- 							"\n\t\t Capital \tDepositos \t Total\n Investimento \t"+
-			//- 							retorno.ObjValorInvestidoCapital[i].toFixed(2)+" \t"+
-			//- 							retorno.ObjValorInvestidoDepositos[i].toFixed(2)+" \t"+
-			//- 							retorno.ObjValorInvestidoTotal[i].toFixed(2)+"\n Rendimento \t"+
-										
-			//- 							retorno.ObjRendimentoCapital[i].toFixed(2)+" \t \t"+
-			//- 							retorno.ObjRendimentoDepositos[i].toFixed(2)+" \t \t"+
-			//- 							retorno.ObjRendimentoTotal[i].toFixed(2)+"\n Montante \t"+
-										
-			//- 							retorno.ObjMontanteCapital[i].toFixed(2)+"\t \t"+
-			//- 							retorno.ObjMontanteDepositos[i].toFixed(2)+"\t"+
-			//- 							retorno.ObjMontanteTotal[i].toFixed(2)+"\n\n Depósito: "+
-			//- 							retorno.ObjDepositoMensal[i].toFixed(2)+" | Objetivo: "+
-			//- 							retorno.ObjRendimentoObjetivo[i].toFixed(2)+" | Up: "+
-			//- 							retorno.ObjUpValor[i].toFixed(2)
-			//- 						);
-			//- }
-		// var values, values2 = 10;
-		// for (var i = 10; i < 10; i++) {
-		// 	values.um = i;
-		// 	values.dois = i*2;
-		// 	values.tres = i*3;
-		// }
-			/////////////////////////////////////////////////
 			$(".rendimentoObjetivo").TouchSpin({
 				prefix: 'R$',
 				buttondown_class: 'btn btn-white',
@@ -185,7 +156,7 @@ block painel
 				initval: 1200,
 				min: 0,
 				max: 100000000000,
-				step: 100,
+				step: 50,
 				verticalbuttons: true,
 				verticalupclass: 'fa fa-plus',
 				verticaldownclass: 'fa fa-minus'
@@ -198,7 +169,7 @@ block painel
 				initval: 1000,
 				min: 0,
 				max: 100000000000,
-				step: 1000,
+				step: 500,
 				verticalbuttons: true,
 				verticalupclass: 'fa fa-plus',
 				verticaldownclass: 'fa fa-minus'
@@ -211,7 +182,7 @@ block painel
 				initval: 780,
 				min: 0,
 				max: 100000000000,
-				step: 100,
+				step: 50,
 				verticalbuttons: true,
 				verticalupclass: 'fa fa-plus',
 				verticaldownclass: 'fa fa-minus'
