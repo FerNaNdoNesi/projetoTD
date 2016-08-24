@@ -89,54 +89,27 @@ function buscarRendaMensalCalculandoRendimentos(capitalInicial, taxa, depositos,
 	}while(rendimentoTotal <= rendimentoObj)
 
 	return ({ObjPeriodo: ObjPeriodo,
-					ObjDataPeriodo: ObjDataPeriodo,
-					//Valores Referente ao Capital
-					ObjValorInvestidoCapital: ObjValorInvestidoCapital,
-					ObjRendimentoCapital: ObjRendimentoCapital,
-					ObjMontanteCapital: ObjMontanteCapital,
-					//Valores Referente aos Depósitos
-					ObjValorInvestidoDepositos: ObjValorInvestidoDepositos,
-					ObjRendimentoDepositos: ObjRendimentoDepositos,
-					ObjMontanteDepositos: ObjMontanteDepositos,
-					//Valores Referente ao Total
-					ObjValorInvestidoTotal: ObjValorInvestidoTotal,
-					ObjRendimentoTotal: ObjRendimentoTotal,
-					ObjMontanteTotal: ObjMontanteTotal,
-					//Valores Referente ao Parametros
-					ObjDepositoMensal: ObjDepositoMensal,
-					ObjRendimentoObjetivo: ObjRendimentoObjetivo,
-					ObjUpValor: ObjUpValor,
-					ObjPercentObjetivo: ObjPercentObjetivo
-				});
+			 ObjDataPeriodo: ObjDataPeriodo,
+			 //Valores Referente ao Capital
+			 ObjValorInvestidoCapital: ObjValorInvestidoCapital,
+			 ObjRendimentoCapital: ObjRendimentoCapital,
+			 ObjMontanteCapital: ObjMontanteCapital,
+			 //Valores Referente aos Depósitos
+			 ObjValorInvestidoDepositos: ObjValorInvestidoDepositos,
+			 ObjRendimentoDepositos: ObjRendimentoDepositos,
+			 ObjMontanteDepositos: ObjMontanteDepositos,
+			 //Valores Referente ao Total
+			 ObjValorInvestidoTotal: ObjValorInvestidoTotal,
+			 ObjRendimentoTotal: ObjRendimentoTotal,
+			 ObjMontanteTotal: ObjMontanteTotal,
+			 //Valores Referente ao Parametros
+			 ObjDepositoMensal: ObjDepositoMensal,
+			 ObjRendimentoObjetivo: ObjRendimentoObjetivo,
+			 ObjUpValor: ObjUpValor,
+			 ObjPercentObjetivo: ObjPercentObjetivo
+		});
 }
 
-function calculaDias(date1, date2){
-	//formato do brasil 'pt-br'
-	moment.locale('pt-br');
-	//setando data1
-	var data1 = moment(date1,'DD/MM/YYYY');
-	//setando data2
-	var data2 = moment(date2,'DD/MM/YYYY');
-	//tirando a diferenca da data2 - data1 em dias
-	var diff  = data2.diff(data1, 'year');
-	
-	return diff;
-}
-
-$('.taxaJuros').blur(function(){
-		// alert($('.taxaJuros').val());
-		var retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);		
-		var maxDate=new Date(Math.max.apply(null,retorno.ObjDataPeriodo));
-		var minDate=new Date(Math.min.apply(null,retorno.ObjDataPeriodo));
-
-		// ultimo = Math.min(retorno.ObjPeriodo);
-		// alert(ultimo);
-		// $('.emAnos').text(maxDate.getFullYear());
-		// $('.emAnos').text(moment(maxDate).format('YYYY'));
-		var diferenca = calculaDias(minDate,maxDate)
-		$('.emAnos').text(diferenca);
-
-});	
 // retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);
 // // console.log(retorno);
 		

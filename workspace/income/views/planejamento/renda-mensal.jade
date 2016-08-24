@@ -38,19 +38,58 @@ block painel
 						.col-md-3
 							p.font-bold
 								| Objetivo de renda
-							input.rendimentoObjetivo.single-line(type='text', value='', name='Rendimento Objetivo')
+							input.rendimentoObjetivo.single-line#rendimentoObjetivo(type='text', value='1000', name='Rendimento Objetivo')
 						.col-md-3
 							p.font-bold
 								| Investimento inicial
-							input.investimentoInicial.single-line(type='text', value='', name='Investimento Inicial')
+							input.investimentoInicial.single-line#investimentoInicial(type='text', value='1000', name='Investimento Inicial')
 						.col-md-3
 							p.font-bold
 								| Investimento mensal
-							input.investimentoMensal.single-line(type='text', value='', name='investimento Mensal')
+							input.investimentoMensal.single-line#investimentoMensal(type='text', value='500.0', name='investimento Mensal')
 						.col-md-3
 							p.font-bold
 								| Taxa de juros ao ano
-							input.taxaJuros.single-line(type='text', value='', name='Taxa Juros (ao ano)')
+							input.taxaJuros.single-line#taxaJuros(type='text', value='12', name='Taxa Juros (ao ano)')
+	.wrapper.wrapper-content.animated.fadeInRight
+		.row
+			.col-lg-3
+				.widget.style1
+					.row
+						.col-xs-4.text-center
+							i.fa.fa-calendar.fa-4x
+						.col-xs-8.text-right
+							small Atingir objetivo em
+							h3.font-bold
+								.valueAnos
+								small
+									.valueMeses
+			.col-lg-3
+				.widget.style1.navy-bg
+					.row
+						.col-xs-4
+							i.fa.fa-cloud.fa-4x
+						.col-xs-8.text-right
+							span  Total investido
+							h3.font-bold
+								.valueValorInvestidoTotal
+			.col-lg-3
+				.widget.style1.lazur-bg
+					.row
+						.col-xs-4
+							i.fa.fa-envelope-o.fa-4x
+						.col-xs-8.text-right
+							span  Saldo final
+							h3.font-bold
+								.valueMontanteTotal
+			.col-lg-3
+				.widget.style1.yellow-bg
+					.row
+						.col-xs-4
+							i.fa.fa-music.fa-5x
+						.col-xs-8.text-right
+							span  New albums 
+							h2.font-bold 12
 	.row
 		.col-lg-12
 			.ibox.float-e-margins
@@ -64,16 +103,16 @@ block painel
 				.ibox-content
 					.row
 						.col-lg-10
-							.container2
+							//- .container2
+							.graficoLinhaTempoRendimento
 						.col-lg-2
 							.widget.navy-bg.p-lg.text-center
 								.m-b-md
 									i.fa.fa-calendar.fa-4x
-									h1.m-xs 
-										.emAnos
-									h3.font-bold.no-margins
-										| anos
-									small 8 meses
+									h2.m-xs 
+										.valueAnos
+									small 
+										.valueMeses
 							.widget.style1.navy-bg
 								.row.vertical-align
 									.col-xs-3
@@ -86,9 +125,6 @@ block painel
 										i.fa.fa-rss.fa-3x
 									.col-xs-9.text-right
 										h2.font-bold 10
-					//- .graficoTesters
-					//- .graficoLinhaTempoRendimento
-					//- .graficoLinhaBasico
 	.row
 		.col-lg-6
 			.ibox.float-e-margins
@@ -139,15 +175,41 @@ block painel
 	// TouchSpin
 	script(src='/bootstrap/js/jquery-2.1.1.js')
 	script(src='/bootstrap/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js')
-	script(src='/javascripts/financesjs/funcoes_rendimento.js')
-	script(src='/javascripts/highcharts/graficosHighCharts.js')
+	script(src='/javascripts/financesjs/funcoesFinances.js')
+	script(src='/javascripts/financesjs/funcoesDatas.js')
+	script(src='/bootstrap/js/highcharts.js')
+	script(src='/bootstrap/js/modules/exporting.js')
+	script(src='/javascripts/planejamento/renda-mensal.js')
 	script.
 		$(document).ready(function(){
-			retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);
-			// alert("Ret: "+retorno.ObjValorInvestidoCapital[5].toFixed(2));
-		});
-	script.
-		$(document).ready(function(){
+			atualizaResultado();
+
+			$('.rendimentoObjetivo').on('touchspin.on.startspin', function f(){
+				atualizaResultado();
+			});
+			$('.investimentoInicial').on('touchspin.on.startspin', function f(){
+				atualizaResultado();
+			});
+			$('.investimentoMensal').on('touchspin.on.startspin', function f(){
+				atualizaResultado();
+			});
+			$('.taxaJuros').on('touchspin.on.startspin', function f(){
+				atualizaResultado();
+			});
+
+			$('.rendimentoObjetivo').blur(function f(){
+				atualizaResultado();
+			});
+			$('.investimentoInicial').blur(function f(){
+				atualizaResultado();
+			});
+			$('.investimentoMensal').blur(function f(){
+				atualizaResultado();
+			});
+			$('.taxaJuros').blur(function f(){
+				atualizaResultado();
+			});
+
 			$(".rendimentoObjetivo").TouchSpin({
 				prefix: 'R$',
 				buttondown_class: 'btn btn-white',
@@ -199,5 +261,5 @@ block painel
 					verticalbuttons: true,
 					verticalupclass: 'fa fa-plus',
 					verticaldownclass: 'fa fa-minus'
-			});
+			});			
 		});			

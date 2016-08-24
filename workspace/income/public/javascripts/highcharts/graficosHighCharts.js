@@ -1,64 +1,8 @@
-	$('.container2').highcharts({
-		plotOptions: {
-			series: {
-				point: {
-					events: {
-						update: function (event) {
-							if (!confirm('change?')) {
-								return false;
-							}
-						}
-					}
-				}
-			}
-		},
-		series: [{
-			data: [200, 200, 100, 0.1, 150, 50, 30, 40, 300]
-		}]
-	});
-	// button handler
-	$('.button').click(function () {
-			var chart = $('.container2').highcharts();
-			chart.series[0].data[0].update(150);
-			alert("dasssf");
-	});
-
-	// button handler
-	$('#button').click(function () {
-			var chart = $('.graficoTesters').highcharts();
-			chart.series[0].data[0].update(150);
-	});
-	$('.graficoTesters').highcharts({
-		plotOptions: {
-			series: {
-				point: {
-					events: {
-						update: function (event) {
-								// if (!confirm('change?')) {
-										// return false;
-								// }
-								return true;
-							// data: [2, 20, 10, 0.01, 10, 50, 30, 40, 30]
-						}
-					}
-				}
-			}
-		},
-		series: [{
-				data: [20, 200, 100, 0.1, 150, 50, 30, 40, 300]
-		}]
-	});
-
-	$('.touchspin1').blur(function(){
-		alert('blurJs');
-		var chart = $('.container2').highcharts();
-		chart.series[0].data[0].update(150);		
-	});
-
+/*
 	var objRetorno = [];
 	objRetorno = objRetorno.concat({name: 'Linha 01', turboThreshold:10000, data: [1,2,3,4,5,6,7]});
 	objRetorno = objRetorno.concat({name: 'Linha 02', turboThreshold:10000, data: [2,6,3,4,6,2,3]});
-						 
+
 	Highcharts.setOptions({
 			lang: {
 					thousandsSep: '.',
@@ -67,7 +11,7 @@
 					noData: "Sem dados carregados."
 			}
 	});
-	
+
 	$('.graficoLinhaTempoRendimento').highcharts({
 			chart: {
 					zoomType: 'y'
@@ -176,6 +120,75 @@
 			//     data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
 			// }]
 	});
+*/
+/*
+	$('.container2').highcharts({
+		plotOptions: {
+			series: {
+				point: {
+					events: {
+						update: function (event) {
+							if (!confirm('change?')) {
+								return false;
+							}
+						}
+					}
+				}
+			}
+		},
+		series: [{
+			data: [200, 200, 100, 0.1, 150, 50, 30, 40, 300]
+		}]
+	});
+	// button handler
+	$('.button').click(function () {
+			var chart = $('.container2').highcharts();
+			chart.series[0].data[0].update(150);
+			alert("dasssf");
+	});
+
+	// button handler
+	$('#button').click(function () {
+			var chart = $('.graficoTesters').highcharts();
+			chart.series[0].data[0].update(150);
+	});
+	$('.graficoTesters').highcharts({
+		plotOptions: {
+			series: {
+				point: {
+					events: {
+						update: function (event) {
+								// if (!confirm('change?')) {
+										// return false;
+								// }
+								return true;
+							// data: [2, 20, 10, 0.01, 10, 50, 30, 40, 30]
+						}
+					}
+				}
+			}
+		},
+		series: [{
+				data: [20, 200, 100, 0.1, 150, 50, 30, 40, 300]
+		}]
+	});
+
+	$('.touchspin1').blur(function(){
+		alert('blurJs');
+		var chart = $('.container2').highcharts();
+		chart.series[0].data[0].update(150);		
+	});
+
+	
+						 
+	Highcharts.setOptions({
+			lang: {
+					thousandsSep: '.',
+					decimalPoint: ',',
+					loading: "Atualizando...",
+					noData: "Sem dados carregados."
+			}
+	});
 
 	$('.graficoLinhaBasico').highcharts({
 			title: {
@@ -275,4 +288,4 @@
 	$('#tabelaValores').highcharts({
 			//alert(' Hello WorldClimate');
 	});
-// });
+*/
