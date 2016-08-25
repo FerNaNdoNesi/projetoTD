@@ -21,36 +21,35 @@ block painel
 				div
 					div
 						h2.no-margins
-							| Alex Smith
-						h4 Founder of Groupeq
+							| Objetivo | Atingir um rendimento mensal
+						h4 Simule quanto precisaria investir para atingir um rendimento mensal.
 						small
-							| There are many variations of passages of Lorem Ipsum available, but the majority
-							| have suffered alteration in some form Ipsum available.
+							| Informe um capital inicial e seus investimentos fixos mensais, atualizando também a taxa de juros anual.
 	.row
 		.col-lg-12
 			.ibox
 				.ibox-title
 					h5
-						| Rendimento mensal 
+						| Parâmetros de entrada 
 						small Simule quando precisa investir ao mês para alcançar a sua independência financeira.
 				.ibox-content
 					.row.text-center
 						.col-md-3
 							p.font-bold
 								| Objetivo de renda
-							input.rendimentoObjetivo.single-line#rendimentoObjetivo(type='text', value='1000', name='Rendimento Objetivo')
+							input.rendimentoObjetivo.single-line#rendimentoObjetivo(type='text', value='1000.0', name='Rendimento Objetivo')
 						.col-md-3
 							p.font-bold
-								| Investimento inicial
-							input.investimentoInicial.single-line#investimentoInicial(type='text', value='1000', name='Investimento Inicial')
+								| Capital inicial
+							input.investimentoInicial.single-line#investimentoInicial(type='text', value='1000.0', name='Investimento Inicial')
 						.col-md-3
 							p.font-bold
 								| Investimento mensal
-							input.investimentoMensal.single-line#investimentoMensal(type='text', value='500.0', name='investimento Mensal')
+							input.investimentoMensal.single-line#investimentoMensal(type='text', value='700.0', name='investimento Mensal')
 						.col-md-3
 							p.font-bold
-								| Taxa de juros ao ano
-							input.taxaJuros.single-line#taxaJuros(type='text', value='12', name='Taxa Juros (ao ano)')
+								| Taxa de juros (ao ano)
+							input.taxaJuros.single-line#taxaJuros(type='text', value='12.0', name='Taxa Juros (ao ano)')
 	.wrapper.wrapper-content.animated.fadeInRight
 		.row
 			.col-lg-3
@@ -59,7 +58,7 @@ block painel
 						.col-xs-4.text-center
 							i.fa.fa-calendar.fa-4x
 						.col-xs-8.text-right
-							small Atingir objetivo em
+							span Atingir objetivo em
 							h3.font-bold
 								.valueAnos
 								small
@@ -68,63 +67,43 @@ block painel
 				.widget.style1.navy-bg
 					.row
 						.col-xs-4
-							i.fa.fa-cloud.fa-4x
+							i.fa.fa-money.fa-4x
 						.col-xs-8.text-right
-							span  Total investido
+							span  Valor total investido
 							h3.font-bold
 								.valueValorInvestidoTotal
 			.col-lg-3
 				.widget.style1.lazur-bg
 					.row
 						.col-xs-4
-							i.fa.fa-envelope-o.fa-4x
+							i.fa.fa-bank.fa-4x
 						.col-xs-8.text-right
-							span  Saldo final
+							span  Saldo final acumulado
 							h3.font-bold
 								.valueMontanteTotal
 			.col-lg-3
 				.widget.style1.yellow-bg
 					.row
 						.col-xs-4
-							i.fa.fa-music.fa-5x
+							i.fa.fa-diamond.fa-4x
 						.col-xs-8.text-right
-							span  New albums 
-							h2.font-bold 12
+							span Rendimento mensal atingido
+							h3.font-bold
+								.valueRendimentoTotal
 	.row
 		.col-lg-12
 			.ibox.float-e-margins
 				.ibox-title
 					h5
-						| Bar Chart Example 
-						small With custom colors.
+						| Gráfico da linha do tempo  
+						small Observe o rendimento obtido mês a mês com seus investintos
 					.ibox-tools
 						a.collapse-link
 							i.fa.fa-chevron-up
 				.ibox-content
 					.row
-						.col-lg-10
-							//- .container2
+						.col-lg-12
 							.graficoLinhaTempoRendimento
-						.col-lg-2
-							.widget.navy-bg.p-lg.text-center
-								.m-b-md
-									i.fa.fa-calendar.fa-4x
-									h2.m-xs 
-										.valueAnos
-									small 
-										.valueMeses
-							.widget.style1.navy-bg
-								.row.vertical-align
-									.col-xs-3
-										i.fa.fa-money.fa-3x
-									.col-xs-9.text-right
-										h2.font-bold 10
-							.widget.style1.navy-bg
-								.row.vertical-align
-									.col-xs-3
-										i.fa.fa-rss.fa-3x
-									.col-xs-9.text-right
-										h2.font-bold 10
 	.row
 		.col-lg-6
 			.ibox.float-e-margins

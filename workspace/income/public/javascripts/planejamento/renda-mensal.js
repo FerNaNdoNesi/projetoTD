@@ -21,19 +21,19 @@
 			arrayMesDesc[10] = "Novembro";
 			arrayMesDesc[11] = "Dezembro";
 
-	var arrayMes = new Array(12);
-			arrayMes[0] = "Jan";
-			arrayMes[1] = "Fev";
-			arrayMes[2] = "Mar";
-			arrayMes[3] = "Abr";
-			arrayMes[4] = "Mai";
-			arrayMes[5] = "Jun";
-			arrayMes[6] = "Jul";
-			arrayMes[7] = "Ago";
-			arrayMes[8] = "Set";
-			arrayMes[9] = "Out";
-			arrayMes[10] = "Nov";
-			arrayMes[11] = "Dez";
+	var arrayMesMin = new Array(12);
+			arrayMesMin[0] = "Jan";
+			arrayMesMin[1] = "Fev";
+			arrayMesMin[2] = "Mar";
+			arrayMesMin[3] = "Abr";
+			arrayMesMin[4] = "Mai";
+			arrayMesMin[5] = "Jun";
+			arrayMesMin[6] = "Jul";
+			arrayMesMin[7] = "Ago";
+			arrayMesMin[8] = "Set";
+			arrayMesMin[9] = "Out";
+			arrayMesMin[10] = "Nov";
+			arrayMesMin[11] = "Dez";
 
 	function atualizaResultado(){
 		var retorno = buscarRendaMensalCalculandoRendimentos( document.getElementById("investimentoInicial").value,
@@ -44,12 +44,14 @@
 		var minDate=new Date(Math.min.apply(null,retorno.ObjDataPeriodo));
 		var valorInvestidoTotal = Math.max.apply(null,retorno.ObjValorInvestidoTotal);
 		var montanteTotal = Math.max.apply(null,retorno.ObjMontanteTotal);
+		var rendimentoTotal = Math.max.apply(null,retorno.ObjRendimentoTotal);
 		
 		var diffMes = Date.DateDiff('m', minDate,maxDate);
 		var diferencaAnos = Math.floor(diffMes/12);
 
-		$('.valueValorInvestidoTotal').text('R$ '+valorInvestidoTotal.toFixed(2));montanteTotal
-		$('.valueMontanteTotal').text('R$ '+montanteTotal.toFixed(2));
+		$('.valueValorInvestidoTotal').text('R$ '+valorMoeda(valorInvestidoTotal, 2, ',', '.'));montanteTotal
+		$('.valueMontanteTotal').text('R$ '+valorMoeda(montanteTotal, 2, ',', '.'));
+		$('.valueRendimentoTotal').text('R$ '+valorMoeda(rendimentoTotal, 2, ',', '.'));
 		if(diffMes >=12){
 			$('.valueAnos').text(diferencaAnos+' Anos');
 		}else
@@ -76,7 +78,7 @@
 																	data: retorno.ObjRendimentoObjetivo});
 	var date1, valor;
 	for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
-		categoriasX.push(retorno.ObjDataPeriodo[i].getFullYear()+"/"+arrayMes[retorno.ObjDataPeriodo[i].getMonth()]);
+		categoriasX.push(arrayMesMin[retorno.ObjDataPeriodo[i].getMonth()]+"/"+retorno.ObjDataPeriodo[i].getFullYear());
 	}
 
 	Highcharts.setOptions({
@@ -93,52 +95,53 @@
 		chart: {
 				zoomType: 'x'
 		},
-		title: {
-				// text: 'Titulo novo do gráfico'
-				text: retorno.ObjMontanteCapital[5].toFixed(2)
-		},
-		subtitle: {
-				text: 'Subtitulo do gráfico'
-		},
+		title: false,
+		// title: {
+		// 		// text: 'Titulo novo do gráfico'
+		// 		text: retorno.ObjMontanteCapital[5].toFixed(2)
+		// },
+		// subtitle: {
+		// 	text: 'Subtitulo do gráfico'
+		// },
 		credits: {
-				enabled: false
+			enabled: false
 		},
 		xAxis: {
-				title: {
-						text: 'Meses do ano'
-				},
-				crosshair: true,
-				// type: 'trendline'
-				// type: 'datetime'
-				categories: categoriasX
-				// minPadding: 0.05,
-				// maxPadding: 100000.05
+			title: {
+					text: 'Meses do ano'
+			},
+			crosshair: true,
+			// type: 'trendline'
+			// type: 'datetime'
+			categories: categoriasX
+			// minPadding: 0.05,
+			// maxPadding: 100000.05
 		},
 		yAxis: {
-				title: {
-						text: 'Valores em R$'
-				}
+			title: {
+					text: 'Valores em R$'
+			}
 		},
 		tooltip: {            
-				borderWidth: 2,
-				style: {
-						fontSize: '9px'
-				},
-				
-				useHTML: true,
-				headerFormat: '{point.key}<table>',
-				pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' +
-										'<td style="text-align: right"><b>R$ {point.y}</b> </td></tr>',
-				footerFormat: '</table>',
-				valueDecimals: 2,
-				shared: true
+			borderWidth: 2,
+			style: {
+					fontSize: '9px'
+			},
+			
+			useHTML: true,
+			headerFormat: '<b>Periodo: {point.key}</b><table>',
+			pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' +
+									'<td style="text-align: right"><b>R$ {point.y}</b> </td></tr>',
+			footerFormat: '</table>',
+			valueDecimals: 2,
+			shared: true
 		},
 		legend: {
-				layout: 'vertical', //horizontal", "vertical
+				layout: 'horizontal', //horizontal", "vertical
 				align: 'left', //left, center,  right.
 				verticalAlign: 'top', //top, middle, bottom
 				borderWidth: 0,
-				floating: true, //sobreposto
+				floating: false, //sobreposto
 				fontSize: '9px'
 		},
 		plotOptions: { //#45918b

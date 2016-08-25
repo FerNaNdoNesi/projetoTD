@@ -8,6 +8,12 @@ FORMULA JUROS CAPITAL
 	VP*(1+taxa)^periodo
 */
 
+//numeroParaMoeda(this.y.toFixed(2), 2, ',', '.');
+function valorMoeda(n, c, d, t){ //P: numero a converter | numero de casas decimais | separador decimal | separador milha
+	c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+	return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+}//numeroParaMoeda(valor, 2, ',', '.')
+
 function formulaAplDepRegBCB(depositos, taxa, periodo){
 	return depositos*(1+taxa)*(((Math.pow(1+taxa,periodo))-1)/taxa);
 	// FONTE FORMULAS BCB
@@ -60,7 +66,7 @@ function buscarRendaMensalCalculandoRendimentos(capitalInicial, taxa, depositos,
 		rendimentoTotal = rendimentoDepositos + rendimentoCapital;
 		valorInvestidoDepositos = depositos * periodo;
 		valorInvestidoCapital = capitalInicial;
-		valorInvestidoTotal = capitalInicial + valorInvestidoDepositos;
+		valorInvestidoTotal = Number(capitalInicial) + Number(valorInvestidoDepositos);
 		if(rendimentoObj!= 0)
 			percentObjetivo = rendimentoTotal/rendimentoObj;
 		else
