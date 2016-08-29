@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type='text/javascript'
+  src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+<script type='text/javascript'>
+  //numeroParaMoeda(this.y.toFixed(2), 2, ',', '.');
+  function valorMoeda(n, c, d, t){ //P: numero a converter | numero de casas decimais | separador decimal | separador milha
+    c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+  }//numeroParaMoeda(valor, 2, ',', '.')
+
+  function formulaAplDepRegBCB(depositos, taxa, periodo){
+    return depositos*(1+taxa)*(((Math.pow(1+taxa,periodo))-1)/taxa);
+    // FONTE FORMULAS BCB
+    // depositos*(1+taxa)*[(((1+taxa)^periodo)-1) /taxa]
+    // https://www3.bcb.gov.br/CALCIDADAO/publico/calcularValorFuturoCapital.do
+    // Fórmula rendimento aplicação com depósitos regulares
+  }
+
+  function formulaAplDepUnicBCB(capital, taxa, periodo){
+    return capital*Math.pow((1+taxa),periodo);
+    // FORMULA JUROS CAPITAL 
+    // VP*(1+taxa)^periodo
+    // Fórmula rendimento aplicação depósito unico
+  }
+
+  function buscarRendaMensalCalculandoRendimentos(capitalInicial, taxa, depositos, rendimentoObj){
+    taxa = (taxa/12)/100;
+    var periodo = 0;
+    var dtAtual = new Date(); // Em js getMonth() Mês 0~11
+    
+    var ObjPeriodo = [],
+        ObjDataPeriodo = [],
+        ObjMesAno = [],
+        ObjValorInvestidoDepositos = [],
+        ObjValorInvestidoCapital = [],
+        ObjValorInvestidoTotal = [],
+        ObjRendimentoDepositos = [],
+        ObjRendimentoCapital = [],
+        ObjRendimentoTotal = [],
+        ObjMontanteDepositos = [],
+        ObjMontanteCapital = [],
+        ObjMontanteTotal = [],
+        ObjDepositoMensal = [],
+        ObjRendimentoObjetivo = [],
+        ObjUpValor = [],
+        ObjPercentObjetivo = [];
+
+    do{ // enquanto não chegar ao rendimento mensal objetivo
+      periodo++;
+      montanteDepositos = formulaAplDepRegBCB(depositos, taxa, periodo);
+      montanteDepositosAnt = formulaAplDepRegBCB(depositos, taxa, periodo-1);
+      montanteCapital = formulaAplDepUnicBCB(capitalInicial, taxa, periodo);
+      montanteCapitalAnt = formulaAplDepUnicBCB(capitalInicial, taxa, periodo-1);
+
+      rendimentoDepositos = montanteDepositos - montanteDepositosAnt - depositos;
+      rendimentoCapital = montanteCapital - montanteCapitalAnt;
+      montanteTotal = montanteDepositos + montanteCapital;
+      montanteTotalAnt = montanteDepositosAnt + montanteCapitalAnt;
+      upValor = montanteTotal - montanteTotalAnt;
+      rendimentoTotal = rendimentoDepositos + rendimentoCapital;
+      valorInvestidoDepositos = depositos * periodo;
+      valorInvestidoCapital = capitalInicial;
+      valorInvestidoTotal = Number(capitalInicial) + Number(valorInvestidoDepositos);
+      if(rendimentoObj!= 0)
+        percentObjetivo = rendimentoTotal/rendimentoObj;
+      else
+        percentObjetivo = 0;
+      console.log("\n"+rendimentoObj+"/"+rendimentoTotal+"\n obj: "+percentObjetivo);
+
+      //Objetos referente aos valores
+      ObjPeriodo.push(periodo);     
+      ObjValorInvestidoDepositos.push(valorInvestidoDepositos);
+      ObjValorInvestidoCapital.push(valorInvestidoCapital);
+      ObjValorInvestidoTotal.push(valorInvestidoTotal);
+      ObjRendimentoDepositos.push(rendimentoDepositos);
+      ObjRendimentoCapital.push(rendimentoCapital);
+      ObjRendimentoTotal.push(rendimentoTotal);
+      ObjMontanteDepositos.push(montanteDepositos);
+      ObjMontanteCapital.push(montanteCapital);
+      ObjMontanteTotal.push(montanteTotal);
+      ObjDepositoMensal.push(depositos);
+      ObjRendimentoObjetivo.push(rendimentoObj);
+      ObjUpValor.push(upValor);   
+      ObjPercentObjetivo.push(percentObjetivo);
+      //Objetos referente ao período      
+      dtAtual.setMonth(dtAtual.getMonth()+1);
+      ObjDataPeriodo.push(new Date(dtAtual));
+
+    }while(rendimentoTotal <= rendimentoObj)
+
+    return ({ObjPeriodo: ObjPeriodo,
+         ObjDataPeriodo: ObjDataPeriodo,
+         //Valores Referente ao Capital
+         ObjValorInvestidoCapital: ObjValorInvestidoCapital,
+         ObjRendimentoCapital: ObjRendimentoCapital,
+         ObjMontanteCapital: ObjMontanteCapital,
+         //Valores Referente aos Depósitos
+         ObjValorInvestidoDepositos: ObjValorInvestidoDepositos,
+         ObjRendimentoDepositos: ObjRendimentoDepositos,
+         ObjMontanteDepositos: ObjMontanteDepositos,
+         //Valores Referente ao Total
+         ObjValorInvestidoTotal: ObjValorInvestidoTotal,
+         ObjRendimentoTotal: ObjRendimentoTotal,
+         ObjMontanteTotal: ObjMontanteTotal,
+         //Valores Referente ao Parametros
+         ObjDepositoMensal: ObjDepositoMensal,
+         ObjRendimentoObjetivo: ObjRendimentoObjetivo,
+         ObjUpValor: ObjUpValor,
+         ObjPercentObjetivo: ObjPercentObjetivo
+      });
+  }
+
+  retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);
+
+  var seriesRetorno = [], categoriasX = [];
+  seriesRetorno = seriesRetorno.concat({name: 'Rendimento Mensal',
+                                  turboThreshold:10000,
+                                  data: retorno.ObjRendimentoTotal});
+  seriesRetorno = seriesRetorno.concat({name: 'Depósito Mensal',
+                                  turboThreshold:10000,
+                                  data: retorno.ObjDepositoMensal});
+  seriesRetorno = seriesRetorno.concat({name: 'Rendimento Objetivo',
+                                  turboThreshold:10000,
+                                  data: retorno.ObjRendimentoObjetivo});
+$(function () {<!--from w  w w . j a v a  2  s.c  om-->
+    $('#container').highcharts({
+        series: seriesRetorno,
+        tooltip: {
+          formatter: function() {
+            return '<b>'+ this.series.name +'</b><br/>'+
+              this.x +': '+ this.y;
+          }
+        },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(){
+                        return ( this.series.hideDataLabels ) ? '' : this.y.toFixed(2);
+                    }
+                }
+            }
+        }
+        //[{
+          //  data: [20, 200, 100, 0.1, 150, 50, 30, 40, 30]
+        //}]      
+    });
+    // the button action
+    $('#button').click(function () {
+        var chart = $('#container').highcharts();
+        retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 5000);
+        //chart.series[0].setData([20, 200, 100, 0.1, 150, 50, 30, 40, 30].reverse());
+
+        chart.series[0].setData(retorno.ObjRendimentoTotal);
+        chart.series[1].setData(retorno.ObjDepositoMensal);
+        chart.series[2].setData(retorno.ObjRendimentoObjetivo);
+        chart.series[1].hideDataLabels = !chart.series[1].hideDataLabels;
+        chart.series[2].hideDataLabels = !chart.series[2].hideDataLabels;
+        chart.series[0].hide();
+        chart.series[0].show();
+        chart.redraw();
+    });
+});
+</script>
+</head>
+<body>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <button id="button" class="autocompare">Remove point</button>
+  <div id="container" style="height: 400px"></div>
+</body>
+</html>
+
