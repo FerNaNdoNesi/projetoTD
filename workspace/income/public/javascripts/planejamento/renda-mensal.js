@@ -37,9 +37,44 @@
 
 	function atualizaResultado(){
 		var retorno = buscarRendaMensalCalculandoRendimentos( document.getElementById("investimentoInicial").value,
-																													document.getElementById("taxaJuros").value,
-																													document.getElementById("investimentoMensal").value,
-																													document.getElementById("rendimentoObjetivo").value);		
+															  document.getElementById("taxaJuros").value,
+															  document.getElementById("investimentoMensal").value,
+															  document.getElementById("rendimentoObjetivo").value);
+		// graficoLinhaTempoRendimento.series[0].setData({name: 'Rendimento Mensal',
+		// 															turboThreshold:10000,
+		// 															data: retorno.ObjRendimentoTotal});
+		// graficoLinhaTempoRendimento.series[1].setData({name: 'Depósito Mensal',
+		// 															turboThreshold:10000,
+		// 															data: retorno.ObjDepositoMensal});
+		// graficoLinhaTempoRendimento.series[2].setData(retorno.ObjRendimentoObjetivo);
+		// var seriesRetorno = [], categoriasX = [];
+		// seriesRetorno = seriesRetorno.concat({name: 'Rendimento Mensal',
+		// 																turboThreshold:10000, marker: {enabled : false},// lineWidth: 5,
+		// 																data: retorno.ObjRendimentoTotal});
+		// seriesRetorno = seriesRetorno.concat({name: 'Depósito Mensal',
+		// 																turboThreshold:10000, marker: {enabled : false}, dashStyle: 'dot', lineWidth: 3,
+		// 																data: retorno.ObjDepositoMensal});
+		// seriesRetorno = seriesRetorno.concat({name: 'Rendimento Objetivo',
+		// 																turboThreshold:10000, marker: {enabled : false}, dashStyle: 'dot', lineWidth: 3,
+		// 																data: retorno.ObjRendimentoObjetivo});
+		// var date1, valor;
+		// for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
+		// 	categoriasX.push(arrayMesMin[retorno.ObjDataPeriodo[i].getMonth()]+"/"+retorno.ObjDataPeriodo[i].getFullYear());
+		// }
+
+		// var options_graficoLinhaTempoRendimento = {
+		// 	chart: {
+		// 		renderTo: 'graficoLinhaTempoRendimento',
+		// 		zoomType: 'x'
+		// 	},
+		// 	// xAxis: {
+		// 		// categories: categoriasX
+		// 	// },
+		// 	// series: seriesRetorno
+		// }
+
+		var chart = new Highcharts.Chart(get_options());
+		chart.redraw();
 		var maxDate=new Date(Math.max.apply(null,retorno.ObjDataPeriodo));
 		var minDate=new Date(Math.min.apply(null,retorno.ObjDataPeriodo));
 		var valorInvestidoTotal = Math.max.apply(null,retorno.ObjValorInvestidoTotal);
@@ -49,7 +84,7 @@
 		var diffMes = Date.DateDiff('m', minDate,maxDate);
 		var diferencaAnos = Math.floor(diffMes/12);
 
-		$('.valueValorInvestidoTotal').text('R$ '+valorMoeda(valorInvestidoTotal, 2, ',', '.'));montanteTotal
+		$('.valueValorInvestidoTotal').text('R$ '+valorMoeda(valorInvestidoTotal, 2, ',', '.'));
 		$('.valueMontanteTotal').text('R$ '+valorMoeda(montanteTotal, 2, ',', '.'));
 		$('.valueRendimentoTotal').text('R$ '+valorMoeda(rendimentoTotal, 2, ',', '.'));
 		if(diffMes >=12){
@@ -62,142 +97,127 @@
 			$('.valueMeses').text(' ');
 	}
 
-	var retorno = buscarRendaMensalCalculandoRendimentos(Number(document.getElementById("investimentoInicial").value),
-																											 Number(document.getElementById("taxaJuros").value),
-																											 Number(document.getElementById("investimentoMensal").value),
-																											 Number(document.getElementById("rendimentoObjetivo").value));
-	var seriesRetorno = [], categoriasX = [];
-	seriesRetorno = seriesRetorno.concat({name: 'Rendimento Mensal',
-																	turboThreshold:10000,
-																	data: retorno.ObjRendimentoTotal});
-	seriesRetorno = seriesRetorno.concat({name: 'Depósito Mensal',
-																	turboThreshold:10000,
-																	data: retorno.ObjDepositoMensal});
-	seriesRetorno = seriesRetorno.concat({name: 'Rendimento Objetivo',
-																	turboThreshold:10000,
-																	data: retorno.ObjRendimentoObjetivo});
-	var date1, valor;
-	for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
-		categoriasX.push(arrayMesMin[retorno.ObjDataPeriodo[i].getMonth()]+"/"+retorno.ObjDataPeriodo[i].getFullYear());
-	}
+	function get_options(){
 
-	Highcharts.setOptions({
+		var retorno = buscarRendaMensalCalculandoRendimentos(Number(document.getElementById("investimentoInicial").value),
+																												 Number(document.getElementById("taxaJuros").value),
+																												 Number(document.getElementById("investimentoMensal").value),
+																												 Number(document.getElementById("rendimentoObjetivo").value));
+		var seriesRetorno = [], categoriasX = [];
+		seriesRetorno = seriesRetorno.concat({name: 'Rendimento Mensal',
+																		turboThreshold:10000, marker: {enabled : false},// lineWidth: 5,
+																		data: retorno.ObjRendimentoTotal});
+		seriesRetorno = seriesRetorno.concat({name: 'Depósito Mensal',
+																		turboThreshold:10000, marker: {enabled : false}, dashStyle: 'longdash', lineWidth: 1,
+																		data: retorno.ObjDepositoMensal});
+		seriesRetorno = seriesRetorno.concat({name: 'Rendimento Objetivo',
+																		turboThreshold:10000, marker: {enabled : false}, dashStyle: 'longdash'/*dot*/, lineWidth: 1,
+																		data: retorno.ObjRendimentoObjetivo});
+		var date1, valor;
+		for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
+			categoriasX.push(arrayMesMin[retorno.ObjDataPeriodo[i].getMonth()]+"/"+retorno.ObjDataPeriodo[i].getFullYear());
+		}
+
+		Highcharts.setOptions({
 			lang: {
 					thousandsSep: '.',
 					decimalPoint: ',',
 					loading: "Atualizando...",
 					noData: "Sem dados carregados."
 			}
-	});
+		});
 
-	$('.graficoLinhaTempoRendimento').highcharts({
-		
-		chart: {
+		// $('.graficoLinhaTempoRendimento').highcharts({
+		var options_graficoLinhaTempoRendimento = {
+			chart: {
+				renderTo: 'graficoLinhaTempoRendimento',
 				zoomType: 'x'
-		},
-		title: false,
-		// title: {
-		// 		// text: 'Titulo novo do gráfico'
-		// 		text: retorno.ObjMontanteCapital[5].toFixed(2)
-		// },
-		// subtitle: {
-		// 	text: 'Subtitulo do gráfico'
-		// },
-		credits: {
-			enabled: false
-		},
-		xAxis: {
-			title: {
-					text: 'Meses do ano'
 			},
-			crosshair: true,
-			// type: 'trendline'
-			// type: 'datetime'
-			categories: categoriasX
-			// minPadding: 0.05,
-			// maxPadding: 100000.05
-		},
-		yAxis: {
-			title: {
-					text: 'Valores em R$'
-			}
-		},
-		tooltip: {            
-			borderWidth: 2,
-			style: {
-					fontSize: '9px'
+			title: false,
+			// title: {
+			// 		// text: 'Titulo novo do gráfico'
+			// 		text: retorno.ObjMontanteCapital[5].toFixed(2)
+			// },
+			// subtitle: {
+			// 	text: 'Subtitulo do gráfico'
+			// },
+			credits: {
+				enabled: false
 			},
-			
-			useHTML: true,
-			headerFormat: '<b>Periodo: {point.key}</b><table>',
-			pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' +
-									'<td style="text-align: right"><b>R$ {point.y}</b> </td></tr>',
-			footerFormat: '</table>',
-			valueDecimals: 2,
-			shared: true
-		},
-		legend: {
+			xAxis: {
+				title: {
+						text: 'Meses do ano'
+				},
+				crosshair: true,
+				// type: 'trendline'
+				// type: 'datetime'
+				categories: categoriasX
+				// minPadding: 0.05,
+				// maxPadding: 100000.05
+			},
+			yAxis: {
+				title: {
+						text: 'Valores em R$'
+				}
+			},
+			tooltip: {            
+				borderWidth: 2,
+				style: {
+						fontSize: '9px'
+				},
+				
+				useHTML: true,
+				headerFormat: '<b>Período: {point.key}</b><table>',
+				pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' +
+										'<td style="text-align: right"><b>R$ {point.y}</b> </td></tr>',
+				footerFormat: '</table>',
+				valueDecimals: 2,
+				shared: true
+			},
+			legend: {
 				layout: 'horizontal', //horizontal", "vertical
 				align: 'left', //left, center,  right.
 				verticalAlign: 'top', //top, middle, bottom
 				borderWidth: 0,
 				floating: false, //sobreposto
 				fontSize: '9px'
-		},
-		plotOptions: { //#45918b
+			},
+			plotOptions: { //#45918b
 				series: {
-						point: {
-								events: {
-										update: function (event) {
-												if (!confirm('change?')) {
-														return false;
-												}
-										}
+					allowPointSelect: true,
+					point: {
+						events: {
+							update: function (event) {
+								if (!confirm('change?')) {
+									return false;
 								}
+							}
 						}
+					}
 				},
-				area: {
-						fillColor: {
-								linearGradient: {
-										x1: 0,
-										y1: 0,
-										x2: 0,
-										y2: 1
-								},
-								stops: [
-										[0, Highcharts.getOptions().colors[0]],
-										[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-								]
-						},
-						marker: {
-								radius: 5,
-								lineWidth: 0.5,
-								lineColor: '#ffffff'
-						},
-						lineWidth: 0.5,
-						states: {
-								hover: {
-										lineWidth: 1
-								}
-						},
-						threshold: null
-				}
-		},
-		// data: [1,5,3,6,7,5,6,9]
-		series: seriesRetorno
-		// series: [{
-				// type: 'line',
-				// name: 'R$',
-				// data: r_01,
-				// visible: true,
-				// turboThreshold:5000//set it to a larger threshold, it is by default to 1000
-		// }]
-		
-		// series: [{
-		//     name: 'Tokyo',
-		//     data: retorno.ObjMontanteTotal //[7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-		// },{
-		//     name: 'New York',
-		//     data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-		// }]
-	});
+				line: {
+					dataLabels: {
+						enabled: false
+					}
+				}				
+			},
+			// data: [1,5,3,6,7,5,6,9]
+			series: seriesRetorno
+			// series: [{
+					// type: 'line',
+					// name: 'R$',
+					// data: r_01,
+					// visible: true,
+					// turboThreshold:5000//set it to a larger threshold, it is by default to 1000
+			// }]
+			
+			// series: [{
+			//     name: 'Tokyo',
+			//     data: retorno.ObjMontanteTotal //[7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+			// },{
+			//     name: 'New York',
+			//     data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+			// }]
+		}
+		return options_graficoLinhaTempoRendimento;
+	}

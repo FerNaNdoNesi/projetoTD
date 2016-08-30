@@ -103,7 +103,7 @@ block painel
 				.ibox-content
 					.row
 						.col-lg-12
-							.graficoLinhaTempoRendimento
+							.graficoLinhaTempoRendimento#graficoLinhaTempoRendimento
 	.row
 		.col-lg-6
 			.ibox.float-e-margins
@@ -154,15 +154,14 @@ block painel
 	// TouchSpin
 	script(src='/bootstrap/js/jquery-2.1.1.js')
 	script(src='/bootstrap/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js')
-	script(src='/javascripts/financesjs/funcoesFinances.js')
-	script(src='/javascripts/financesjs/funcoesDatas.js')
 	script(src='/bootstrap/js/highcharts.js')
 	script(src='/bootstrap/js/modules/exporting.js')
+	script(src='/javascripts/financesjs/funcoesFinances.js')
+	script(src='/javascripts/financesjs/funcoesDatas.js')
 	script(src='/javascripts/planejamento/renda-mensal.js')
 	script.
 		$(document).ready(function(){
 			atualizaResultado();
-
 			$('.rendimentoObjetivo').on('touchspin.on.startspin', function f(){
 				atualizaResultado();
 			});
@@ -240,5 +239,5 @@ block painel
 					verticalbuttons: true,
 					verticalupclass: 'fa fa-plus',
 					verticaldownclass: 'fa fa-minus'
-			});			
+			});	
 		});			
