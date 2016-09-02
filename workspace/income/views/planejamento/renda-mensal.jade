@@ -105,7 +105,18 @@ block painel
 						.col-lg-12
 							.graficoLinhaTempoRendimento#graficoLinhaTempoRendimento
 	.row
-		.col-lg-6
+		.col-lg-12
+			.ibox.float-e-margins
+				.ibox-title
+					h5 Basic Table
+					.ibox-tools
+						a.collapse-link
+							i.fa.fa-chevron-up
+				.ibox-content
+					tabelaFinal
+
+	.row
+		.col-lg-12
 			.ibox.float-e-margins
 				.ibox-title
 					h5 Basic Table
@@ -135,21 +146,23 @@ block painel
 								td Larry
 								td the Bird
 								td @twitter
-		.col-lg-6
-			-
-				//- list = hard()
-				list = ["Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis"]
-				// retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);
-			each item in list
-				li= item
-			p retorno
-			p hello #{retorno} nda!
-
-			//- script.
-				retorno = buscarRendaMensalCalculandoRendimentos2(1000, 12, 100, 500);
-				alert("Ret: "+retorno.ObjValorInvestidoCapital[5].toFixed(2));
-			//- each obj in retorno
-				li= obj
+	//- 	.col-lg-6
+	//- 		// script.
+	//- 			//- retorno = buscarRendaMensalCalculandoRendimentos(1000, 12, 100, 500);
+	//- 		-
+	//- 			list = ["Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis"]
+	//- 		each item in list
+	//- 			li= item
+	//- 		p retorno
+	//- 		p hello
+	//- 			li= obj
+	//- .row
+	//- 	.col-lg-12
+	//- 		tabelaFinal
+	//- 			.tabelaFinal#tabelaFinal
+	//- .row
+	//- 	.col-lg-12
+	//- 		p fez tbela
 
 	// TouchSpin
 	script(src='/bootstrap/js/jquery-2.1.1.js')

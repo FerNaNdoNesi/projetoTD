@@ -39,40 +39,7 @@
 		var retorno = buscarRendaMensalCalculandoRendimentos( document.getElementById("investimentoInicial").value,
 															  document.getElementById("taxaJuros").value,
 															  document.getElementById("investimentoMensal").value,
-															  document.getElementById("rendimentoObjetivo").value);
-		// graficoLinhaTempoRendimento.series[0].setData({name: 'Rendimento Mensal',
-		// 															turboThreshold:10000,
-		// 															data: retorno.ObjRendimentoTotal});
-		// graficoLinhaTempoRendimento.series[1].setData({name: 'Depósito Mensal',
-		// 															turboThreshold:10000,
-		// 															data: retorno.ObjDepositoMensal});
-		// graficoLinhaTempoRendimento.series[2].setData(retorno.ObjRendimentoObjetivo);
-		// var seriesRetorno = [], categoriasX = [];
-		// seriesRetorno = seriesRetorno.concat({name: 'Rendimento Mensal',
-		// 																turboThreshold:10000, marker: {enabled : false},// lineWidth: 5,
-		// 																data: retorno.ObjRendimentoTotal});
-		// seriesRetorno = seriesRetorno.concat({name: 'Depósito Mensal',
-		// 																turboThreshold:10000, marker: {enabled : false}, dashStyle: 'dot', lineWidth: 3,
-		// 																data: retorno.ObjDepositoMensal});
-		// seriesRetorno = seriesRetorno.concat({name: 'Rendimento Objetivo',
-		// 																turboThreshold:10000, marker: {enabled : false}, dashStyle: 'dot', lineWidth: 3,
-		// 																data: retorno.ObjRendimentoObjetivo});
-		// var date1, valor;
-		// for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
-		// 	categoriasX.push(arrayMesMin[retorno.ObjDataPeriodo[i].getMonth()]+"/"+retorno.ObjDataPeriodo[i].getFullYear());
-		// }
-
-		// var options_graficoLinhaTempoRendimento = {
-		// 	chart: {
-		// 		renderTo: 'graficoLinhaTempoRendimento',
-		// 		zoomType: 'x'
-		// 	},
-		// 	// xAxis: {
-		// 		// categories: categoriasX
-		// 	// },
-		// 	// series: seriesRetorno
-		// }
-
+															  document.getElementById("rendimentoObjetivo").value);		
 		var chart = new Highcharts.Chart(get_options());
 		chart.redraw();
 		var maxDate=new Date(Math.max.apply(null,retorno.ObjDataPeriodo));
@@ -95,6 +62,41 @@
 			$('.valueMeses').text(diffMes-(diferencaAnos*12)+' Meses');
 		}else
 			$('.valueMeses').text(' ');
+
+		tableCreate(retorno);
+	}
+
+	function tableCreate(retorno) {
+		var view = 0;
+		var column = 2
+		var body = document.getElementsByTagName('tabelaFinal')[0];
+		var tbl = document.createElement('p');
+		var tbl = document.createElement('table');
+		tbl.style.width = '100%';
+		tbl.setAttribute('border', '1');
+		var tbdy = document.createElement('tbody');
+		for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
+			var tr = document.createElement('tr');
+			for (var j = 0; j < column; j++) {
+				// if (i == 2 && j == 1) {
+				// 	break
+				// } else {
+				var td = document.createElement('td');
+				switch(j) {
+					case 0: view = retorno.ObjPeriodo[i]; break;
+					case 1: view = retorno.ObjDataPeriodo[i].getMonth()+"/"+retorno.ObjDataPeriodo[i].getFullYear(); break;
+					// default:
+					// 	default code block
+				}
+				td.appendChild(document.createTextNode(view));
+				i == 1999 && j == 199 ? td.setAttribute('rowSpan', '2') : null;
+					tr.appendChild(td);
+				// }
+			}
+			tbdy.appendChild(tr);
+		}
+		tbl.appendChild(tbdy);
+		body.appendChild(tbl);
 	}
 
 	function get_options(){
