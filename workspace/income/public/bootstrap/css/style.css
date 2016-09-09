@@ -8241,3 +8241,7 @@ body.md-skin {
 .bootstrap-touchspin .input-group-btn-vertical > .btn {
   padding: 9px 10px;
 }
+
+#tabelaDados, #tabelaDados th{
+  text-align: right;
+}

@@ -50,14 +50,14 @@ function buscarRendaMensalCalculandoRendimentos(capitalInicial, taxa, depositos,
 			ObjRendimentoObjetivo = [],
 			ObjUpValor = [],
 			ObjPercentObjetivo = [];
-
+	
 	do{ // enquanto não chegar ao rendimento mensal objetivo
 		periodo++;
+		
 		montanteDepositos = formulaAplDepRegBCB(depositos, taxa, periodo);
 		montanteDepositosAnt = formulaAplDepRegBCB(depositos, taxa, periodo-1);
 		montanteCapital = formulaAplDepUnicBCB(capitalInicial, taxa, periodo);
 		montanteCapitalAnt = formulaAplDepUnicBCB(capitalInicial, taxa, periodo-1);
-
 		rendimentoDepositos = montanteDepositos - montanteDepositosAnt - depositos;
 		rendimentoCapital = montanteCapital - montanteCapitalAnt;
 		montanteTotal = montanteDepositos + montanteCapital;

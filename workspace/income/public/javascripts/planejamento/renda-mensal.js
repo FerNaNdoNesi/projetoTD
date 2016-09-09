@@ -33,114 +33,24 @@
 			arrayMesMin[8] = "Set";
 			arrayMesMin[9] = "Out";
 			arrayMesMin[10] = "Nov";
-			arrayMesMin[11] = "Dez";
-
-	var dataSet = [[ "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ],
-			[ "Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750" ],
-			[ "Ashton Cox", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000" ],
-			[ "Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "6224", "2012/03/29", "$433,060" ],
-			[ "Airi Satou", "Accountant", "Tokyo", "5407", "2008/11/28", "$162,700" ],
-			[ "Brielle Williamson", "Integration Specialist", "New York", "4804", "2012/12/02", "$372,000" ],
-			[ "Herrod Chandler", "Sales Assistant", "San Francisco", "9608", "2012/08/06", "$137,500" ],
-			[ "Rhona Davidson", "Integration Specialist", "Tokyo", "6200", "2010/10/14", "$327,900" ],
-			[ "Colleen Hurst", "Javascript Developer", "San Francisco", "2360", "2009/09/15", "$205,500" ],
-			[ "Sonya Frost", "Software Engineer", "Edinburgh", "1667", "2008/12/13", "$103,600" ],
-			[ "Jena Gaines", "Office Manager", "London", "3814", "2008/12/19", "$90,560" ],
-			[ "Quinn Flynn", "Support Lead", "Edinburgh", "9497", "2013/03/03", "$342,000" ],
-			[ "Charde Marshall", "Regional Director", "San Francisco", "6741", "2008/10/16", "$470,600" ],
-			[ "Haley Kennedy", "Senior Marketing Designer", "London", "3597", "2012/12/18", "$313,500" ],
-			[ "Tatyana Fitzpatrick", "Regional Director", "London", "1965", "2010/03/17", "$385,750" ],
-			[ "Michael Silva", "Marketing Designer", "London", "1581", "2012/11/27", "$198,500" ],
-			[ "Paul Byrd", "Chief Financial Officer (CFO)", "New York", "3059", "2010/06/09", "$725,000" ],
-			[ "Gloria Little", "Systems Administrator", "New York", "1721", "2009/04/10", "$237,500" ],
-			[ "Bradley Greer", "Software Engineer", "London", "2558", "2012/10/13", "$132,000" ],
-			[ "Dai Rios", "Personnel Lead", "Edinburgh", "2290", "2012/09/26", "$217,500" ],
-			[ "Jenette Caldwell", "Development Lead", "New York", "1937", "2011/09/03", "$345,000" ],
-			[ "Yuri Berry", "Chief Marketing Officer (CMO)", "New York", "6154", "2009/06/25", "$675,000" ],
-			[ "Caesar Vance", "Pre-Sales Support", "New York", "8330", "2011/12/12", "$106,450" ],
-			[ "Doris Wilder", "Sales Assistant", "Sidney", "3023", "2010/09/20", "$85,600" ],
-			[ "Angelica Ramos", "Chief Executive Officer (CEO)", "London", "5797", "2009/10/09", "$1,200,000" ],
-			[ "Gavin Joyce", "Developer", "Edinburgh", "8822", "2010/12/22", "$92,575" ],
-			[ "Jennifer Chang", "Regional Director", "Singapore", "9239", "2010/11/14", "$357,650" ],
-			[ "Brenden Wagner", "Software Engineer", "San Francisco", "1314", "2011/06/07", "$206,850" ],
-			[ "Fiona Green", "Chief Operating Officer (COO)", "San Francisco", "2947", "2010/03/11", "$850,000" ],
-			[ "Shou Itou", "Regional Marketing", "Tokyo", "8899", "2011/08/14", "$163,000" ],
-			[ "Michelle House", "Integration Specialist", "Sidney", "2769", "2011/06/02", "$95,400" ],
-			[ "Suki Burks", "Developer", "London", "6832", "2009/10/22", "$114,500" ],
-			[ "Prescott Bartlett", "Technical Author", "London", "3606", "2011/05/07", "$145,000" ],
-			[ "Gavin Cortez", "Team Leader", "San Francisco", "2860", "2008/10/26", "$235,500" ],
-			[ "Martena Mccray", "Post-Sales support", "Edinburgh", "8240", "2011/03/09", "$324,050" ],
-			[ "Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675" ]];
+			arrayMesMin[11] = "Dez";	
 
 	function atualizaResultado(){
 		var retorno = buscarRendaMensalCalculandoRendimentos( document.getElementById("investimentoInicial").value,
 																document.getElementById("taxaJuros").value,
 																document.getElementById("investimentoMensal").value,
 																document.getElementById("rendimentoObjetivo").value);		
-		var chart = new Highcharts.Chart(get_options());
+		var chart = new Highcharts.Chart(graphDraw());
 		chart.redraw();
-		tableCreate(retorno);
-		var dados = [];
-		
-		for (var i = 0; i < 6; i++) {
-			var vet = [];
-			vet.push(retorno.ObjPeriodo[i]);
-			vet.push(retorno.ObjValorInvestidoTotal[i]);
-			vet.push(retorno.ObjPeriodo[i]);
-			vet.push(retorno.ObjPeriodo[i]);
-			vet.push(retorno.ObjPeriodo[i]);
-			vet.push(retorno.ObjPeriodo[i]);
-			dados.push(vet);
-		}
-		
-		// var tabela = $('#tabelaDados').DataTable({
-		// 	data: dados, //retorno.ObjPeriodo[5],
-		// 	columns: [
-		// 			{ title: "Name" },
-		// 			{ title: "Position" },
-		// 			{ title: "Office" },
-		// 			{ title: "Extn." },
-		// 			{ title: "Start date" },
-		// 			{ title: "Salary" }
-		// 	]
-		// });
-		var tabela = $('#tabelaDados').DataTable({data: dados, searching: false, columns: [
-					{ title: "Name" },
-					{ title: "Position" },
-					{ title: "Office" },
-					{ title: "Extn." },
-					{ title: "Start date" },
-					{ title: "Salary" }
-			]});
-		https://datatables.net/reference/api/rows().every()
-		// tabela.rows().every( function ( rowIdx, tableLoop, rowLoop ){
-		// 	var d = this.data();
-		// 	d.counter++; // update data source for the row
-		// 	this.invalidate(); // invalidate the data DataTables has cached for this row
-		// });
-
-		tabela.draw();
-
-		// var table = $('#tabelaDados').DataTable();
-
-		// table.rows().every( function (rowIdx, tableLoop, rowLoop){
-		// 	var d = this.data();
-	 
-		// 	d.counter++; // update data source for the row
-	 
-		// 	this.invalidate(); // invalidate the data DataTables has cached for this row
-		// });
-		 
-		// Draw once all updates are done
-		// table.draw();
-		
+		tableDraw(retorno);
+				
 		var maxDate=new Date(Math.max.apply(null,retorno.ObjDataPeriodo));
 		var minDate=new Date(Math.min.apply(null,retorno.ObjDataPeriodo));
 		var valorInvestidoTotal = Math.max.apply(null,retorno.ObjValorInvestidoTotal);
 		var montanteTotal = Math.max.apply(null,retorno.ObjMontanteTotal);
 		var rendimentoTotal = Math.max.apply(null,retorno.ObjRendimentoTotal);
 		
-		var diffMes = Date.DateDiff('m', minDate,maxDate);
+		var diffMes = Date.DateDiff('m', minDate,maxDate) + 1;
 		var diferencaAnos = Math.floor(diffMes/12);
 
 		$('.valueValorInvestidoTotal').text('R$ '+valorMoeda(valorInvestidoTotal, 2, ',', '.'));
@@ -156,64 +66,112 @@
 			$('.valueMeses').text(' ');
 	}
 
-	function tableCreate(retorno) {
-		var view = 0;
-		var column = 6
-		var arrayColumn = new Array(column);
-				arrayColumn[0] = "Período";
-				arrayColumn[1] = "Mês / Ano";
-				arrayColumn[2] = "Valor Investido";
-				arrayColumn[3] = "Valor Rendimento";
-				arrayColumn[4] = "Saldo";
-				arrayColumn[5] = "Objetivo atingido";
-		var body = document.getElementsByTagName('tabelaFinal')[0];
-		// var tbl = document.createElement('p');
-		var tbl = document.createElement('table');
-		tbl.style.width = '100%';
-		tbl.setAttribute('border', '1');
-		tbl.setAttribute('class', 'table');
-		tbl.setAttribute('id', 'tabelinha');
-		
-		var thead = document.createElement('thead');
-		var tr = document.createElement('tr');
-		for (var t = 0; t < column; t++) {
-			var th = document.createElement('th');
-			th.appendChild(document.createTextNode(arrayColumn[t]));
-			th.setAttribute('font-weight', 'bold');
-			tr.appendChild(th);
-		}
-		thead.appendChild(tr);
-		
-		var tbdy = document.createElement('tbody');
+	function tableDraw(retorno) { //REFERENCE https://datatables.net/reference/option/
+		var dados = [];		
 		for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
-			var tr = document.createElement('tr');
-			for (var j = 0; j < column; j++) {
-				var td = document.createElement('td');
-				switch(j) {
-					case 0: view = retorno.ObjPeriodo[i]; break;
-					case 1: view = arrayMesDesc[retorno.ObjDataPeriodo[i].getMonth()]+"/"+retorno.ObjDataPeriodo[i].getFullYear(); break;
-					case 2: view = 'R$ '+valorMoeda(retorno.ObjValorInvestidoTotal[i], 2, ',', '.'); break;
-					case 3: view = 'R$ '+valorMoeda(retorno.ObjRendimentoTotal[i], 2, ',', '.'); break;
-					case 4: view = 'R$ '+valorMoeda(retorno.ObjMontanteTotal[i], 2, ',', '.'); break;
-					case 5: view = retorno.ObjPercentObjetivo[i]; break;
-					default: // default code block
-				}
-				td.appendChild(document.createTextNode(view));
-				td.setAttribute('text-align', 'right');
-				tr.appendChild(td);
-			}
-			tbdy.appendChild(tr);
+			var vet = [];
+			vet.push(retorno.ObjPeriodo[i]+'º');
+			vet.push(arrayMesDesc[retorno.ObjDataPeriodo[i].getMonth()]+" / "+retorno.ObjDataPeriodo[i].getFullYear());
+			vet.push('R$ '+valorMoeda(retorno.ObjValorInvestidoTotal[i], 2, ',', '.'));
+			vet.push('R$ '+valorMoeda(retorno.ObjRendimentoTotal[i], 2, ',', '.'));
+			vet.push('R$ '+valorMoeda(retorno.ObjMontanteTotal[i], 2, ',', '.'));
+			vet.push('<small class="pull-right">'+(retorno.ObjPercentObjetivo[i]*100).toFixed(0)+'%</small><div class="progress progress-small"><div class="progress-bar" style="width: '+(retorno.ObjPercentObjetivo[i]*100).toFixed(0)+'%;"></div></div>');
+			// vet.push('<div><small class="pull-right">73%</small></div> <div class="progress progress-small"><div class="progress-bar" style="width: '+(retorno.ObjPercentObjetivo[i]*100).toFixed(0)+'%;"></div></div>');
+			dados.push(vet);
 		}
-		tbl.appendChild(thead);
-		tbl.appendChild(tbdy);
-		body.appendChild(tbl);
+		
+		if ( $.fn.dataTable.isDataTable( '#tabelaDados' ) ) {
+			var t2 = $('#tabelaDados').DataTable();
+			t2.destroy();
+			t2 = $('#tabelaDados').DataTable({
+					data: dados,
+					searching: true,
+					paging: true,
+					ordering: false,
+					// scrollY: 600,
+					// fixedHeader: true,
+					paginate: {
+						previous: 'Anterior',
+						next:     'Próxima'
+					},
+					language: { //https://datatables.net/reference/option/language
+						info: "Visualizando página _PAGE_ de _PAGES_",
+						search: "Buscar"
+					},
+					columns: [
+						{ title: "Período", width: "5%" },
+						{ title: "Mês / Ano", width: "15%" },
+						{ title: "Valor investido", width: "15%" },
+						{ title: "Rendimento mensal", width: "15%" },
+						{ title: "Saldo acumulado", width: "15%" },
+						{ title: "Objetivo", width: "15%" }
+					],
+					dom: '<"html5buttons"B>lTfgitp',
+					buttons: [
+						{extend: 'copy'},
+						{extend: 'csv'},
+						{extend: 'excel', title: 'ExampleFile'},
+						{extend: 'pdf', title: 'ExampleFile'},
 
-		// $('.tabelaFinal').text(body);
-		// var table = document.getElementById ("tabelinha");
-	//   table.refresh ();
+						{extend: 'print',
+						 customize: function (win){
+										$(win.document.body).addClass('white-bg');
+										$(win.document.body).css('font-size', '10px');
+
+										$(win.document.body).find('table')
+														.addClass('compact')
+														.css('font-size', 'inherit');
+													}
+						}
+					]
+			});
+		}else{
+			var tabela = $('#tabelaDados').DataTable({
+				data: dados,
+				searching: true,
+				paging: true,
+				ordering: false,
+				// scrollY: 600,
+				// fixedHeader: true,
+				paginate: {
+					previous: 'Anterior',
+					next:     'Próxima'
+				},
+				language: { //https://datatables.net/reference/option/language
+					info: "Visualizando página _PAGE_ de _PAGES_",
+					search: "Buscar"
+				},
+				columns: [
+					{ title: "Período", width: "5%" },
+					{ title: "Mês / Ano", width: "15%" },
+					{ title: "Valor investido", width: "15%" },
+					{ title: "Rendimento mensal", width: "15%" },
+					{ title: "Saldo acumulado", width: "15%" },
+					{ title: "Objetivo", width: "15%" }
+				],
+				dom: '<"html5buttons"B>lTfgitp',
+				buttons: [
+					{extend: 'copy'},
+					{extend: 'csv'},
+					{extend: 'excel', title: 'ExampleFile'},
+					{extend: 'pdf', title: 'ExampleFile'},
+
+					{extend: 'print',
+					 customize: function (win){
+									$(win.document.body).addClass('white-bg');
+									$(win.document.body).css('font-size', '10px');
+
+									$(win.document.body).find('table')
+													.addClass('compact')
+													.css('font-size', 'inherit');
+												}
+					}
+				]
+			});
+		}
 	}
 
-	function get_options(){
+	function graphDraw(){
 
 		var retorno = buscarRendaMensalCalculandoRendimentos(Number(document.getElementById("investimentoInicial").value),
 																												 Number(document.getElementById("taxaJuros").value),
