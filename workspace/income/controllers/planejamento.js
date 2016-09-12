@@ -1,11 +1,13 @@
-var moment = require('moment');
-
 module.exports = function(app){
 	
 	var PlanejamentoController = {
-		renda_mensal:  function(req,res){
+		rendimento_mensal_independencia_financeira:  function(req,res){
 			req.flash('planejamento', true);
-			res.render('planejamento/renda-mensal', {moment: moment});
+			res.render('planejamento/rendimento-mensal-independencia-financeira');//, {moment: moment});
+		},
+		investimento_no_periodo:  function(req,res){
+			req.flash('planejamento', true);
+			res.render('planejamento/investimento-no-periodo');
 		}
 	}
 	return PlanejamentoController;

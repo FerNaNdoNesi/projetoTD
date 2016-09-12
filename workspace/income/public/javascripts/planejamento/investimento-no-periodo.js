@@ -39,10 +39,10 @@
 		var retorno = buscarRendaMensalCalculandoRendimentos( document.getElementById("investimentoInicial").value,
 																document.getElementById("taxaJuros").value,
 																document.getElementById("investimentoMensal").value,
-																document.getElementById("rendimentoObjetivo").value);		
-		var chart = new Highcharts.Chart(graphDraw());
-		chart.redraw();
-		tableDraw(retorno);
+																document.getElementById("periodoInvestindo").value);		
+		// var chart = new Highcharts.Chart(graphDraw());
+		// chart.redraw();
+		// tableDraw(retorno);
 				
 		var maxDate=new Date(Math.max.apply(null,retorno.ObjDataPeriodo));
 		var minDate=new Date(Math.min.apply(null,retorno.ObjDataPeriodo));
@@ -71,12 +71,11 @@
 		for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
 			var vet = [];
 			vet.push(retorno.ObjPeriodo[i]+'º');
-			vet.push(arrayMesDesc[retorno.ObjDataPeriodo[i].getMonth()]+" / "+retorno.ObjDataPeriodo[i].getFullYear());
+			vet.push(arrayMesMin[retorno.ObjDataPeriodo[i].getMonth()]+" / "+retorno.ObjDataPeriodo[i].getFullYear());
 			vet.push('R$ '+valorMoeda(retorno.ObjValorInvestidoTotal[i], 2, ',', '.'));
 			vet.push('R$ '+valorMoeda(retorno.ObjRendimentoTotal[i], 2, ',', '.'));
 			vet.push('R$ '+valorMoeda(retorno.ObjMontanteTotal[i], 2, ',', '.'));
-			vet.push('<small class="pull-right">'+(retorno.ObjPercentObjetivo[i]*100).toFixed(0)+'%</small><div class="progress progress-small"><div class="progress-bar" style="width: '+(retorno.ObjPercentObjetivo[i]*100).toFixed(0)+'%;"></div></div>');
-			// vet.push('<div><small class="pull-right">73%</small></div> <div class="progress progress-small"><div class="progress-bar" style="width: '+(retorno.ObjPercentObjetivo[i]*100).toFixed(0)+'%;"></div></div>');
+			vet.push('<small class="pull-right">&nbsp;&nbsp;'+(retorno.ObjPercentObjetivo[i]*100).toFixed(0)+'%</small><div class="progress progress-small"><div class="progress-bar" style="width: '+(retorno.ObjPercentObjetivo[i]*100).toFixed(0)+'%;"></div></div>');		
 			dados.push(vet);
 		}
 		
@@ -87,16 +86,23 @@
 					data: dados,
 					searching: true,
 					paging: true,
-					ordering: false,
-					// scrollY: 600,
-					// fixedHeader: true,
-					paginate: {
-						previous: 'Anterior',
-						next:     'Próxima'
-					},
+					ordering: false,		
+					lengthChange: true,
+					pageLength: 25,
+					lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"] ],
+					fixedHeader: true,
+					responsive: true,
 					language: { //https://datatables.net/reference/option/language
-						info: "Visualizando página _PAGE_ de _PAGES_",
-						search: "Buscar"
+						info: 'Visualizando página _PAGE_ de _PAGES_',
+						search: 'Filtrar&nbsp;',
+						emptyTable: 'Sem dados para visualização',
+						lengthMenu: 'Mostrar _MENU_ &nbsp;&nbsp;',
+						paginate: {
+							first:    'Primeira',
+							last:     'Última',
+							next:     'Próximo',
+							previous: 'Anterior'
+						},
 					},
 					columns: [
 						{ title: "Período", width: "5%" },
@@ -104,14 +110,14 @@
 						{ title: "Valor investido", width: "15%" },
 						{ title: "Rendimento mensal", width: "15%" },
 						{ title: "Saldo acumulado", width: "15%" },
-						{ title: "Objetivo", width: "15%" }
+						{ title: "Objetivo concluido", width: "15%" }
 					],
 					dom: '<"html5buttons"B>lTfgitp',
 					buttons: [
 						{extend: 'copy'},
 						{extend: 'csv'},
-						{extend: 'excel', title: 'ExampleFile'},
-						{extend: 'pdf', title: 'ExampleFile'},
+						{extend: 'excel', title: 'Resumo da simulação de quanto precisaria investir para atingir um rendimento mensal.'},
+						{extend: 'pdf', title: 'Resumo da simulação de quanto precisaria investir para atingir um rendimento mensal.'},
 
 						{extend: 'print',
 						 customize: function (win){
@@ -130,16 +136,23 @@
 				data: dados,
 				searching: true,
 				paging: true,
-				ordering: false,
-				// scrollY: 600,
-				// fixedHeader: true,
-				paginate: {
-					previous: 'Anterior',
-					next:     'Próxima'
-				},
+				ordering: false,		
+				lengthChange: true,
+				pageLength: 25,
+				lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"] ],
+				fixedHeader: true,
+				responsive: true,
 				language: { //https://datatables.net/reference/option/language
-					info: "Visualizando página _PAGE_ de _PAGES_",
-					search: "Buscar"
+					info: 'Visualizando página _PAGE_ de _PAGES_',
+					search: 'Filtrar&nbsp;',
+					emptyTable: 'Sem dados para visualização',
+					lengthMenu: 'Mostrar _MENU_ &nbsp;&nbsp;',
+					paginate: {
+						first:    'Primeira',
+						last:     'Última',
+						next:     'Próximo',
+						previous: 'Anterior'
+					},
 				},
 				columns: [
 					{ title: "Período", width: "5%" },
@@ -147,14 +160,14 @@
 					{ title: "Valor investido", width: "15%" },
 					{ title: "Rendimento mensal", width: "15%" },
 					{ title: "Saldo acumulado", width: "15%" },
-					{ title: "Objetivo", width: "15%" }
+					{ title: "Objetivo concluido", width: "15%" }
 				],
 				dom: '<"html5buttons"B>lTfgitp',
 				buttons: [
 					{extend: 'copy'},
 					{extend: 'csv'},
-					{extend: 'excel', title: 'ExampleFile'},
-					{extend: 'pdf', title: 'ExampleFile'},
+					{extend: 'excel', title: 'Resumo da simulação de quanto precisaria investir para atingir um rendimento mensal.'},
+					{extend: 'pdf', title: 'Resumo da simulação de quanto precisaria investir para atingir um rendimento mensal.'},
 
 					{extend: 'print',
 					 customize: function (win){
@@ -176,7 +189,7 @@
 		var retorno = buscarRendaMensalCalculandoRendimentos(Number(document.getElementById("investimentoInicial").value),
 																												 Number(document.getElementById("taxaJuros").value),
 																												 Number(document.getElementById("investimentoMensal").value),
-																												 Number(document.getElementById("rendimentoObjetivo").value));
+																												 Number(document.getElementById("periodoInvestindo").value));
 		var seriesRetorno = [], categoriasX = [];
 		seriesRetorno = seriesRetorno.concat({name: 'Rendimento Mensal',
 																		turboThreshold:10000, marker: {enabled : false},// lineWidth: 5,

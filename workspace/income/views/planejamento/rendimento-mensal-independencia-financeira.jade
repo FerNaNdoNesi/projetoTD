@@ -4,14 +4,14 @@ block painel
 	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
 	.row.wrapper.border-bottom.white-bg.page-heading
 		.col-lg-10
-			h2 Renda Mensal
+			h2 Rendimento Mensal
 			ol.breadcrumb
 				li
 					a(href='/') Inicio
 				li
 					| Planejamento
 				li.active
-					strong Renda Mensal
+					strong Rendimento Mensal
 		.col-lg-2
 	.row.m-b-lg.m-t-lg
 		.col-md-6.col-md-offset-3
@@ -22,7 +22,7 @@ block painel
 					div
 						h2.no-margins
 							| Objetivo | Atingir um rendimento mensal
-						h4 Simule quanto precisaria investir para atingir um rendimento mensal.
+						h4 Simule quanto precisaria investir para atingir um rendimento mensal e garantir sua aposentadoria.
 						small
 							| Informe um capital inicial e seus investimentos fixos mensais, atualizando também a taxa de juros anual.
 	.row
@@ -109,7 +109,9 @@ block painel
 		.col-lg-12
 			.ibox.float-e-margins
 				.ibox-title
-					h5 Basic Data Tables example with responsive plugin
+					h5 
+						| Tabela com detalhamento por perído 
+						small Resumo da simulação de quanto precisaria investir para atingir um rendimento mensal.
 					.ibox-tools
 						a.collapse-link
 							i.fa.fa-chevron-up
@@ -118,6 +120,9 @@ block painel
 						table.table-hover.footable.table.table-stripped#tabelaDados
 						//- table.table.table-striped.table-bordered.table-hover.dataTables-example
 						//- .footable.table.table-stripped(data-page-size='8', data-filter='#filter')
+	.row
+		.col-lg-12
+			p &nbsp;
 
 	// TouchSpin
 	script(src='/bootstrap/js/jquery-2.1.1.js')
@@ -126,7 +131,7 @@ block painel
 	script(src='/bootstrap/js/modules/exporting.js')
 	script(src='/javascripts/financesjs/funcoesFinances.js')
 	script(src='/javascripts/financesjs/funcoesDatas.js')
-	script(src='/javascripts/planejamento/renda-mensal.js')
+	script(src='/javascripts/planejamento/rendimento-mensal-independencia-financeira.js')
 	script(src='/bootstrap/js/plugins/footable/footable.all.min.js')
 	script(src='/bootstrap/js/plugins/dataTables/datatables.min.js')
 	
