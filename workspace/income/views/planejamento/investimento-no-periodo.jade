@@ -31,13 +31,13 @@ block painel
 				.ibox-title
 					h5
 						| Parâmetros de entrada 
-						small Simule quando precisa investir ao mês para alcançar a sua independência financeira.
+						small Simule qual será o capital obtido após um período de investimentos mensais.
 				.ibox-content
 					.row.text-center
 						.col-md-3
 							p.font-bold
-								| Período investindo (meses)
-							input.periodoInvestindo.single-line#periodoInvestindo(type='text', value='36.0', name='Período Investindo')
+								| Tempo investindo (meses)
+							input.tempoInvestindo.single-line#tempoInvestindo(type='text', value='180.0', name='Período Investindo')
 						.col-md-3
 							p.font-bold
 								| Capital inicial
@@ -45,7 +45,7 @@ block painel
 						.col-md-3
 							p.font-bold
 								| Investimento mensal
-							input.investimentoMensal.single-line#investimentoMensal(type='text', value='700.0', name='investimento Mensal')
+							input.investimentoMensal.single-line#investimentoMensal(type='text', value='550.0', name='investimento Mensal')
 						.col-md-3
 							p.font-bold
 								| Taxa de juros (ao ano)
@@ -87,7 +87,7 @@ block painel
 						.col-xs-4
 							i.fa.fa-diamond.fa-4x
 						.col-xs-8.text-right
-							span Rendimento mensal atingido
+							span Rendimento total no período
 							h3.font-bold
 								.valueRendimentoTotal
 	.row
@@ -96,7 +96,7 @@ block painel
 				.ibox-title
 					h5
 						| Gráfico da linha do tempo  
-						small Observe o rendimento obtido mês a mês com seus investintos
+						small Observe o valor investido X capital acumulado mês a mês com seus investintos
 					.ibox-tools
 						a.collapse-link
 							i.fa.fa-chevron-up
@@ -111,7 +111,7 @@ block painel
 				.ibox-title
 					h5 
 						| Tabela com detalhamento por perído 
-						small Resumo da simulação de quanto precisaria investir para atingir um rendimento mensal.
+						small Resumo da simulação de seus investimentos durante o período estabelecido.
 					.ibox-tools
 						a.collapse-link
 							i.fa.fa-chevron-up
@@ -138,7 +138,7 @@ block painel
 	script.
 		$(document).ready(function(){
 			atualizaResultado();		
-			$('.periodoInvestindo').on('touchspin.on.startspin', function f(){
+			$('.tempoInvestindo').on('touchspin.on.startspin', function f(){
 				atualizaResultado();
 			});
 			$('.investimentoInicial').on('touchspin.on.startspin', function f(){
@@ -151,7 +151,7 @@ block painel
 				atualizaResultado();
 			});
 
-			$('.periodoInvestindo').blur(function f(){
+			$('.tempoInvestindo').blur(function f(){
 				atualizaResultado();
 			});
 			$('.investimentoInicial').blur(function f(){
@@ -164,12 +164,12 @@ block painel
 				atualizaResultado();
 			});
 
-			$(".periodoInvestindo").TouchSpin({
+			$(".tempoInvestindo").TouchSpin({
 				//- prefix: 'meses',
 				buttondown_class: 'btn btn-white',
 				buttonup_class: 'btn btn-white',
 				decimals: 0,
-				initval: 36,
+				initval: 180,
 				min: 0,
 				max: 100000000000,
 				step: 1,
@@ -195,7 +195,7 @@ block painel
 				buttondown_class: 'btn btn-white',
 				buttonup_class: 'btn btn-white',
 				decimals: 2,
-				initval: 780,
+				initval: 550,
 				min: 0,
 				max: 100000000000,
 				step: 50,
@@ -211,7 +211,7 @@ block painel
 					initval: 12,
 					min: 0,
 					max: 100000000000,
-					step:0.1,
+					step:0.5,
 					verticalbuttons: true,
 					verticalupclass: 'fa fa-plus',
 					verticaldownclass: 'fa fa-minus'

@@ -36,13 +36,13 @@
 			arrayMesMin[11] = "Dez";	
 
 	function atualizaResultado(){
-		var retorno = buscarRendaMensalCalculandoRendimentos( document.getElementById("investimentoInicial").value,
+		var retorno = calculandoRendimentosComDepositoNoPeriodo(document.getElementById("investimentoInicial").value,
 																document.getElementById("taxaJuros").value,
 																document.getElementById("investimentoMensal").value,
-																document.getElementById("periodoInvestindo").value);		
-		// var chart = new Highcharts.Chart(graphDraw());
-		// chart.redraw();
-		// tableDraw(retorno);
+																document.getElementById("tempoInvestindo").value);		
+		var chart = new Highcharts.Chart(graphDraw());
+		chart.redraw();
+		tableDraw(retorno);
 				
 		var maxDate=new Date(Math.max.apply(null,retorno.ObjDataPeriodo));
 		var minDate=new Date(Math.min.apply(null,retorno.ObjDataPeriodo));
@@ -55,7 +55,7 @@
 
 		$('.valueValorInvestidoTotal').text('R$ '+valorMoeda(valorInvestidoTotal, 2, ',', '.'));
 		$('.valueMontanteTotal').text('R$ '+valorMoeda(montanteTotal, 2, ',', '.'));
-		$('.valueRendimentoTotal').text('R$ '+valorMoeda(rendimentoTotal, 2, ',', '.'));
+		$('.valueRendimentoTotal').text('R$ '+valorMoeda((montanteTotal-valorInvestidoTotal), 2, ',', '.'));
 		if(diffMes >=12){
 			$('.valueAnos').text(diferencaAnos+' Anos');
 		}else
@@ -75,7 +75,7 @@
 			vet.push('R$ '+valorMoeda(retorno.ObjValorInvestidoTotal[i], 2, ',', '.'));
 			vet.push('R$ '+valorMoeda(retorno.ObjRendimentoTotal[i], 2, ',', '.'));
 			vet.push('R$ '+valorMoeda(retorno.ObjMontanteTotal[i], 2, ',', '.'));
-			vet.push('<small class="pull-right">&nbsp;&nbsp;'+(retorno.ObjPercentObjetivo[i]*100).toFixed(0)+'%</small><div class="progress progress-small"><div class="progress-bar" style="width: '+(retorno.ObjPercentObjetivo[i]*100).toFixed(0)+'%;"></div></div>');		
+			vet.push('<small class="pull-right">&nbsp;&nbsp;'+(retorno.ObjPercentTempoInvestindo[i]*100).toFixed(0)+'%</small><div class="progress progress-small"><div class="progress-bar" style="width: '+(retorno.ObjPercentTempoInvestindo[i]*100).toFixed(0)+'%;"></div></div>');		
 			dados.push(vet);
 		}
 		
@@ -186,20 +186,20 @@
 
 	function graphDraw(){
 
-		var retorno = buscarRendaMensalCalculandoRendimentos(Number(document.getElementById("investimentoInicial").value),
+		var retorno = calculandoRendimentosComDepositoNoPeriodo(Number(document.getElementById("investimentoInicial").value),
 																												 Number(document.getElementById("taxaJuros").value),
 																												 Number(document.getElementById("investimentoMensal").value),
-																												 Number(document.getElementById("periodoInvestindo").value));
+																												 Number(document.getElementById("tempoInvestindo").value));
 		var seriesRetorno = [], categoriasX = [];
-		seriesRetorno = seriesRetorno.concat({name: 'Rendimento Mensal',
+		seriesRetorno = seriesRetorno.concat({name: 'Valor Investido',
 																		turboThreshold:10000, marker: {enabled : false},// lineWidth: 5,
-																		data: retorno.ObjRendimentoTotal});
-		seriesRetorno = seriesRetorno.concat({name: 'Depósito Mensal',
-																		turboThreshold:10000, marker: {enabled : false}, dashStyle: 'longdash', lineWidth: 1,
-																		data: retorno.ObjDepositoMensal});
-		seriesRetorno = seriesRetorno.concat({name: 'Rendimento Objetivo',
-																		turboThreshold:10000, marker: {enabled : false}, dashStyle: 'longdash'/*dot*/, lineWidth: 1,
-																		data: retorno.ObjRendimentoObjetivo});
+																		data: retorno.ObjValorInvestidoTotal});
+		seriesRetorno = seriesRetorno.concat({name: 'Montante Acumulado',
+																		turboThreshold:10000, marker: {enabled : false},// dashStyle: 'longdash', lineWidth: 1,
+																		data: retorno.ObjMontanteTotal});
+		// seriesRetorno = seriesRetorno.concat({name: 'Tempo Objetivo',
+		// 																turboThreshold:10000, marker: {enabled : false}, dashStyle: 'longdash'/*dot*/, lineWidth: 1,
+		// 																data: retorno.ObjTempoInvestindo});
 		var date1, valor;
 		for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
 			categoriasX.push(arrayMesMin[retorno.ObjDataPeriodo[i].getMonth()]+"/"+retorno.ObjDataPeriodo[i].getFullYear());

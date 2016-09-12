@@ -140,3 +140,114 @@ function buscarRendaMensalCalculandoRendimentos(capitalInicial, taxa, depositos,
 // 							(retorno.ObjPercentObjetivo[i]*100).toFixed(2)+" %"
 // 						);
 // }
+
+function calculandoRendimentosComDepositoNoPeriodo(capitalInicial, taxa, depositos, tempoInvestindo){
+	taxa = (taxa/12)/100;
+	var periodo = 0;
+	var dtAtual = new Date(); // Em js getMonth() Mês 0~11
+	
+	var ObjPeriodo = [],
+			ObjDataPeriodo = [],
+			ObjMesAno = [],
+			ObjValorInvestidoDepositos = [],
+			ObjValorInvestidoCapital = [],
+			ObjValorInvestidoTotal = [],
+			ObjRendimentoDepositos = [],
+			ObjRendimentoCapital = [],
+			ObjRendimentoTotal = [],
+			ObjMontanteDepositos = [],
+			ObjMontanteCapital = [],
+			ObjMontanteTotal = [],
+			ObjDepositoMensal = [],
+			ObjTempoInvestindo = [],
+			ObjUpValor = [],
+			ObjPercentTempoInvestindo = [];
+	
+	for(periodo = 1; periodo <= tempoInvestindo; periodo++){ // enquanto não chegar ao rendimento mensal objetivo
+		
+		montanteDepositos = formulaAplDepRegBCB(depositos, taxa, periodo);
+		montanteDepositosAnt = formulaAplDepRegBCB(depositos, taxa, periodo-1);
+		montanteCapital = formulaAplDepUnicBCB(capitalInicial, taxa, periodo);
+		montanteCapitalAnt = formulaAplDepUnicBCB(capitalInicial, taxa, periodo-1);
+		rendimentoDepositos = montanteDepositos - montanteDepositosAnt - depositos;
+		rendimentoCapital = montanteCapital - montanteCapitalAnt;
+		montanteTotal = montanteDepositos + montanteCapital;
+		montanteTotalAnt = montanteDepositosAnt + montanteCapitalAnt;
+		upValor = montanteTotal - montanteTotalAnt;
+		rendimentoTotal = rendimentoDepositos + rendimentoCapital;
+		valorInvestidoDepositos = depositos * periodo;
+		valorInvestidoCapital = capitalInicial;
+		valorInvestidoTotal = Number(capitalInicial) + Number(valorInvestidoDepositos);
+		if(tempoInvestindo!= 0)
+			percentTempoInvestindo = periodo/tempoInvestindo;
+		else
+			percentTempoInvestindo = 0;
+		console.log("\n"+tempoInvestindo+"/"+periodo+"\n obj: "+percentTempoInvestindo);
+
+		//Objetos referente aos valores
+		ObjPeriodo.push(periodo);			
+		ObjValorInvestidoDepositos.push(valorInvestidoDepositos);
+		ObjValorInvestidoCapital.push(valorInvestidoCapital);
+		ObjValorInvestidoTotal.push(valorInvestidoTotal);
+		ObjRendimentoDepositos.push(rendimentoDepositos);
+		ObjRendimentoCapital.push(rendimentoCapital);
+		ObjRendimentoTotal.push(rendimentoTotal);
+		ObjMontanteDepositos.push(montanteDepositos);
+		ObjMontanteCapital.push(montanteCapital);
+		ObjMontanteTotal.push(montanteTotal);
+		ObjDepositoMensal.push(depositos);
+		ObjTempoInvestindo.push(tempoInvestindo);
+		ObjUpValor.push(upValor);		
+		ObjPercentTempoInvestindo.push(percentTempoInvestindo);
+		//Objetos referente ao período			
+		dtAtual.setMonth(dtAtual.getMonth()+1);
+		ObjDataPeriodo.push(new Date(dtAtual));
+
+	}
+
+	return ({ObjPeriodo: ObjPeriodo,
+			 ObjDataPeriodo: ObjDataPeriodo,
+			 //Valores Referente ao Capital
+			 ObjValorInvestidoCapital: ObjValorInvestidoCapital,
+			 ObjRendimentoCapital: ObjRendimentoCapital,
+			 ObjMontanteCapital: ObjMontanteCapital,
+			 //Valores Referente aos Depósitos
+			 ObjValorInvestidoDepositos: ObjValorInvestidoDepositos,
+			 ObjRendimentoDepositos: ObjRendimentoDepositos,
+			 ObjMontanteDepositos: ObjMontanteDepositos,
+			 //Valores Referente ao Total
+			 ObjValorInvestidoTotal: ObjValorInvestidoTotal,
+			 ObjRendimentoTotal: ObjRendimentoTotal,
+			 ObjMontanteTotal: ObjMontanteTotal,
+			 //Valores Referente ao Parametros
+			 ObjDepositoMensal: ObjDepositoMensal,
+			 ObjTempoInvestindo: ObjTempoInvestindo,
+			 ObjUpValor: ObjUpValor,
+			 ObjPercentTempoInvestindo: ObjPercentTempoInvestindo
+		});
+}
+
+// retorno = calculandoRendimentosComDepositoNoPeriodo(1000, 12, 100, 12);
+// // // console.log(retorno);
+		
+// for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
+// 	console.log("\n("+retorno.ObjPeriodo[i]+") "+
+// 							retorno.ObjDataPeriodo[i].getMonth()+"/"+retorno.ObjDataPeriodo[i].getFullYear()+
+// 							"\n\t\t Capital \tDepositos \t Total\n Investimento \t"+
+// 							retorno.ObjValorInvestidoCapital[i].toFixed(2)+" \t"+
+// 							retorno.ObjValorInvestidoDepositos[i].toFixed(2)+" \t"+
+// 							retorno.ObjValorInvestidoTotal[i].toFixed(2)+"\n Rendimento \t"+
+							
+// 							retorno.ObjRendimentoCapital[i].toFixed(2)+" \t \t"+
+// 							retorno.ObjRendimentoDepositos[i].toFixed(2)+" \t \t"+
+// 							retorno.ObjRendimentoTotal[i].toFixed(2)+"\n Montante \t"+
+							
+// 							retorno.ObjMontanteCapital[i].toFixed(2)+"\t \t"+
+// 							retorno.ObjMontanteDepositos[i].toFixed(2)+"\t"+
+// 							retorno.ObjMontanteTotal[i].toFixed(2)+"\n\n Depósito: "+
+// 							retorno.ObjDepositoMensal[i].toFixed(2)+" | Tempo investindo: "+
+// 							retorno.ObjTempoInvestindo[i].toFixed(0)+" | Up: "+
+// 							retorno.ObjUpValor[i].toFixed(2)+" | Percent: "+
+// 							(retorno.ObjPercentTempoInvestindo[i]*100).toFixed(2)+" %"
+// 						);
+// }
