@@ -162,6 +162,7 @@ function calculandoRendimentosComDepositoNoPeriodo(capitalInicial, taxa, deposit
 			ObjTempoInvestindo = [],
 			ObjUpValor = [],
 			ObjPercentTempoInvestindo = [];
+			ObjRendimentoAcumulado = [];
 	
 	for(periodo = 1; periodo <= tempoInvestindo; periodo++){ // enquanto não chegar ao rendimento mensal objetivo
 		
@@ -178,6 +179,7 @@ function calculandoRendimentosComDepositoNoPeriodo(capitalInicial, taxa, deposit
 		valorInvestidoDepositos = depositos * periodo;
 		valorInvestidoCapital = capitalInicial;
 		valorInvestidoTotal = Number(capitalInicial) + Number(valorInvestidoDepositos);
+		rendimentoAcumulado = Number(montanteTotal) - Number(valorInvestidoTotal);
 		if(tempoInvestindo!= 0)
 			percentTempoInvestindo = periodo/tempoInvestindo;
 		else
@@ -199,6 +201,7 @@ function calculandoRendimentosComDepositoNoPeriodo(capitalInicial, taxa, deposit
 		ObjTempoInvestindo.push(tempoInvestindo);
 		ObjUpValor.push(upValor);		
 		ObjPercentTempoInvestindo.push(percentTempoInvestindo);
+		ObjRendimentoAcumulado.push(rendimentoAcumulado);
 		//Objetos referente ao período			
 		dtAtual.setMonth(dtAtual.getMonth()+1);
 		ObjDataPeriodo.push(new Date(dtAtual));
@@ -223,7 +226,8 @@ function calculandoRendimentosComDepositoNoPeriodo(capitalInicial, taxa, deposit
 			 ObjDepositoMensal: ObjDepositoMensal,
 			 ObjTempoInvestindo: ObjTempoInvestindo,
 			 ObjUpValor: ObjUpValor,
-			 ObjPercentTempoInvestindo: ObjPercentTempoInvestindo
+			 ObjPercentTempoInvestindo: ObjPercentTempoInvestindo,
+			 ObjRendimentoAcumulado: ObjRendimentoAcumulado
 		});
 }
 
