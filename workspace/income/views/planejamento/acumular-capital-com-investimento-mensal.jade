@@ -4,14 +4,14 @@ block painel
 	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
 	.row.wrapper.border-bottom.white-bg.page-heading
 		.col-lg-10
-			h2 Rendimento Mensal
+			h2 Acumular Capital
 			ol.breadcrumb
 				li
 					a(href='/') Inicio
 				li
 					| Planejamento
 				li.active
-					strong Rendimento Mensal
+					strong Acumular Capital
 		.col-lg-2
 	.row.m-b-lg.m-t-lg
 		.col-md-6.col-md-offset-3
@@ -21,8 +21,8 @@ block painel
 				div
 					div
 						h2.no-margins
-							| Objetivo | Atingir um rendimento mensal
-						h4 Simule quanto precisaria investir para atingir um rendimento mensal e garantir sua aposentadoria.
+							| Objetivo | Acumular Capital
+						h4 Simule quanto precisaria investir para atingir um valor de capital desejado.
 						small
 							| Informe um capital inicial e seus investimentos fixos mensais, atualizando também a taxa de juros anual.
 	.row
@@ -31,13 +31,13 @@ block painel
 				.ibox-title
 					h5
 						| Parâmetros de entrada 
-						small Simule quando precisa investir ao mês para alcançar a sua independência financeira.
+						small Simule quando precisa investir ao mês para alcançar um valor de capital desejado.
 				.ibox-content
 					.row.text-center
 						.col-md-3
 							p.font-bold
-								| Objetivo de renda
-							input.rendimentoObjetivo.single-line#rendimentoObjetivo(type='text', value='1000.00', name='Rendimento Objetivo')
+								| Objetivo de capital
+							input.capitalObjetivo.single-line#capitalObjetivo(type='text', value='60000.00', name='Capital Objetivo')
 						.col-md-3
 							p.font-bold
 								| Capital inicial
@@ -69,34 +69,34 @@ block painel
 						.col-xs-4
 							i.fa.fa-money.fa-4x
 						.col-xs-8.text-right
-							span  Valor total investido
+							span  Valor investido no total
 							h3.font-bold
 								.valueValorInvestidoTotal
-			.col-lg-3
-				.widget.style1.lazur-bg
-					.row
-						.col-xs-4
-							i.fa.fa-bank.fa-4x
-						.col-xs-8.text-right
-							span  Saldo final acumulado
-							h3.font-bold
-								.valueMontanteTotal
 			.col-lg-3
 				.widget.style1.yellow-bg
 					.row
 						.col-xs-4
 							i.fa.fa-diamond.fa-4x
 						.col-xs-8.text-right
-							span Rendimento mensal atingido
+							span Rendimento final acumulado
 							h3.font-bold
 								.valueRendimentoTotal
+			.col-lg-3
+				.widget.style1.lazur-bg
+					.row
+						.col-xs-4
+							i.fa.fa-bank.fa-4x
+						.col-xs-8.text-right
+							span  Capital final acumulado
+							h3.font-bold
+								.valueMontanteTotal
 	.row
 		.col-lg-12
 			.ibox.float-e-margins
 				.ibox-title
 					h5
 						| Gráfico da linha do tempo  
-						small Observe o rendimento obtido mês a mês com seus investintos
+						small Observe o valor de capital atingido mês a mês com seus investintos
 					.ibox-tools
 						a.collapse-link
 							i.fa.fa-chevron-up
@@ -111,7 +111,7 @@ block painel
 				.ibox-title
 					h5 
 						| Tabela com detalhamento por perído 
-						small Resumo da simulação de quanto precisaria investir para atingir um rendimento mensal.
+						small Detalhamento da simulação de quanto precisaria investir para atingir um valor desejado de capital.
 					.ibox-tools
 						a.collapse-link
 							i.fa.fa-chevron-up
@@ -131,14 +131,14 @@ block painel
 	script(src='/bootstrap/js/modules/exporting.js')
 	script(src='/javascripts/financesjs/funcoesFinances.js')
 	script(src='/javascripts/financesjs/funcoesDatas.js')
-	script(src='/javascripts/planejamento/rendimento-mensal-independencia-financeira.js')
+	script(src='/javascripts/planejamento/acumular-capital-com-investimento-mensal.js')
 	script(src='/bootstrap/js/plugins/footable/footable.all.min.js')
 	script(src='/bootstrap/js/plugins/dataTables/datatables.min.js')
 	
 	script.
 		$(document).ready(function(){
 			atualizaResultado();		
-			$('.rendimentoObjetivo').on('touchspin.on.startspin', function f(){
+			$('.capitalObjetivo').on('touchspin.on.startspin', function f(){
 				atualizaResultado();
 			});
 			$('.investimentoInicial').on('touchspin.on.startspin', function f(){
@@ -151,7 +151,7 @@ block painel
 				atualizaResultado();
 			});
 
-			$('.rendimentoObjetivo').blur(function f(){
+			$('.capitalObjetivo').blur(function f(){
 				atualizaResultado();
 			});
 			$('.investimentoInicial').blur(function f(){
@@ -164,15 +164,15 @@ block painel
 				atualizaResultado();
 			});
 
-			$(".rendimentoObjetivo").TouchSpin({
+			$(".capitalObjetivo").TouchSpin({
 				prefix: 'R$',
 				buttondown_class: 'btn btn-white',
 				buttonup_class: 'btn btn-white',
 				decimals: 2,
-				initval: 1200,
+				initval: 60000,
 				min: 0,
 				max: 100000000000,
-				step: 50,
+				step: 100,
 				verticalbuttons: true,
 				verticalupclass: 'fa fa-plus',
 				verticaldownclass: 'fa fa-minus'

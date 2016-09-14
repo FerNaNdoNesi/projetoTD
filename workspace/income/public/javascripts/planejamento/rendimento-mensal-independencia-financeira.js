@@ -109,8 +109,8 @@
 						{ title: "Mês / Ano", width: "15%" },
 						{ title: "Valor investido", width: "15%" },
 						{ title: "Rendimento mensal", width: "15%" },
-						{ title: "Saldo acumulado", width: "15%" },
-						{ title: "Objetivo concluido", width: "15%" }
+						{ title: "Capital acumulado", width: "15%" },
+						{ title: "Objetivo concluído", width: "15%" }
 					],
 					dom: '<"html5buttons"B>lTfgitp',
 					buttons: [
@@ -159,8 +159,8 @@
 					{ title: "Mês / Ano", width: "15%" },
 					{ title: "Valor investido", width: "15%" },
 					{ title: "Rendimento mensal", width: "15%" },
-					{ title: "Saldo acumulado", width: "15%" },
-					{ title: "Objetivo concluido", width: "15%" }
+					{ title: "Capital acumulado", width: "15%" },
+					{ title: "Objetivo concluído", width: "15%" }
 				],
 				dom: '<"html5buttons"B>lTfgitp',
 				buttons: [

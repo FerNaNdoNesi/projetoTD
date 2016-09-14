@@ -36,10 +36,10 @@
 			arrayMesMin[11] = "Dez";	
 
 	function atualizaResultado(){
-		var retorno = calculandoRendimentosComDepositoNoPeriodo(document.getElementById("investimentoInicial").value,
+		var retorno = buscarAcumularCapitalCalculandoRendimentos( document.getElementById("investimentoInicial").value,
 																document.getElementById("taxaJuros").value,
 																document.getElementById("investimentoMensal").value,
-																document.getElementById("tempoInvestindo").value);		
+																document.getElementById("capitalObjetivo").value);		
 		var chart = new Highcharts.Chart(graphDraw());
 		chart.redraw();
 		tableDraw(retorno);
@@ -48,14 +48,14 @@
 		var minDate=new Date(Math.min.apply(null,retorno.ObjDataPeriodo));
 		var valorInvestidoTotal = Math.max.apply(null,retorno.ObjValorInvestidoTotal);
 		var montanteTotal = Math.max.apply(null,retorno.ObjMontanteTotal);
-		var rendimentoTotal = Math.max.apply(null,retorno.ObjRendimentoTotal);
+		var rendimentoAcumulado = Math.max.apply(null,retorno.ObjRendimentoAcumulado);
 		
 		var diffMes = Date.DateDiff('m', minDate,maxDate) + 1;
 		var diferencaAnos = Math.floor(diffMes/12);
 
 		$('.valueValorInvestidoTotal').text('R$ '+valorMoeda(valorInvestidoTotal, 2, ',', '.'));
 		$('.valueMontanteTotal').text('R$ '+valorMoeda(montanteTotal, 2, ',', '.'));
-		$('.valueRendimentoTotal').text('R$ '+valorMoeda((montanteTotal-valorInvestidoTotal), 2, ',', '.'));
+		$('.valueRendimentoTotal').text('R$ '+valorMoeda(rendimentoAcumulado, 2, ',', '.'));
 		if(diffMes >=12){
 			$('.valueAnos').text(diferencaAnos+' Anos');
 		}else
@@ -77,7 +77,7 @@
 			vet.push('R$ '+valorMoeda(retorno.ObjMontanteTotal[i]-retorno.ObjValorInvestidoTotal[i], 2, ',', '.'));
 			vet.push(retorno.ObjRentabilidadePercent[i].toFixed(1)+'%');
 			vet.push('R$ '+valorMoeda(retorno.ObjMontanteTotal[i], 2, ',', '.'));
-			vet.push('<small class="pull-right">&nbsp;&nbsp;'+(retorno.ObjPercentTempoInvestindo[i]*100).toFixed(0)+'%</small><div class="progress progress-small"><div class="progress-bar" style="width: '+(retorno.ObjPercentTempoInvestindo[i]*100).toFixed(0)+'%;"></div></div>');		
+			vet.push('<small class="pull-right">&nbsp;&nbsp;'+(retorno.ObjPercentObjetivo[i]*100).toFixed(0)+'%</small><div class="progress progress-small"><div class="progress-bar" style="width: '+(retorno.ObjPercentObjetivo[i]*100).toFixed(0)+'%;"></div></div>');		
 			dados.push(vet);
 		}
 		
@@ -110,7 +110,7 @@
 						{ title: "Período", width: "5%" },
 						{ title: "Mês / Ano", width: "10%" },
 						{ title: "Rendimento no mês", width: "15%" },
-						{ title: "Valor investido", width: "15%" },
+						{ title: "Valor total investido", width: "15%" },
 						{ title: "Rendimento acumulado", width: "15%" },
 						{ title: "Rentabilidade (%)", width: "5%" },
 						{ title: "Capital acumulado", width: "15%" },
@@ -120,8 +120,8 @@
 					buttons: [
 						{extend: 'copy'},
 						{extend: 'csv'},
-						{extend: 'excel', title: 'Detalhamento da simulação de seus investimentos durante um período investindo mensalmente'},
-						{extend: 'pdf', title: 'Detalhamento da simulação de seus investimentos durante um período investindo mensalmente'},
+						{extend: 'excel', title: 'Detalhamento da simulação de quanto precisaria investir para atingir um valor desejado de capital'},
+						{extend: 'pdf', title: 'Detalhamento da simulação de quanto precisaria investir para atingir um valor desejado de capital'},
 
 						{extend: 'print',
 						 customize: function (win){
@@ -162,7 +162,7 @@
 					{ title: "Período", width: "5%" },
 					{ title: "Mês / Ano", width: "10%" },
 					{ title: "Rendimento no mês", width: "15%" },
-					{ title: "Valor investido", width: "15%" },
+					{ title: "Valor total investido", width: "15%" },
 					{ title: "Rendimento acumulado", width: "15%" },
 					{ title: "Rentabilidade (%)", width: "5%" },
 					{ title: "Capital acumulado", width: "15%" },
@@ -172,8 +172,8 @@
 				buttons: [
 					{extend: 'copy'},
 					{extend: 'csv'},
-					{extend: 'excel', title: 'Detalhamento da simulação de seus investimentos durante um período investindo mensalmente'},
-					{extend: 'pdf', title: 'Detalhamento da simulação de seus investimentos durante um período investindo mensalmente'},
+					{extend: 'excel', title: 'Detalhamento da simulação de quanto precisaria investir para atingir um valor desejado de capital'},
+					{extend: 'pdf', title: 'Detalhamento da simulação de quanto precisaria investir para atingir um valor desejado de capital'},
 
 					{extend: 'print',
 					 customize: function (win){
@@ -192,23 +192,24 @@
 
 	function graphDraw(){
 
-		var retorno = calculandoRendimentosComDepositoNoPeriodo(Number(document.getElementById("investimentoInicial").value),
+		var retorno = buscarAcumularCapitalCalculandoRendimentos(Number(document.getElementById("investimentoInicial").value),
 																												 Number(document.getElementById("taxaJuros").value),
 																												 Number(document.getElementById("investimentoMensal").value),
-																												 Number(document.getElementById("tempoInvestindo").value));
+																												 Number(document.getElementById("capitalObjetivo").value));
 		var seriesRetorno = [], categoriasX = [];
 		seriesRetorno = seriesRetorno.concat({name: 'Valor Investido',
 																		turboThreshold:10000, marker: {enabled : false},// lineWidth: 5,
 																		data: retorno.ObjValorInvestidoTotal});
+		seriesRetorno = seriesRetorno.concat({name: 'Capital Objetivo',
+																		turboThreshold:10000, marker: {enabled : false}, dashStyle: 'longdash'/*dot*/, lineWidth: 1,
+																		data: retorno.ObjCapitalObjetivo});
 		seriesRetorno = seriesRetorno.concat({name: 'Capital Acumulado',
 																		turboThreshold:10000, marker: {enabled : false},// dashStyle: 'longdash', lineWidth: 1,
 																		data: retorno.ObjMontanteTotal});
-		seriesRetorno = seriesRetorno.concat({name: 'Rendimento Acumulado',
-																		turboThreshold:10000, marker: {enabled : false}, dashStyle: 'longdash'/*dot*/, lineWidth: 1,
-																		data: retorno.ObjRendimentoAcumulado});
+		
 		var date1, valor;
 		for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
-			categoriasX.push(/*""+retorno.ObjPeriodo[i]+"º | "+*/arrayMesMin[retorno.ObjDataPeriodo[i].getMonth()]+"/"+retorno.ObjDataPeriodo[i].getFullYear());
+			categoriasX.push(arrayMesMin[retorno.ObjDataPeriodo[i].getMonth()]+"/"+retorno.ObjDataPeriodo[i].getFullYear());
 		}
 
 		Highcharts.setOptions({

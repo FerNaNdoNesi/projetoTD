@@ -1,0 +1,104 @@
+extends ../dashboard
+
+block painel
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+	.row.wrapper.border-bottom.white-bg.page-heading
+		.col-lg-10
+			h2 Draggable Panels - Dra&Drop box
+			ol.breadcrumb
+				li
+					a(href='index.html') Home
+				li
+					a Tables
+				li.active
+					strong Draggable Panels - Dra&Drop box
+		.col-lg-2
+	.wrapper.wrapper-content.animated.fadeInRight
+		#sortable-view.row
+			.col-lg-6
+				.ibox
+					.ibox-title
+						h5 Drag&Drop
+						.ibox-tools
+							label.label.label-primary You can drag and drop me to other box.
+					.ibox-content
+						h2
+							| This is simple box container nr. 1
+						p
+							| Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+							| printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+							| remaining essentially unchanged.
+				.ibox
+					.ibox-title
+						h5 Drag&Drop
+						.ibox-tools
+							a.collapse-link
+								i.fa.fa-chevron-up
+							a.dropdown-toggle(data-toggle='dropdown', href='#')
+								i.fa.fa-wrench
+							ul.dropdown-menu.dropdown-user
+								li
+									a(href='#') Config option 1
+								li
+									a(href='#') Config option 2
+							a.close-link
+								i.fa.fa-times
+					.ibox-content
+						h2
+							| This is simple box container nr. 3
+						p
+							| Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+							| printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+							| remaining essentially unchanged.
+			.col-lg-6
+				.ibox
+					.ibox-title
+						h5 Drag&Drop
+					.ibox-content
+						h2
+							| This is simple box container nr. 2
+						p
+							| Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+							| printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+							| remaining essentially unchanged.
+				.ibox
+					.ibox-title
+						h5 Drag&Drop
+					.ibox-content
+						h2
+							| This is simple box container nr. 4
+						p
+							| Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+							| printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+							| remaining essentially unchanged.
+
+	// TouchSpin
+	script(src='/bootstrap/js/jquery-2.1.1.js')
+	script(src='/bootstrap/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js')
+	script(src='/bootstrap/js/highcharts.js')
+	script(src='/bootstrap/js/modules/exporting.js')
+	script(src='/javascripts/financesjs/funcoesFinances.js')
+	script(src='/javascripts/financesjs/funcoesDatas.js')
+	script(src='/javascripts/planejamento/investimento-no-periodo.js')
+	script(src='/bootstrap/js/plugins/dataTables/datatables.min.js')
+	
+	// Mainly scripts
+	script(src='/bootstrap/js/jquery-2.1.1.js')
+	script(src='/bootstrap/js/bootstrap.min.js')
+	script(src='/bootstrap/js/plugins/metisMenu/jquery.metisMenu.js')
+	script(src='/bootstrap/js/plugins/slimscroll/jquery.slimscroll.min.js')
+	// Peity
+	script(src='/bootstrap/js/plugins/peity/jquery.peity.min.js')
+	// Custom and plugin javascript
+	script(src='/bootstrap/js/inspinia.js')
+	script(src='/bootstrap/js/plugins/pace/pace.min.js')
+	script(src='/bootstrap/js/plugins/jquery-ui/jquery-ui.min.js')
+	// iCheck
+	script(src='/bootstrap/js/plugins/iCheck/icheck.min.js')
+	// Peity d data
+	script(src='/bootstrap/js/demo/peity-demo.js')
+	script.
+		$(document).ready(function(){
+		<!-- Enable portlets -->
+		WinMove();
+		});		

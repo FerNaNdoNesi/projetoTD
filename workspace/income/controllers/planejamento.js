@@ -8,6 +8,10 @@ module.exports = function(app){
 		investimento_no_periodo:  function(req,res){
 			req.flash('planejamento', true);
 			res.render('planejamento/investimento-no-periodo');
+		},
+		acumular_capital_com_investimento_mensal:  function(req,res){
+			req.flash('planejamento', true);
+			res.render('planejamento/acumular-capital-com-investimento-mensal');
 		}
 	}
 	return PlanejamentoController;

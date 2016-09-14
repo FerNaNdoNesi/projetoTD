@@ -31,6 +31,7 @@ html(lang="pt-BR")
 		link(href='/bootstrap/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css', rel='stylesheet')
 		link(href='/bootstrap/css/animate.css', rel='stylesheet')
 		link(href='/bootstrap/css/style.css', rel='stylesheet')
+		//http://www.danstools.com refratore code
 	body
 		#wrapper
 			nav.navbar-default.navbar-static-side(role='navigation')
@@ -62,17 +63,17 @@ html(lang="pt-BR")
 									li
 										a(href='/rendimento-mensal-independencia-financeira') Rendimento mensal
 									li
-										a(href='/acumular-capital')
+										a(href='/acumular-capital-com-investimento-mensal')
 											| Acumular Capital
 											span.label.label-primary.pull-right NEW
-							li(class=menu3 ? 'active' : '')
+							li(class=messages.comparar ? 'active' : '')
 								a(href='/default')
 									i.fa.fa-bar-chart.fa-lg
 									span.nav-label Comparações
 									span.fa.arrow
 								ul.nav.nav-second-level.collapse
 									li
-										a(href='/default') Página 01
+										a(href='/drag') Drag Painel
 									li
 										a(href='/default') Página 02
 									li
@@ -196,3 +197,14 @@ script(src='/bootstrap/js/plugins/chartJs/Chart.min.js')
 script(src='/bootstrap/js/plugins/footable/footable.all.min.js')
 //dataTable
 script(src='/bootstrap/js/plugins/dataTables/datatables.min.js')
+//Draggable
+// Peity
+script(src='/bootstrap/js/plugins/peity/jquery.peity.min.js')
+// Custom and plugin javascript
+script(src='/bootstrap/js/inspinia.js')
+script(src='/bootstrap/js/plugins/pace/pace.min.js')
+script(src='/bootstrap/js/plugins/jquery-ui/jquery-ui.min.js')
+// iCheck
+script(src='/bootstrap/js/plugins/iCheck/icheck.min.js')
+// Peity d data
+script(src='/bootstrap/js/demo/peity-demo.js')
