@@ -360,3 +360,107 @@ function buscarAcumularCapitalCalculandoRendimentos(capitalInicial, taxa, deposi
 			 ObjRentabilidadePercent: ObjRentabilidadePercent
 		});
 }
+
+function calculandoRendimentosPorProdutos(valorInvestido, tempoInvestindo, taxaIndicador, percentual, IR){
+	var taxa = (taxaIndicador*(percentual/100));
+	var depositos = 0;
+	taxa = (taxa/12)/100;
+	var periodo = 0, valorIr = 0, valorIrMes = 0;
+	var dtAtual = new Date(); // Em js getMonth() Mês 0~11
+	
+	var ObjPeriodo = [],
+			ObjDataPeriodo = [],
+			ObjTempoInvestindo = [],
+			ObjPercentTempoInvestindo = [],
+			ObjMontante = [],
+			ObjRendimentoMes = [],
+			ObjRendimentoAcumulado = [],
+			ObjValorInvestido = [],
+			ObjValorIr = [],
+			ObjValorIrMes = [],
+			ObjRendimentoMesIr = [],
+			ObjRendimentoAcumuladoIr = [],
+			ObjRentabilidadePercent = [],
+			ObjRentabilidadePercentIr = [];
+	
+	for(periodo = 1; periodo <= tempoInvestindo; periodo++){ // enquanto não chegar ao fim do período
+		
+		montante = formulaAplDepUnicBCB(valorInvestido, taxa, periodo);
+		montanteAnterior = formulaAplDepUnicBCB(valorInvestido, taxa, periodo-1);
+		rendimentoMes = montante - montanteAnterior;
+		rendimentoAcumulado = montante - valorInvestido;
+		if(periodo <= 6 && IR){ //IR 22.5%
+			valorIr = rendimentoAcumulado*0.225;
+			valorIrMes = rendimentoMes*0.225;
+		}else
+		if(periodo <= 12 && IR){ // IR 20.0%
+			valorIr = rendimentoAcumulado*0.200;
+			valorIrMes = rendimentoMes*0.200;
+		}else
+		if(periodo <= 24 && IR){ // IR 17.5%
+			valorIr = rendimentoAcumulado*0.175;
+			valorIrMes = rendimentoMes*0.175;
+		}else
+		if(IR){//IR 15.0%
+			valorIr = rendimentoAcumulado*0.150;
+			valorIrMes = rendimentoMes*0.150;
+		}else{
+			valorIr = 0;
+			valorIrMes = 0;
+		}
+		rendimentoAcumuladoIr = rendimentoAcumulado - valorIr;
+		rendimentoMesIr = rendimentoMes - valorIrMes;
+		
+		if (valorInvestido != 0){
+			rentabilidadePercent = (Number(rendimentoAcumulado) / Number(valorInvestido))*100;
+			rentabilidadePercentIr = (Number(rendimentoAcumuladoIr) / Number(valorInvestido))*100;
+		}
+		else{
+			rentabilidadePercent = 0;
+			rentabilidadePercentIr = 0;
+		}
+		
+		if(tempoInvestindo!= 0)
+			percentTempoInvestindo = periodo/tempoInvestindo;
+		else
+			percentTempoInvestindo = 0;
+
+		//Objetos referente aos valores
+		ObjPeriodo.push(periodo);			
+		ObjValorInvestido.push(valorInvestido);
+		ObjRendimentoMes.push(rendimentoMes);
+		ObjRendimentoAcumulado.push(rendimentoAcumulado);
+		ObjRentabilidadePercent.push(rentabilidadePercent);
+		ObjMontante.push(montante);
+		ObjValorIr.push(valorIr);
+		ObjValorIrMes.push(valorIrMes);
+		ObjRendimentoMesIr.push(rendimentoMesIr);
+		ObjRendimentoAcumuladoIr.push(rendimentoAcumuladoIr);
+		ObjRentabilidadePercentIr.push(rentabilidadePercentIr);
+		
+		//Objetos referente ao período			
+		ObjTempoInvestindo.push(tempoInvestindo);
+		ObjPercentTempoInvestindo.push(percentTempoInvestindo);
+		dtAtual.setMonth(dtAtual.getMonth()+1);
+		ObjDataPeriodo.push(new Date(dtAtual));
+
+	}
+
+	return ({	ObjPeriodo: ObjPeriodo,
+				 		ObjDataPeriodo: ObjDataPeriodo,
+				 		ObjTempoInvestindo: ObjTempoInvestindo,
+				 		ObjPercentTempoInvestindo: ObjPercentTempoInvestindo,
+						//Valores Referente ao Capital
+						ObjMontante: ObjMontante,
+						ObjRendimentoMes: ObjRendimentoMes,
+						ObjRendimentoAcumulado: ObjRendimentoAcumulado,
+						ObjRentabilidadePercent: ObjRentabilidadePercent,
+						//Valores Referente ao Parametros
+						ObjValorInvestido: ObjValorInvestido,
+						ObjValorIr: ObjValorIr,
+						ObjValorIrMes: ObjValorIrMes,
+						ObjRendimentoMesIr: ObjRendimentoMesIr,
+						ObjRendimentoAcumuladoIr: ObjRendimentoAcumuladoIr,
+						ObjRentabilidadePercentIr: ObjRentabilidadePercentIr
+	});
+}

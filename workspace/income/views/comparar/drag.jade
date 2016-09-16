@@ -13,24 +13,30 @@ block painel
 				li.active
 					strong Draggable Panels - Dra&Drop box
 		.col-lg-2
-	.wrapper.wrapper-content.animated.fadeInRight
-		#sortable-view.row
-			.col-lg-6
+	.column
+		.portlet
+			.portlet-header Feeds
+			.portlet-content Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+		.portlet
+			.portlet-header News
+			.portlet-content Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+	.column
+		.portlet
+			.portlet-header Shopping
+			.portlet-content Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+	.column
+		.portlet
+			.portlet-header Links
+			.portlet-content Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+		.portlet
+			.portlet-header Images
+			.portlet-content Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+	.wrapper.wrapper-content.animated.fadeInRight#painel
+		#line01.row
+			.col-lg-4
 				.ibox
 					.ibox-title
-						h5 Drag&Drop
-						.ibox-tools
-							label.label.label-primary You can drag and drop me to other box.
-					.ibox-content
-						h2
-							| This is simple box container nr. 1
-						p
-							| Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-							| printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-							| remaining essentially unchanged.
-				.ibox
-					.ibox-title
-						h5 Drag&Drop
+						h5 CDB
 						.ibox-tools
 							a.collapse-link
 								i.fa.fa-chevron-up
@@ -48,29 +54,70 @@ block painel
 							| This is simple box container nr. 3
 						p
 							| Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-							| printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-							| remaining essentially unchanged.
-			.col-lg-6
+			.col-lg-8
 				.ibox
 					.ibox-title
-						h5 Drag&Drop
+						h5 CDB
+						.ibox-tools
+							a.collapse-link
+								i.fa.fa-chevron-up
+							a.dropdown-toggle(data-toggle='dropdown', href='#')
+								i.fa.fa-wrench
+							ul.dropdown-menu.dropdown-user
+								li
+									a(href='#') Config option 1
+								li
+									a(href='#') Config option 2
+							a.close-link
+								i.fa.fa-times
 					.ibox-content
 						h2
-							| This is simple box container nr. 2
+							| This is simple box container nr. 3
 						p
 							| Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-							| printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-							| remaining essentially unchanged.
+		#line02.row
+			.col-lg-4
 				.ibox
 					.ibox-title
-						h5 Drag&Drop
+						h5 LCI / LCA
+						.ibox-tools
+							a.collapse-link
+								i.fa.fa-chevron-up
+							a.dropdown-toggle(data-toggle='dropdown', href='#')
+								i.fa.fa-wrench
+							ul.dropdown-menu.dropdown-user
+								li
+									a(href='#') Config option 1
+								li
+									a(href='#') Config option 2
+							a.close-link
+								i.fa.fa-times
 					.ibox-content
 						h2
-							| This is simple box container nr. 4
+							| This is simple box container nr. 3
 						p
 							| Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-							| printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-							| remaining essentially unchanged.
+			.col-lg-8
+				.ibox
+					.ibox-title
+						h5 LCI / LCA
+						.ibox-tools
+							a.collapse-link
+								i.fa.fa-chevron-up
+							a.dropdown-toggle(data-toggle='dropdown', href='#')
+								i.fa.fa-wrench
+							ul.dropdown-menu.dropdown-user
+								li
+									a(href='#') Config option 1
+								li
+									a(href='#') Config option 2
+							a.close-link
+								i.fa.fa-times
+					.ibox-content
+						h2
+							| This is simple box container nr. 3
+						p
+							| Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
 
 	// TouchSpin
 	script(src='/bootstrap/js/jquery-2.1.1.js')
@@ -81,24 +128,36 @@ block painel
 	script(src='/javascripts/financesjs/funcoesDatas.js')
 	script(src='/javascripts/planejamento/investimento-no-periodo.js')
 	script(src='/bootstrap/js/plugins/dataTables/datatables.min.js')
-	
-	// Mainly scripts
-	script(src='/bootstrap/js/jquery-2.1.1.js')
-	script(src='/bootstrap/js/bootstrap.min.js')
-	script(src='/bootstrap/js/plugins/metisMenu/jquery.metisMenu.js')
-	script(src='/bootstrap/js/plugins/slimscroll/jquery.slimscroll.min.js')
-	// Peity
-	script(src='/bootstrap/js/plugins/peity/jquery.peity.min.js')
-	// Custom and plugin javascript
-	script(src='/bootstrap/js/inspinia.js')
-	script(src='/bootstrap/js/plugins/pace/pace.min.js')
-	script(src='/bootstrap/js/plugins/jquery-ui/jquery-ui.min.js')
-	// iCheck
-	script(src='/bootstrap/js/plugins/iCheck/icheck.min.js')
-	// Peity d data
-	script(src='/bootstrap/js/demo/peity-demo.js')
+	script(src='https://code.jquery.com/jquery-1.12.4.js')
+	script(src='https://code.jquery.com/ui/1.12.0/jquery-ui.js')
+
 	script.
 		$(document).ready(function(){
 		<!-- Enable portlets -->
-		WinMove();
+			// WinMove();
+			// $("#line01").draggable({snap: true, containment: "#painel", scroll: false });
+			// $("#line02").draggable({snap: true, containment: "#painel", scroll: false });
+			// $("#drag3").draggable({snap: true, containment: "#line02", scroll: false });
+			// $("#drag4").draggable({snap: true, containment: "#line02", scroll: false });
+			// $("#drag5").draggable({snap: true, containment: "#line02", scroll: false });
+			// $("#drag6").draggable({snap: true, containment: "#sortable-view", scroll: false });
+			// $("#drag7").draggable({snap: true, containment: "#sortable-view", scroll: false });
+			$( ".column" ).sortable({
+				connectWith: ".column",
+				handle: ".portlet-header",
+				cancel: ".portlet-toggle",
+				placeholder: "portlet-placeholder ui-corner-all"
+			});
+	 
+			$( ".portlet" )
+				.addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+				.find( ".portlet-header" )
+					.addClass( "ui-widget-header ui-corner-all" )
+					.prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+
+			$( ".portlet-toggle" ).on( "click", function() {
+				var icon = $( this );
+				icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
+				icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
+			});
 		});		

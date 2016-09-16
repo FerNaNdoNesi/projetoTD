@@ -1,0 +1,37 @@
+extends ../dashboard
+
+block painel
+	.row.wrapper.border-bottom.white-bg.page-heading
+		.col-lg-10
+			h2 Comparar investimentos
+			ol.breadcrumb
+				li
+					a(href='/') Inicio
+				li
+					| Análise
+				li.active
+					strong Comparar investimentos
+
+	.row
+		.col-lg-5
+			.ibox
+				.ibox-title
+					h5
+						| Parâmetros de entrada 
+						small Simule quando precisa 
+				.ibox-content
+					.row.text-center
+						.col-md-3
+							p.font-bold
+								| Objetivo de capital
+		.col-lg-7
+			.ibox
+				.ibox-title
+					h5
+						| Parâmetros de entrada 
+						small Simule quando precisa investir ao mês para alcançar um valor de capital desejado.
+				.ibox-content
+					.row.text-center
+						.col-md-3
+							p.font-bold
+								| Objetivo de capital
