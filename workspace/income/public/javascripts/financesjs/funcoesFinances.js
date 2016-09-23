@@ -1,4 +1,11 @@
-// var moment = require('moment');
+/*INFORMAÇÕES CETIP
+
+A taxa do CDI é expressa na convenção DU/252, ou seja, por dias úteis para um ano
+padrão de 252 dias (úteis). Assim, a taxa de 10,64% ao ano do dia 13/12/2010 equivale a
+uma taxa de 0,0401317% ao dia ( (1+10,64%)^(1/252)-1 ). Como o seu CDB paga 85% do CDI,
+isto significa que para este dia, você receberá uma taxa de juros de 0,0341119%
+(0,0401317% x 85%).
+*/
 /*
 FONTE FORMULAS BCB
 	https://www3.bcb.gov.br/CALCIDADAO/publico/calcularValorFuturoCapital.do
@@ -464,3 +471,149 @@ function calculandoRendimentosPorProdutos(valorInvestido, tempoInvestindo, taxaI
 						ObjRentabilidadePercentIr: ObjRentabilidadePercentIr
 	});
 }
+
+function calculandoRendimentosPorProdutos(valorInvestido, tempoInvestindo, taxaIndicador, percentual, IR){
+	//https://www.cetip.com.br/captacao-bancaria/cdb#!
+	//(((1+12.07/100.0)^(1/252.0)-1)*0.85+1)
+	//http://minhaseconomias.com.br/blog/investimentos/como-calcular-o-rendimento-de-seu-investimento-em-de-cdi
+	
+	var taxa_dia = Math.pow((1+taxaIndicador/100.0),(1/252.0))-1;
+	var fator_diario = taxa_dia*percentual/100+1;
+	console.log("taxa_dia: "+(taxa_dia*100).toFixed(6));
+	console.log("fator_diario: "+fator_diario.toFixed(8));
+	// var taxa = (taxaIndicador*(percentual/100)); //LCI -0.7937 //CDB -0.9914
+	console.log("taxa com percentual: "+taxa);
+	var depositos = 0;
+	var taxa = taxa_dia*253.3333/12; //(taxa/12)/100;
+	console.log("taxa ao mês: "+taxa*100);
+	taxa = taxa*(percentual/100);
+	console.log("taxa com percentual: "+taxa*100);
+	var periodo = 0, valorIr = 0, valorIrMes = 0;
+	var dtAtual = new Date(); // Em js getMonth() Mês 0~11
+	
+	var ObjPeriodo = [],
+			ObjDataPeriodo = [],
+			ObjTempoInvestindo = [],
+			ObjPercentTempoInvestindo = [],
+			ObjMontante = [],
+			ObjMontanteIr = [],
+			ObjRendimentoMes = [],
+			ObjRendimentoAcumulado = [],
+			ObjValorInvestido = [],
+			ObjTaxaIr = [],
+			ObjValorIr = [],
+			ObjValorIrMes = [],
+			ObjRendimentoMesIr = [],
+			ObjRendimentoAcumuladoIr = [],
+			ObjRentabilidadePercent = [],
+			ObjRentabilidadePercentIr = [];
+	
+	for(periodo = 1; periodo <= tempoInvestindo; periodo++){ // enquanto não chegar ao fim do período
+		// console.log(taxa);
+		montante = formulaAplDepUnicBCB(valorInvestido, taxa, periodo);
+		montanteAnterior = formulaAplDepUnicBCB(valorInvestido, taxa, periodo-1);
+		rendimentoMes = montante - montanteAnterior;
+		rendimentoAcumulado = montante - valorInvestido;
+		if(periodo <= 6 && IR){ //IR 22.5%
+			valorIr = rendimentoAcumulado*0.225;
+			valorIrMes = rendimentoMes*0.225;
+			taxaIr = 0.225;
+		}else
+		if(periodo <= 12 && IR){ // IR 20.0%
+			valorIr = rendimentoAcumulado*0.200;
+			valorIrMes = rendimentoMes*0.200;
+			taxaIr = 0.200;
+		}else
+		if(periodo <= 24 && IR){ // IR 17.5%
+			valorIr = rendimentoAcumulado*0.175;
+			valorIrMes = rendimentoMes*0.175;
+			taxaIr = 0.175;
+		}else
+		if(IR){//IR 15.0%
+			valorIr = rendimentoAcumulado*0.150;
+			valorIrMes = rendimentoMes*0.150;
+			taxaIr = 0.150;
+		}else{
+			valorIr = 0;
+			valorIrMes = 0;
+			taxaIr = 0;
+		}
+		rendimentoAcumuladoIr = rendimentoAcumulado - valorIr;
+		rendimentoMesIr = rendimentoMes - valorIrMes;
+		montanteIr = montante - valorIr;
+		
+		if (valorInvestido != 0){
+			rentabilidadePercent = (Number(rendimentoAcumulado) / Number(valorInvestido))*100;
+			rentabilidadePercentIr = (Number(rendimentoAcumuladoIr) / Number(valorInvestido))*100;
+		}
+		else{
+			rentabilidadePercent = 0;
+			rentabilidadePercentIr = 0;
+		}
+		
+		if(tempoInvestindo!= 0)
+			percentTempoInvestindo = periodo/tempoInvestindo;
+		else
+			percentTempoInvestindo = 0;
+
+		//Objetos referente aos valores
+		ObjPeriodo.push(periodo);			
+		ObjValorInvestido.push(valorInvestido);
+		ObjRendimentoMes.push(rendimentoMes);
+		ObjRendimentoAcumulado.push(rendimentoAcumulado);
+		ObjRentabilidadePercent.push(rentabilidadePercent);
+		ObjMontante.push(montante);
+		ObjMontanteIr.push(montanteIr);
+		ObjTaxaIr.push(taxaIr);
+		ObjValorIr.push(valorIr);
+		ObjValorIrMes.push(valorIrMes);
+		ObjRendimentoMesIr.push(rendimentoMesIr);
+		ObjRendimentoAcumuladoIr.push(rendimentoAcumuladoIr);
+		ObjRentabilidadePercentIr.push(rentabilidadePercentIr);
+		
+		//Objetos referente ao período			
+		ObjTempoInvestindo.push(tempoInvestindo);
+		ObjPercentTempoInvestindo.push(percentTempoInvestindo);
+		dtAtual.setMonth(dtAtual.getMonth()+1);
+		ObjDataPeriodo.push(new Date(dtAtual));
+
+	}
+
+	return ({	ObjPeriodo: ObjPeriodo,
+				 		ObjDataPeriodo: ObjDataPeriodo,
+				 		ObjTempoInvestindo: ObjTempoInvestindo,
+				 		ObjPercentTempoInvestindo: ObjPercentTempoInvestindo,
+						//Valores Referente ao Capital
+						ObjMontante: ObjMontante,
+						ObjRendimentoMes: ObjRendimentoMes,
+						ObjRendimentoAcumulado: ObjRendimentoAcumulado,
+						ObjRentabilidadePercent: ObjRentabilidadePercent,
+						//Valores Referente ao Parametros
+						ObjValorInvestido: ObjValorInvestido,
+						ObjTaxaIr: ObjTaxaIr,
+						ObjValorIr: ObjValorIr,
+						ObjValorIrMes: ObjValorIrMes,
+						ObjMontanteIr: ObjMontanteIr,
+						ObjRendimentoMesIr: ObjRendimentoMesIr,
+						ObjRendimentoAcumuladoIr: ObjRendimentoAcumuladoIr,
+						ObjRentabilidadePercentIr: ObjRentabilidadePercentIr
+	});
+}
+// valorinvestido, tempoInvestindo, taxaIndicador, percentual, IR
+// retorno = calculandoRendimentosPorProdutos(5000, 24, 14.13, 112, true); //CDB
+// retorno = calculandoRendimentosPorProdutos(5000, 24, 14.13, 94, false); //LCI
+// console.log(retorno);
+		
+// for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
+// 	console.log("\n("+retorno.ObjPeriodo[i]+") "+
+// 							retorno.ObjDataPeriodo[i].getMonth()+"/"+retorno.ObjDataPeriodo[i].getFullYear()+
+// 							"\n\t\t Valor \t Valor -IR \n\t\t"+
+// 							retorno.ObjValorInvestido[i].toFixed(2)+" \t"+retorno.ObjValorIr[i].toFixed(2)+" \t"+(retorno.ObjTaxaIr[i]*100).toFixed(2)+" %\t\r Rendimento Mês"+
+// 							retorno.ObjRendimentoMes[i].toFixed(2)+" \t"+retorno.ObjRendimentoMesIr[i]+"\r Rendimento Acumulado"+
+// 							retorno.ObjRendimentoAcumulado[i].toFixed(2)+" \t"+retorno.ObjRendimentoAcumuladoIr[i].toFixed(2)+" %\n Rentabilidade \t"+							
+// 							(retorno.ObjRentabilidadePercent[i]).toFixed(2)+" %\t"+
+// 							(retorno.ObjRentabilidadePercentIr[i]).toFixed(2)+" %\n Montante \t"+
+// 							retorno.ObjMontante[i].toFixed(2)+"\t"+retorno.ObjMontanteIr[i].toFixed(2)+"\n Período \t"+
+// 							(retorno.ObjPercentTempoInvestindo[i]*100).toFixed(2)
+// 						);
+// }

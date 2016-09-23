@@ -1591,6 +1591,9 @@ table.dataTable thead .sorting_desc_disabled {
 .dataTables_filter label {
 	margin-right: 5px;
 }
+.dataTables_paginate{
+	text-align: right;
+}
 .html5buttons {
 	float: right;
 }
