@@ -3,4 +3,5 @@ module.exports = function(app){
 
 	app.get('/drag', analise.drag);
 	app.get('/comparar-investimentos', analise.comparar_investimentos);
+	app.get('/comparar-simular-cdb', analise.comparar_simular_cdb);
 }

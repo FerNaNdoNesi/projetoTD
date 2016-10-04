@@ -59,14 +59,15 @@ html(lang="pt-BR")
 									span.fa.arrow
 								ul.nav.nav-second-level.collapse
 									li
-										a(href='/investimento-no-periodo') Investimento no período
-									li
-										a(href='/rendimento-mensal-independencia-financeira') Rendimento mensal
+										a(href='/rendimento-mensal-independencia-financeira')
+											| Renda mensal
+											span.label.label-primary.pull-right NEW
 									li
 										a(href='/acumular-capital-com-investimento-mensal')
 											| Acumular Capital
-											span.label.label-primary.pull-right NEW
-							li(class=messages.comparar ? 'active' : '')
+									li
+										a(href='/investimento-no-periodo') Investimento no período
+							li(class=messages.analise ? 'active' : '')
 								a(href='/default')
 									i.fa.fa-bar-chart.fa-lg
 									span.nav-label Análise
@@ -76,6 +77,8 @@ html(lang="pt-BR")
 										a(href='/drag') Drag Painel
 									li
 										a(href='/comparar-investimentos') Comparar investimentos
+									li
+										a(href='/comparar-simular-cdb') Comparar simular CDB's
 									li
 										a(href='/default')
 											| Página 03

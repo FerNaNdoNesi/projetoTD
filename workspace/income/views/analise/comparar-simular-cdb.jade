@@ -1,0 +1,149 @@
+extends ../dashboard
+
+block painel
+	.row.wrapper.border-bottom.white-bg.page-heading
+		.col-lg-10
+			h2 Comparar diferentes CDB's
+			ol.breadcrumb
+				li
+					a(href='/') Inicio
+				li
+					| Análise
+				li.active
+					strong Comparar diferentes CDB's
+	.row
+		.col-lg-12
+			.ibox
+				.ibox-title
+					h5
+						| Parâmetros de entrada 
+						small Simule qual será o capital obtido após um período de investimentos mensais.
+				.ibox-content
+					.row.text-center
+						.col-md-3
+							p.font-bold
+								| Tempo investido (meses)
+							input.tempoInvestido.single-line#tempoInvestido(type='text', value='180', name='Período Investido')
+						.col-md-3
+							p.font-bold
+								| Valor investido
+							input.valorInvestido.single-line#valorInvestido(type='text', value='1000.00', name='Valor Investido')
+						.col-md-3
+							.widget.style1.navy-bg
+								.row
+									.col-xs-4.text-center
+										i.fa.fa-line-chart.fa-4x
+									.col-xs-8.text-right
+										span Taxa atual do CDI
+										h3.font-bold
+											| 14.13
+										small
+											| ao ano
+						.col-md-3
+							.widget.style1.yellow-bg
+								.row
+									.col-xs-4.text-center
+										i.fa.fa-signal.fa-4x
+									.col-xs-8.text-right
+										span Faixa de Imposto de Renda (IR)
+										h3.font-bold
+											| 15%
+											small
+												//- .valueMeses
+	.row
+		.col-lg-5
+			.ibox
+				.ibox-title
+					h5
+						| Parâmetros de entrada 
+						small Simule quando precisa 
+				.ibox-content
+					.row.text-center
+						.col-md-3
+							p.font-bold
+								| Objetivo de capital
+		.col-lg-7
+			.ibox
+				.ibox-title
+					h5
+						| Parâmetros de entrada 
+						small Simule quando precisa investir ao mês para alcançar um valor de capital desejado.
+				.ibox-content
+					.row.text-center
+						.col-md-3
+							p.font-bold
+								| Objetivo de capital
+	.row
+		.col-lg-12
+			.ibox.float-e-margins
+				.ibox-title
+					h5 
+						| Tabela com detalhamento por perído 
+						small Detalhamento da simulação de quanto precisaria investir para atingir um valor desejado de capital.
+					.ibox-tools
+						a.collapse-link
+							i.fa.fa-chevron-up
+				.ibox-content
+					.table-responsive
+						table.table-hover.footable.table.table-stripped#tabelaDados
+						//- table.table.table-striped.table-bordered.table-hover.dataTables-example
+						//- .footable.table.table-stripped(data-page-size='8', data-filter='#filter')
+	.row
+		.col-lg-12
+			p &nbsp;
+
+	// TouchSpin
+	script(src='/bootstrap/js/jquery-2.1.1.js')
+	script(src='/bootstrap/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js')
+	script(src='/bootstrap/js/highcharts.js')
+	script(src='/bootstrap/js/modules/exporting.js')
+	script(src='/javascripts/financesjs/funcoesFinances.js')
+	script(src='/javascripts/financesjs/funcoesDatas.js')
+	//- script(src='/javascripts/planejamento/rendimento-mensal-independencia-financeira.js')
+	script(src='/javascripts/analise/comparar-simular-cdb.js')
+	script(src='/bootstrap/js/plugins/dataTables/datatables.min.js')
+
+	script.
+		$(document).ready(function(){
+			atualizaResultado();		
+			$('.tempoInvestido').on('touchspin.on.startspin', function f(){
+				atualizaResultado();
+			});
+			$('.valorInvestido').on('touchspin.on.startspin', function f(){
+				atualizaResultado();
+			});
+
+			$('.tempoInvestido').blur(function f(){
+				atualizaResultado();
+			});
+			$('.valorInvestido').blur(function f(){
+				atualizaResultado();
+			});
+
+			$(".tempoInvestido").TouchSpin({
+				//- prefix: 'meses',
+				buttondown_class: 'btn btn-white',
+				buttonup_class: 'btn btn-white',
+				decimals: 0,
+				initval: 180,
+				min: 0,
+				max: 100000000000,
+				step: 1,
+				verticalbuttons: true,
+				verticalupclass: 'fa fa-plus',
+				verticaldownclass: 'fa fa-minus'
+			});   
+			$(".valorInvestido").TouchSpin({
+				prefix: 'R$',
+				buttondown_class: 'btn btn-white',
+				buttonup_class: 'btn btn-white',
+				decimals: 2,
+				initval: 1000,
+				min: 0,
+				max: 100000000000,
+				step: 50,
+				verticalbuttons: true,
+				verticalupclass: 'fa fa-plus',
+				verticaldownclass: 'fa fa-minus'
+			});	
+		});
