@@ -74,12 +74,39 @@ block painel
 							p.font-bold
 								| Objetivo de capital
 	.row
+		.col-lg-6
+			.ibox.float-e-margins
+				.ibox-title
+					h5
+						| Gráfico linha do tempo  
+						small Valor futuro do investimento com variação do CDI ( -10% )( +10% )
+					.ibox-tools
+						a.collapse-link
+							i.fa.fa-chevron-up
+				.ibox-content
+					.row
+						.col-lg-12
+							.graficoLinhaTempoRendimento#graficoLinhaTempoRendimento
+		.col-lg-6
+			.ibox.float-e-margins
+				.ibox-title
+					h5
+						| Gráfico linha do tempo  
+						small Valor futuro do investimento com variação do CDI ( -10% )( +10% )
+					.ibox-tools
+						a.collapse-link
+							i.fa.fa-chevron-up
+				.ibox-content
+					.row
+						.col-lg-12
+							.graficoLinhaTempoRendimento#graficoLinhaTempoRendimentoLiquido
+	.row
 		.col-lg-12
 			.ibox.float-e-margins
 				.ibox-title
 					h5 
 						| Tabela com detalhamento por perído 
-						small Detalhamento da simulação de quanto precisaria investir para atingir um valor desejado de capital.
+						small Detalhamento da simulação do rendimento do CDB com e sem incidência de imposto de renda (IR)
 					.ibox-tools
 						a.collapse-link
 							i.fa.fa-chevron-up

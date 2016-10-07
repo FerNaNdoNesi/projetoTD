@@ -97,6 +97,7 @@
 						search: 'Filtrar&nbsp;',
 						emptyTable: 'Sem dados para visualização',
 						lengthMenu: 'Mostrar _MENU_ &nbsp;&nbsp;',
+						infoFiltered: '(filtrado de um total de _MAX_ períodos)',
 						paginate: {
 							first:    'Primeira',
 							last:     'Última',
@@ -147,6 +148,7 @@
 					search: 'Filtrar&nbsp;',
 					emptyTable: 'Sem dados para visualização',
 					lengthMenu: 'Mostrar _MENU_ &nbsp;&nbsp;',
+					infoFiltered: '(filtrado de um total de _MAX_ períodos)',
 					paginate: {
 						first:    'Primeira',
 						last:     'Última',
