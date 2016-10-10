@@ -42,11 +42,15 @@
 														14.13,
 														100,
 														true);		
-		var chart = new Highcharts.Chart(graphDraw());
+		var chart = new Highcharts.Chart(graphDraw_varicaoCDI_bruto());
 		chart.redraw();
 
-		var chart2 = new Highcharts.Chart(graphDraw2());
+		var chart2 = new Highcharts.Chart(graphDraw_varicaoCDI_liquido());
 		chart2.redraw();
+
+		var chart3 = new Highcharts.Chart(graphDraw_varicaoPercentualCDB());
+		chart3.redraw();
+
 		tableDraw(retorno);
 				
 		// var maxDate=new Date(Math.max.apply(null,retorno.ObjDataPeriodo));
@@ -244,7 +248,7 @@
 		}
 	}
 
-	function graphDraw(){
+	function graphDraw_varicaoCDI_bruto(){
 
 		var retorno = calculandoRendimentosPorProdutos( document.getElementById("valorInvestido").value,
 																										document.getElementById("tempoInvestido").value,
@@ -300,11 +304,10 @@
 				renderTo: 'graficoLinhaTempoRendimento',
 				zoomType: 'x'
 			},
-			title: false,
-			// title: {
-			// 		// text: 'Titulo novo do gráfico'
-			// 		text: retorno.ObjMontanteCapital[5].toFixed(2)
-			// },
+			// title: false,
+			title: {
+				text: ''
+			},
 			// subtitle: {
 			// 	text: 'Subtitulo do gráfico'
 			// },
@@ -390,7 +393,7 @@
 		return options_graficoLinhaTempoRendimento;
 	}
 
-	function graphDraw2(){
+	function graphDraw_varicaoCDI_liquido(){
 
 		var retorno = calculandoRendimentosPorProdutos( document.getElementById("valorInvestido").value,
 																										document.getElementById("tempoInvestido").value,
@@ -446,11 +449,10 @@
 				renderTo: 'graficoLinhaTempoRendimentoLiquido',
 				zoomType: 'x'
 			},
-			title: false,
-			// title: {
-			// 		// text: 'Titulo novo do gráfico'
-			// 		text: retorno.ObjMontanteCapital[5].toFixed(2)
-			// },
+			// title: false,
+			title: {
+				text: ''
+			},
 			// subtitle: {
 			// 	text: 'Subtitulo do gráfico'
 			// },
@@ -536,36 +538,47 @@
 		return options_graficoLinhaTempoRendimento;
 	}
 
-	function graphDraw3(){
+	function graphDraw_varicaoPercentualCDB(){
+		// calculandoRendimentosPorProdutosDiferentesPercentuais(valorInvestido, tempoInvestindo, taxaIndicador, percentual, IR, upCiclo, qtdCiclo)
 
-		var retorno = calculandoRendimentosPorProdutos( document.getElementById("valorInvestido").value,
+		var retorno = calculandoRendimentosPorProdutosDiferentesPercentuais( document.getElementById("valorInvestido").value,
 																										document.getElementById("tempoInvestido").value,
 																										14.13,
-																										100,
-																										true);
-		var retornoMenos10 = calculandoRendimentosPorProdutos( document.getElementById("valorInvestido").value,
-																										document.getElementById("tempoInvestido").value,
-																										14.13 - 14.13*0.1,
-																										100,
-																										true);
-		var retornoMais10 = calculandoRendimentosPorProdutos( document.getElementById("valorInvestido").value,
-																										document.getElementById("tempoInvestido").value,
-																										14.13 + 14.13*0.1,
-																										100,
-																										true);
+																										80,
+																										true,
+																										10,
+																										5);
 
 		var seriesRetorno = [], categoriasX = [];
-		seriesRetorno = seriesRetorno.concat({name: 'Montante líquido (variação CDI +10%)', type: 'area',
-																					turboThreshold:10000, marker: {enabled : false}, dashStyle: 'longdash'/*dot*/, lineWidth: 1,// lineWidth: 5,
-																					data: retornoMais10.ObjMontanteIr});
 
-		seriesRetorno = seriesRetorno.concat({name: 'Montante líquido', type: 'area',
+		seriesRetorno = seriesRetorno.concat({name: 'Montante com IR', type: 'column', yAxis: 0,
 																					turboThreshold:10000, marker: {enabled : false},// lineWidth: 5,
+																					tooltip: {valuePrefix: 'R$ '},
+																					data: retorno.ObjMontante});
+		seriesRetorno = seriesRetorno.concat({name: 'Montante sem IR', type: 'column', yAxis: 0,
+																					turboThreshold:10000, marker: {enabled : false},// lineWidth: 5,
+																					tooltip: {valuePrefix: 'R$ '},
 																					data: retorno.ObjMontanteIr});
-
-		seriesRetorno = seriesRetorno.concat({name: 'Montante líquido (variação CDI -10%)', type: 'area',
-																					turboThreshold:10000, marker: {enabled : false}, dashStyle: 'longdash'/*dot*/, lineWidth: 1,// lineWidth: 5,
-																					data: retornoMenos10.ObjMontanteIr});
+		seriesRetorno = seriesRetorno.concat({name: 'Rendimento com IR', type: 'column', yAxis: 0,
+																					turboThreshold:10000, marker: {enabled : false},// lineWidth: 5,
+																					tooltip: {valuePrefix: 'R$ '},
+																					data: retorno.ObjRendimentoAcumulado});
+		seriesRetorno = seriesRetorno.concat({name: 'Rendimento sem IR', type: 'column', yAxis: 0,
+																					turboThreshold:10000, marker: {enabled : false},// lineWidth: 5,
+																					tooltip: {valuePrefix: 'R$ '},
+																					data: retorno.ObjRendimentoAcumuladoIr});
+		seriesRetorno = seriesRetorno.concat({name: 'Valor pago de IR', type: 'column', yAxis: 0,
+																					turboThreshold:10000, marker: {enabled : false},// lineWidth: 5,
+																					tooltip: {valuePrefix: 'R$ '},
+																					data: retorno.ObjValorIr});
+		seriesRetorno = seriesRetorno.concat({name: 'Rentabilidade  com IR', type: 'line', yAxis: 1,
+																					turboThreshold:10000, marker: {enabled : false}, lineWidth: 1,
+																					tooltip: {valueSuffix: '  %'}, dashStyle: 'longdash',
+																					data: retorno.ObjRentabilidadePercent});
+		seriesRetorno = seriesRetorno.concat({name: 'Rentabilidade  sem IR', type: 'line', yAxis: 1,
+																					turboThreshold:10000, marker: {enabled : false}, lineWidth: 1,
+																					tooltip: {valueSuffix: '  %'}, dashStyle: 'longdash',
+																					data: retorno.ObjRentabilidadePercentIr});
 				
 		// seriesRetorno = seriesRetorno.concat({name: 'Capital Acumulado',
 		// 																turboThreshold:10000, marker: {enabled : false},// dashStyle: 'longdash', lineWidth: 1,
@@ -574,8 +587,9 @@
 		// 																turboThreshold:10000, marker: {enabled : false}, dashStyle: 'longdash'/*dot*/, lineWidth: 1,
 		// 																data: retorno.ObjRendimentoAcumulado});
 		var date1, valor;
-		for (var i = 0; i < retorno.ObjPeriodo.length; i++) {
-			categoriasX.push(/*""+retorno.ObjPeriodo[i]+"º | "+*/arrayMesMin[retorno.ObjDataPeriodo[i].getMonth()]+"/"+retorno.ObjDataPeriodo[i].getFullYear());
+		for (var i = 0; i < retorno.ObjPercentual.length; i++) {
+			categoriasX.push(retorno.ObjPercentual[i]+" %");
+			// categoriasX.push(/*""+retorno.ObjPeriodo[i]+"º | "+*/arrayMesMin[retorno.ObjDataPeriodo[i].getMonth()]+"/"+retorno.ObjDataPeriodo[i].getFullYear());
 		}
 
 		Highcharts.setOptions({
@@ -592,11 +606,10 @@
 				renderTo: 'graficoColunasComparativo',
 				zoomType: 'x'
 			},
-			title: false,
-			// title: {
-			// 		// text: 'Titulo novo do gráfico'
-			// 		text: retorno.ObjMontanteCapital[5].toFixed(2)
-			// },
+			// title: false,
+			title: {
+				text: ''
+			},
 			// subtitle: {
 			// 	text: 'Subtitulo do gráfico'
 			// },
@@ -605,7 +618,7 @@
 			},
 			xAxis: {
 				title: {
-						text: 'Meses do ano'
+						text: 'Percentual do CDI'
 				},
 				crosshair: true,
 				// type: 'trendline'
@@ -614,21 +627,53 @@
 				// minPadding: 0.05,
 				// maxPadding: 100000.05
 			},
-			yAxis: {
-				title: {
-						text: 'Valores em R$'
-				}
-			},
-			tooltip: {            
+			// yAxis: {
+			// 	title: {
+			// 			text: 'Valores em R$'
+			// 	}
+			// },
+			yAxis: [{ // Primary yAxis
+						 title: {
+								text: 'Valores em R$',
+								style: {
+										color: Highcharts.getOptions().colors[2]
+								}
+						}//,
+						// labels: {
+						// 		format: '{value} R$',
+						// 		style: {
+						// 				color: Highcharts.getOptions().colors[2]
+						// 		}
+						// },
+						
+
+				}, { // Secondary yAxis
+						gridLineWidth: 0,
+						title: {
+								text: 'Valores rentabilidade em (%)',
+								style: {
+										color: Highcharts.getOptions().colors[0]
+								}
+						},
+						opposite: true,
+						labels: {
+								format: '{value} %',
+								style: {
+										color: Highcharts.getOptions().colors[0]
+								}
+						}
+
+				}],
+			tooltip: {
 				borderWidth: 2,
 				style: {
 						fontSize: '9px'
 				},
 				
 				useHTML: true,
-				headerFormat: '<b>Período: {point.key}</b><table>',
-				pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' +
-										'<td style="text-align: right"><b>R$ {point.y}</b> </td></tr>',
+				headerFormat: '<b>Percentual do CDI: {point.key}</b><table>',
+				pointFormat: '<tr><td style="color: {series.color}; background-color: #FFFFFF" >{series.name}: </td>' +
+										'<td style="text-align: right"><b>{point.y}</b> </td></tr>',
 				footerFormat: '</table>',
 				valueDecimals: 2,
 				shared: true

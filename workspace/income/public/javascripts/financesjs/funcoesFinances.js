@@ -514,3 +514,119 @@ function calculandoRendimentosPorProdutos(valorInvestido, tempoInvestindo, taxaI
 // 							(retorno.ObjPercentTempoInvestindo[i]*100).toFixed(2)
 // 						);
 // }
+
+function calculandoRendimentosPorProdutosDiferentesPercentuais(valorInvestido, tempoInvestindo, taxaIndicador, percentual, IR, upCiclo, qtdCiclo){
+	//https://www.cetip.com.br/captacao-bancaria/cdb#!
+	//(((1+12.07/100.0)^(1/252.0)-1)*0.85+1)
+	//http://minhaseconomias.com.br/blog/investimentos/como-calcular-o-rendimento-de-seu-investimento-em-de-cdi
+	
+	// VALIDADO: http://carteirarica.com.br/cdb/#
+	var taxa_dia = Math.pow((1+taxaIndicador/100.0),(1/252.0))-1;
+	var fator_diario = taxa_dia*percentual/100+1;
+	console.log("taxa_dia: "+(taxa_dia*100).toFixed(6));
+	console.log("fator_diario: "+fator_diario.toFixed(8));
+	// var taxa = (taxaIndicador*(percentual/100)); //LCI -0.7937 //CDB -0.9914
+	// console.log("taxa com percentual: "+taxa);
+	var depositos = 0;
+	var taxaAjuste = taxa_dia*253.326429/12; //(taxa/12)/100;
+	console.log("taxa ao mês: "+taxa*100);
+	// taxa = taxa*(percentual/100);
+	console.log("taxa com percentual: "+taxa*100);
+	var periodo = 0, valorIr = 0, valorIrMes = 0;
+	var dtAtual = new Date(); // Em js getMonth() Mês 0~11
+	
+	var ObjPercentual = [],
+			ObjMontante = [],
+			ObjMontanteIr = [],
+			ObjRendimentoAcumulado = [],
+			ObjValorInvestido = [],
+			ObjTaxaIr = [],
+			ObjValorIr = [],
+			ObjRendimentoAcumuladoIr = [],
+			ObjRentabilidadePercent = [],
+			ObjRentabilidadePercentIr = [];
+	
+	periodo = tempoInvestindo;
+	for(var i = 0; i <= qtdCiclo; i++){ // enquanto não chegar ao fim do período
+		var taxa = taxaAjuste*(percentual/100);
+		
+		
+		montante = formulaAplDepUnicBCB(valorInvestido, taxa, periodo);
+		rendimentoAcumulado = montante - valorInvestido;
+		if(periodo <= 6 && IR){ //IR 22.5%
+			valorIr = rendimentoAcumulado*0.225;
+			taxaIr = 0.225;
+		}else
+		if(periodo <= 12 && IR){ // IR 20.0%
+			valorIr = rendimentoAcumulado*0.200;
+			taxaIr = 0.200;
+		}else
+		if(periodo <= 24 && IR){ // IR 17.5%
+			valorIr = rendimentoAcumulado*0.175;
+			taxaIr = 0.175;
+		}else
+		if(IR){//IR 15.0%
+			valorIr = rendimentoAcumulado*0.150;
+			taxaIr = 0.150;
+		}else{
+			valorIr = 0;
+			taxaIr = 0;
+		}
+		rendimentoAcumuladoIr = rendimentoAcumulado - valorIr;
+		montanteIr = montante - valorIr;
+		
+		if (valorInvestido != 0){
+			rentabilidadePercent = (Number(rendimentoAcumulado) / Number(valorInvestido))*100;
+			rentabilidadePercentIr = (Number(rendimentoAcumuladoIr) / Number(valorInvestido))*100;
+		}
+		else{
+			rentabilidadePercent = 0;
+			rentabilidadePercentIr = 0;
+		}
+		
+		//Objetos referente aos valores
+		ObjPercentual.push(percentual);			
+		ObjValorInvestido.push(valorInvestido);
+		ObjRendimentoAcumulado.push(rendimentoAcumulado);
+		ObjRentabilidadePercent.push(rentabilidadePercent);
+		ObjMontante.push(montante);
+		ObjMontanteIr.push(montanteIr);
+		ObjTaxaIr.push(taxaIr);
+		ObjValorIr.push(valorIr);
+		ObjRendimentoAcumuladoIr.push(rendimentoAcumuladoIr);
+		ObjRentabilidadePercentIr.push(rentabilidadePercentIr);
+		
+
+		percentual = percentual + upCiclo;
+	}
+
+	return ({	ObjPercentual: ObjPercentual,
+				//Valores Referente ao Capital
+				ObjMontante: ObjMontante,
+				ObjRendimentoAcumulado: ObjRendimentoAcumulado,
+				ObjRentabilidadePercent: ObjRentabilidadePercent,
+				//Valores Referente ao Parametros
+				ObjValorInvestido: ObjValorInvestido,
+				ObjTaxaIr: ObjTaxaIr,
+				ObjValorIr: ObjValorIr,
+				ObjMontanteIr: ObjMontanteIr,
+				ObjRendimentoAcumuladoIr: ObjRendimentoAcumuladoIr,
+				ObjRentabilidadePercentIr: ObjRentabilidadePercentIr
+	});
+}
+// // valorinvestido, tempoInvestindo, taxaIndicador, percentual, IR
+// retorno = calculandoRendimentosPorProdutosDiferentesPercentuais(1000, 12, 14.13, 70, true, 10, 5); //CDB
+// // retorno = calculandoRendimentosPorProdutos(5000, 24, 14.13, 94, false); //LCI
+// console.log(retorno);
+		
+// for (var i = 0; i < retorno.ObjPercentual.length; i++) {
+// 	console.log("\n("+retorno.ObjPercentual[i]+") "+
+// 							// retorno.ObjDataPeriodo[i].getMonth()+"/"+retorno.ObjDataPeriodo[i].getFullYear()+
+// 							"\n\t\t Valor IR \t Faixa IR \n "+
+// 							retorno.ObjValorInvestido[i].toFixed(2)+" \t"+retorno.ObjValorIr[i].toFixed(2)+" \t"+(retorno.ObjTaxaIr[i]*100).toFixed(2)+"\r Rendimento Acumulado"+
+// 							retorno.ObjRendimentoAcumulado[i].toFixed(2)+" \t"+retorno.ObjRendimentoAcumuladoIr[i].toFixed(2)+"\n Rentabilidade \t"+							
+// 							(retorno.ObjRentabilidadePercent[i]).toFixed(2)+" %\t"+
+// 							(retorno.ObjRentabilidadePercentIr[i]).toFixed(2)+" %\n Montante \t"+
+// 							retorno.ObjMontante[i].toFixed(2)+"\t"+retorno.ObjMontanteIr[i].toFixed(2)+"\n Percentual \t"+(retorno.ObjPercentual[i]).toFixed(2)
+// 						);
+// }
