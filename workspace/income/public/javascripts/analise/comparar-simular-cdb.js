@@ -37,42 +37,31 @@
 
 	function atualizaResultado(){
 		// calculandoRendimentosPorProdutos(valorInvestido, tempoInvestindo, taxaIndicador, percentual, IR)
-		var retorno = calculandoRendimentosPorProdutos( document.getElementById("valorInvestido").value,
+		var retorno1 = calculandoRendimentosPorProdutosDiferentesPercentuais( document.getElementById("valorInvestido").value,
+																										document.getElementById("tempoInvestido").value,
+																										14.13,
+																										70,
+																										true,
+																										1,
+																										79);
+		tableDrawComparativo(retorno1);
+
+		var retorno2 = calculandoRendimentosPorProdutos( document.getElementById("valorInvestido").value,
 														document.getElementById("tempoInvestido").value,
 														14.13,
-														100,
-														true);		
-		var chart = new Highcharts.Chart(graphDraw_varicaoCDI_bruto());
-		chart.redraw();
+														document.getElementById("percentualCDI2").value,
+														true);
 
-		var chart2 = new Highcharts.Chart(graphDraw_varicaoCDI_liquido());
+		var chart1 = new Highcharts.Chart(graphDraw_varicaoPercentualCDB());
+		chart1.redraw();
+
+		var chart2 = new Highcharts.Chart(graphDraw_varicaoCDI_bruto());
 		chart2.redraw();
 
-		var chart3 = new Highcharts.Chart(graphDraw_varicaoPercentualCDB());
-		chart3.redraw();
+		var chart3 = new Highcharts.Chart(graphDraw_varicaoCDI_liquido());
+		chart3.redraw();		
 
-		tableDraw(retorno);
-				
-		// var maxDate=new Date(Math.max.apply(null,retorno.ObjDataPeriodo));
-		// var minDate=new Date(Math.min.apply(null,retorno.ObjDataPeriodo));
-		// var valorInvestidoTotal = Math.max.apply(null,retorno.ObjValorInvestidoTotal);
-		// var montanteTotal = Math.max.apply(null,retorno.ObjMontanteTotal);
-		// var rendimentoTotal = Math.max.apply(null,retorno.ObjRendimentoTotal);
-		
-		// var diffMes = Date.DateDiff('m', minDate,maxDate) + 1;
-		// var diferencaAnos = Math.floor(diffMes/12);
-
-		// $('.valueValorInvestidoTotal').text('R$ '+valorMoeda(valorInvestidoTotal, 2, ',', '.'));
-		// $('.valueMontanteTotal').text('R$ '+valorMoeda(montanteTotal, 2, ',', '.'));
-		// $('.valueRendimentoTotal').text('R$ '+valorMoeda(rendimentoTotal, 2, ',', '.'));
-		// if(diffMes >=12){
-		// 	$('.valueAnos').text(diferencaAnos+' Anos');
-		// }else
-		// 	$('.valueAnos').text(' ');
-		// if(diffMes-(diferencaAnos*12) != 0){
-		// 	$('.valueMeses').text(diffMes-(diferencaAnos*12)+' Meses');
-		// }else
-		// 	$('.valueMeses').text(' ');
+		tableDraw(retorno2);				
 	}
 
 	function tableDraw(retorno) { //REFERENCE https://datatables.net/reference/option/
@@ -112,16 +101,6 @@
 			
 			dados.push(vet);
 		}
-		// ObjPeriodo
-		// ObjDataPeriodo
-		// ObjRendimentoAcumulado
-		// ObjMontante
-		// ObjRentabilidadePercent
-		// ObjTaxaIr
-		// ObjValorIr
-		// ObjRendimentoAcumuladoIr
-		// ObjMontanteIr
-		// ObjRentabilidadePercentIr
 		
 		if ( $.fn.dataTable.isDataTable( '#tabelaDados' ) ) {
 			var t2 = $('#tabelaDados').DataTable();
@@ -232,6 +211,148 @@
 					{extend: 'csv'},
 					{extend: 'excel', title: 'Resumo da simulação de quanto precisaria investir para atingir um rendimento mensal.'},
 					{extend: 'pdf', title: 'Resumo da simulação de quanto precisaria investir para atingir um rendimento mensal.'},
+
+					{extend: 'print',
+					 customize: function (win){
+									$(win.document.body).addClass('white-bg');
+									$(win.document.body).css('font-size', '10px');
+
+									$(win.document.body).find('table')
+													.addClass('compact')
+													.css('font-size', 'inherit');
+												}
+					}
+				]
+			});
+		}
+	}
+
+	function tableDrawComparativo(retorno) { //REFERENCE https://datatables.net/reference/option/
+		var dados = [];		
+		for (var i = 0; i < retorno.ObjPercentual.length; i++) {
+			var vet = [];
+			// vet.push('<span class="label label-success pull-right">'+(retorno.ObjRentabilidadePercentIr[i]).toFixed(2)+'% </span>');
+			vet.push('<span class="label label-success pull-right">CDB com '+retorno.ObjPercentual[i]+'% do CDI</span>');
+			vet.push(arrayMesMin[retorno.ObjDataPeriodo[i].getMonth()]+" / "+retorno.ObjDataPeriodo[i].getFullYear());
+
+			vet.push('<txt class="text-navy">R$ '+valorMoeda(retorno.ObjMontante[i], 2, ',', '.')+'</txt>');
+			vet.push('<txt class="text-navy">R$ '+valorMoeda(retorno.ObjRendimentoAcumulado[i], 2, ',', '.')+'</txt>');
+			vet.push('<txt class="text-navy">'+retorno.ObjRentabilidadePercent[i].toFixed(2)+'%</txt>');
+			
+			vet.push('<txt class="text-success">R$ '+valorMoeda(retorno.ObjMontanteIr[i], 2, ',', '.')+'</txt>');
+			vet.push('<txt class="text-success">R$ '+valorMoeda(retorno.ObjRendimentoAcumuladoIr[i], 2, ',', '.')+'</txt>');
+			vet.push('<txt class="text-success">'+retorno.ObjRentabilidadePercentIr[i].toFixed(2)+'%</txt>');			
+			
+			dados.push(vet);
+		}
+		
+		if ( $.fn.dataTable.isDataTable( '#tabelaDadosComparativo' ) ) {
+			var t2 = $('#tabelaDadosComparativo').DataTable();
+			t2.destroy();
+			t2 = $('#tabelaDadosComparativo').DataTable({
+					data: dados,
+					searching: true,
+					paging: true,
+					ordering: false,		
+					lengthChange: true,
+					pageLength: 10,
+					lengthMenu: [ [10, 15, 20, 50, -1], [10, 15, 20, 50, "Todos"] ],
+					fixedHeader: true,
+					responsive: true,
+					tabIndex: 1,
+					language: { //https://datatables.net/reference/option/language
+						info: 'Visualizando página _PAGE_ de _PAGES_',
+						search: 'Filtrar&nbsp;',
+						emptyTable: 'Sem dados para visualização',
+						lengthMenu: 'Mostrar _MENU_ &nbsp;&nbsp;',
+						infoFiltered: '(filtrado de um total de _MAX_ períodos)',
+						paginate: {
+							first:    'Primeira',
+							last:     'Última',
+							next:     'Próximo',
+							previous: 'Anterior'
+						},
+					},
+					columns: [
+						{ title: "Percentual", width: "6%" },
+						{ title: "Vencimento", width: "10%" },
+						
+						{ title: "Montante <br/>com IR", width: "10%" },
+						{ title: "Rendimento <br/>com IR", width: "10%" },
+						{ title: "Rentabilidade <br/>com IR", width: "10%" },
+
+						// { title: "Faixa IR", width: "5%" },
+						// { title: "Valor IR", width: "8%" },
+
+						{ title: "Montante <br/>sem IR", width: "10%" },
+						{ title: "Rendimento <br/>sem IR", width: "10%" },
+						{ title: "Rentabilidade <br/>sem IR", width: "10%" }
+					],
+					dom: '<"html5buttons"B>lTfgitp',
+					buttons: [
+						{extend: 'copy'},
+						{extend: 'csv'},
+						{extend: 'excel', title: 'Detalhamento da simulação para comparar o valor dos investimetos em CDB nos diferentes percentuais do CDI'},
+						{extend: 'pdf', title: 'Detalhamento da simulação para comparar o valor dos investimetos em CDB nos diferentes percentuais do CDI'},
+
+						{extend: 'print',
+						 customize: function (win){
+										$(win.document.body).addClass('white-bg');
+										$(win.document.body).css('font-size', '10px');
+
+										$(win.document.body).find('table')
+														.addClass('compact')
+														.css('font-size', 'inherit');
+													}
+						}
+					]
+			});
+		}else{
+			var tabela = $('#tabelaDadosComparativo').DataTable({
+				data: dados,
+				searching: true,
+				paging: true,
+				ordering: false,		
+				lengthChange: true,
+				pageLength: 10,
+				lengthMenu: [ [10, 15, 20, 50, -1], [10, 15, 20, 50, "Todos"] ],
+				fixedHeader: true,
+				responsive: true,
+				tabIndex: 1,
+				language: { //https://datatables.net/reference/option/language
+					info: 'Visualizando página _PAGE_ de _PAGES_',
+					search: 'Filtrar&nbsp;',
+					emptyTable: 'Sem dados para visualização',
+					lengthMenu: 'Mostrar _MENU_ &nbsp;&nbsp;',
+					infoFiltered: '(filtrado de um total de _MAX_ períodos)',
+					paginate: {
+						first:    'Primeira',
+						last:     'Última',
+						next:     'Próximo',
+						previous: 'Anterior'
+					},
+				},
+				columns: [
+					{ title: "Percentual", width: "6%" },
+					{ title: "Vencimento", width: "10%" },
+					
+					{ title: "Montante <br/>com IR", width: "10%" },
+					{ title: "Rendimento <br/>com IR", width: "10%" },
+					{ title: "Rentabilidade <br/>com IR", width: "10%" },
+
+					// { title: "Faixa IR", width: "5%" },
+					// { title: "Valor IR", width: "8%" },
+
+					{ title: "Montante <br/>sem IR", width: "10%" },
+					{ title: "Rendimento <br/>sem IR", width: "10%" },
+					{ title: "Rentabilidade <br/>sem IR", width: "10%" }
+				],
+				dom: '<"html5buttons"B>lTfgitp',
+				buttons: [
+					{extend: 'copy'},
+					{extend: 'csv'},
+					{extend: 'excel', title: 'Detalhamento da simulação para comparar o valor dos investimetos em CDB nos diferentes percentuais do CDI'},
+					{extend: 'pdf', title: 'Detalhamento da simulação para comparar o valor dos investimetos em CDB nos diferentes percentuais do CDI'},
 
 					{extend: 'print',
 					 customize: function (win){

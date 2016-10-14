@@ -3,32 +3,40 @@ extends ../dashboard
 block painel
 	.row.wrapper.border-bottom.white-bg.page-heading
 		.col-lg-4
-			h2 TODO Small version
-			small This is example of small version of todo list
+			h2 Bem-vindo ao income.me
+			small A Income ajuda investidores de Renda Fixa a analisar, comparar e simular seus investimentos.
 				ul.todo-list.m-t.small-list.ui-sortable
 					li
 						a.check-link(href='#')
 							i.fa.fa-check-square
-						span.m-l-xs.todo-completed Buy a milk
+						span.m-l-xs Planeje sua independência financeira.
 					li
 						a.check-link(href='#')
 							i.fa.fa-check-square
-						span.m-l-xs.todo-completed Go to shop and find some products.
+						span.m-l-xs Planeje acumular o capital desejado
 					li
 						a.check-link(href='#')
-							i.fa.fa-square-o
-						span.m-l-xs Send documents to Mike
-						small.label.label-primary
-							i.fa.fa-clock-o
-							|  1 mins
+							i.fa.fa-check-square
+						span.m-l-xs Planeje seu período de investimentos
 					li
 						a.check-link(href='#')
-							i.fa.fa-square-o
-						span.m-l-xs Go to the doctor dr Smith
-					li
-						a.check-link(href='#')
-							i.fa.fa-square-o
-						span.m-l-xs Plan vacation
+							i.fa.fa-check-square
+						span.m-l-xs Compare diferentes tipos de investimentos CDBs
+					//- li
+					//- 	a.check-link(href='#')
+					//- 		i.fa.fa-square-o
+					//- 	span.m-l-xs.todo-completed Send documents to Mike
+					//- 	small.label.label-primary
+					//- 		i.fa.fa-clock-o
+					//- 		|  1 mins
+					//- li
+					//- 	a.check-link(href='#')
+					//- 		i.fa.fa-square-o
+					//- 	span.m-l-xs.todo-completed Go to the doctor dr Smith
+					//- li
+					//- 	a.check-link(href='#')
+					//- 		i.fa.fa-square-o
+					//- 	span.m-l-xs.todo-completed Plan vacation
 		.col-lg-8
 			.ibox-content
 				canvas#barChart.barChart(height='90')
@@ -38,7 +46,7 @@ block painel
 			.cd-timeline-img.navy-bg
 				i.fa.fa-twitch.fa-lg
 			.cd-timeline-content
-				h2 Meeting
+				h2 Planejamento
 				p
 					| Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
 				a.btn.btn-sm.btn-primary(href='#')  More info
@@ -50,7 +58,7 @@ block painel
 			.cd-timeline-img.blue-bg
 				i.fa.fa-info-circle.fa-lg
 			.cd-timeline-content
-				h2 Title of section 2
+				h2 Análise
 				p
 					| Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?
 				a.cd-read-more(href='#0') Read more

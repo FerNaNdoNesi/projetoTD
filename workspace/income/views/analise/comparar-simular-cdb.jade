@@ -11,6 +11,19 @@ block painel
 					| Análise
 				li.active
 					strong Comparar diferentes CDB's
+	.row.m-b-lg.m-t-lg
+		.col-md-6.col-md-offset-3
+			.profile-image
+				img.img-circle.circle-border.m-b-md(src='/images/small/10s.jpg', alt='profile')
+			.profile-info
+				div
+					div
+						h2.no-margins
+							| Objetivo | Comparar diferentes CDBs
+						h4 Simule e analise a rentabilidade alcançada com diferentes percentuais de CDBs.
+						small
+							| Informe o valor que será investido e por quanto tempo será investido.
+
 	.row
 		.col-lg-12
 			.ibox
@@ -23,11 +36,11 @@ block painel
 						.col-md-3
 							p.font-bold
 								| Tempo investido (meses)
-							input.tempoInvestido.single-line#tempoInvestido(type='text', value='180', name='Período Investido')
+							input.tempoInvestido.single-line#tempoInvestido(type='text', value='60', name='Período Investido')
 						.col-md-3
 							p.font-bold
 								| Valor investido
-							input.valorInvestido.single-line#valorInvestido(type='text', value='1000.00', name='Valor Investido')
+							input.valorInvestido.single-line#valorInvestido(type='text', value='5000.00', name='Valor Investido')
 						.col-md-3
 							.widget.style1.navy-bg
 								.row
@@ -50,37 +63,14 @@ block painel
 											| 15%
 											small
 												//- .valueMeses
-	.row
-		.col-lg-5
-			.ibox
-				.ibox-title
-					h5
-						| Parâmetros de entrada 
-						small Simule quando precisa 
-				.ibox-content
-					.row.text-center
-						.col-md-3
-							p.font-bold
-								| Objetivo de capital
-		.col-lg-7
-			.ibox
-				.ibox-title
-					h5
-						| Parâmetros de entrada 
-						small Simule quando precisa investir ao mês para alcançar um valor de capital desejado.
-				.ibox-content
-					.row.text-center
-						.col-md-3
-							p.font-bold
-								| Objetivo de capital
 
 	.row
 		.col-lg-12
 			.ibox.float-e-margins
 				.ibox-title
 					h5
-						| Gráfico de coluna  
-						small Valor por CDB
+						| Gráfico simulando e comparando CDBs  
+						small Simulação para comparar o valor dos investimetos em diferentes percentuais do CDI
 					.ibox-tools
 						a.collapse-link
 							i.fa.fa-chevron-up
@@ -88,6 +78,66 @@ block painel
 					.row
 						.col-lg-12
 							.graficoColunasComparativo#graficoColunasComparativo
+
+	.row
+		.col-lg-12
+			.ibox.float-e-margins
+				.ibox-title
+					h5 
+						| Tabela detalhada simulando e comparando CDBs 
+						small Detalhamento da simulação para comparar o valor dos investimetos em diferentes percentuais do CDI
+					.ibox-tools
+						a.collapse-link
+							i.fa.fa-chevron-up
+				.ibox-content
+					.table-responsive
+						table.table-hover.footable.table.table-stripped#tabelaDadosComparativo
+
+	.row.m-b-lg.m-t-lg
+		.col-md-6.col-md-offset-3
+			.profile-image
+				img.img-circle.circle-border.m-b-md(src='/images/small/10s.jpg', alt='profile')
+			.profile-info
+				div
+					div
+						h2.no-margins
+							| Objetivo | Comparar diferentes CDBs
+						h4 Simule e analise mais detalhadamente a rentabilidade alcançada com um percentual de CDB.
+						small
+							| Informe o valor que será investido, o quanto tempo será investido e o percentual do CDI.
+
+	.row
+		.col-lg-12
+			.ibox
+				.ibox-title
+					h5
+						| Parâmetros de entrada 
+						small Simule qual será o capital obtido após um período de investimentos mensais.
+				.ibox-content
+					.row.text-center
+						.col-md-3
+							p.font-bold
+								| Tempo investido (meses)
+							input.tempoInvestido2.single-line#tempoInvestido2(type='text', value='60', name='Período Investido')
+						.col-md-3
+							p.font-bold
+								| Valor investido
+							input.valorInvestido2.single-line#valorInvestido2(type='text', value='5000.00', name='Valor Investido')
+						.col-md-3
+							p.font-bold
+								| Percentual do CDI
+							input.percentualCDI2.single-line#percentualCDI2(type='text', value='110', name='Percentual do CDI')
+						.col-md-3
+							.widget.style1.navy-bg
+								.row
+									.col-xs-4.text-center
+										i.fa.fa-line-chart.fa-4x
+									.col-xs-8.text-right
+										span Taxa atual do CDI
+										h3.font-bold
+											| 14.13
+										small
+											| ao ano
 
 	.row
 		.col-lg-6
@@ -129,8 +179,6 @@ block painel
 				.ibox-content
 					.table-responsive
 						table.table-hover.footable.table.table-stripped#tabelaDados
-						//- table.table.table-striped.table-bordered.table-hover.dataTables-example
-						//- .footable.table.table-stripped(data-page-size='8', data-filter='#filter')
 	.row
 		.col-lg-12
 			p &nbsp;
@@ -150,16 +198,42 @@ block painel
 		$(document).ready(function(){
 			atualizaResultado();		
 			$('.tempoInvestido').on('touchspin.on.startspin', function f(){
+				document.getElementById("tempoInvestido2").value = document.getElementById("tempoInvestido").value;
 				atualizaResultado();
 			});
 			$('.valorInvestido').on('touchspin.on.startspin', function f(){
+				document.getElementById("valorInvestido2").value = document.getElementById("valorInvestido").value;
+				atualizaResultado();
+			});
+			$('.tempoInvestido2').on('touchspin.on.startspin', function f(){
+				document.getElementById("tempoInvestido").value = document.getElementById("tempoInvestido2").value;
+				atualizaResultado();
+			});
+			$('.valorInvestido2').on('touchspin.on.startspin', function f(){
+				document.getElementById("valorInvestido").value = document.getElementById("valorInvestido2").value;
+				atualizaResultado();
+			});
+			$('.percentualCDI2').on('touchspin.on.startspin', function f(){
 				atualizaResultado();
 			});
 
 			$('.tempoInvestido').blur(function f(){
+				document.getElementById("tempoInvestido2").value = document.getElementById("tempoInvestido").value;
 				atualizaResultado();
 			});
 			$('.valorInvestido').blur(function f(){
+				document.getElementById("valorInvestido2").value = document.getElementById("valorInvestido").value;
+				atualizaResultado();
+			});
+			$('.tempoInvestido2').blur(function f(){
+				document.getElementById("tempoInvestido").value = document.getElementById("tempoInvestido2").value;
+				atualizaResultado();
+			});
+			$('.valorInvestido2').blur(function f(){
+				document.getElementById("valorInvestido").value = document.getElementById("valorInvestido2").value;
+				atualizaResultado();
+			});
+			$('.percentualCDI2').blur(function f(){
 				atualizaResultado();
 			});
 
@@ -168,7 +242,7 @@ block painel
 				buttondown_class: 'btn btn-white',
 				buttonup_class: 'btn btn-white',
 				decimals: 0,
-				initval: 180,
+				initval: 60,
 				min: 0,
 				max: 100000000000,
 				step: 1,
@@ -181,12 +255,51 @@ block painel
 				buttondown_class: 'btn btn-white',
 				buttonup_class: 'btn btn-white',
 				decimals: 2,
-				initval: 1000,
+				initval: 5000,
 				min: 0,
 				max: 100000000000,
 				step: 50,
 				verticalbuttons: true,
 				verticalupclass: 'fa fa-plus',
 				verticaldownclass: 'fa fa-minus'
-			});	
+			});
+			$(".tempoInvestido2").TouchSpin({
+				//- prefix: 'meses',
+				buttondown_class: 'btn btn-white',
+				buttonup_class: 'btn btn-white',
+				decimals: 0,
+				initval: 60,
+				min: 0,
+				max: 100000000000,
+				step: 1,
+				verticalbuttons: true,
+				verticalupclass: 'fa fa-plus',
+				verticaldownclass: 'fa fa-minus'
+			});   
+			$(".valorInvestido2").TouchSpin({
+				prefix: 'R$',
+				buttondown_class: 'btn btn-white',
+				buttonup_class: 'btn btn-white',
+				decimals: 2,
+				initval: 5000,
+				min: 0,
+				max: 100000000000,
+				step: 50,
+				verticalbuttons: true,
+				verticalupclass: 'fa fa-plus',
+				verticaldownclass: 'fa fa-minus'
+			});
+			$(".percentualCDI2").TouchSpin({
+				prefix: '%',
+				buttondown_class: 'btn btn-white',
+				buttonup_class: 'btn btn-white',
+				decimals: 0,
+				initval: 110,
+				min: 0,
+				max: 100000000000,
+				step: 1,
+				verticalbuttons: true,
+				verticalupclass: 'fa fa-plus',
+				verticaldownclass: 'fa fa-minus'
+			});
 		});

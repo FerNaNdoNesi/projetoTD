@@ -534,17 +534,19 @@ function calculandoRendimentosPorProdutosDiferentesPercentuais(valorInvestido, t
 	console.log("taxa com percentual: "+taxa*100);
 	var periodo = 0, valorIr = 0, valorIrMes = 0;
 	var dtAtual = new Date(); // Em js getMonth() Mês 0~11
+	dtAtual.setMonth(dtAtual.getMonth()+Number(tempoInvestindo));
 	
 	var ObjPercentual = [],
-			ObjMontante = [],
-			ObjMontanteIr = [],
-			ObjRendimentoAcumulado = [],
-			ObjValorInvestido = [],
-			ObjTaxaIr = [],
-			ObjValorIr = [],
-			ObjRendimentoAcumuladoIr = [],
-			ObjRentabilidadePercent = [],
-			ObjRentabilidadePercentIr = [];
+		ObjDataPeriodo = [],
+		ObjMontante = [],
+		ObjMontanteIr = [],
+		ObjRendimentoAcumulado = [],
+		ObjValorInvestido = [],
+		ObjTaxaIr = [],
+		ObjValorIr = [],
+		ObjRendimentoAcumuladoIr = [],
+		ObjRentabilidadePercent = [],
+		ObjRentabilidadePercentIr = [];
 	
 	periodo = tempoInvestindo;
 	for(var i = 0; i <= qtdCiclo; i++){ // enquanto não chegar ao fim do período
@@ -595,12 +597,13 @@ function calculandoRendimentosPorProdutosDiferentesPercentuais(valorInvestido, t
 		ObjValorIr.push(valorIr);
 		ObjRendimentoAcumuladoIr.push(rendimentoAcumuladoIr);
 		ObjRentabilidadePercentIr.push(rentabilidadePercentIr);
-		
+		ObjDataPeriodo.push(new Date(dtAtual));
 
 		percentual = percentual + upCiclo;
 	}
 
 	return ({	ObjPercentual: ObjPercentual,
+				ObjDataPeriodo: ObjDataPeriodo,
 				//Valores Referente ao Capital
 				ObjMontante: ObjMontante,
 				ObjRendimentoAcumulado: ObjRendimentoAcumulado,
