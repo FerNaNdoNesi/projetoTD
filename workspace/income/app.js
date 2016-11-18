@@ -1,26 +1,31 @@
-var express 		= require('express');
-var load			= require('express-load');
-var path 			= require('path');
-var favicon 		= require('serve-favicon');
-var logger 			= require('morgan');
+var express 			= require('express');
+var load					= require('express-load');
+var path 					= require('path');
+var favicon 		  = require('serve-favicon');
+var logger 			  = require('morgan');
 var cookieParser 	= require('cookie-parser');
 var bodyParser 		= require('body-parser');
-var mongoose      	= require('mongoose');
-var flash         	= require('express-flash');
-var session       	= require('express-session');
-var Highcharts    	= require('highcharts');
-// global.jQuery = require('jquery');
-// global.jsdom 			= require("jsdom");
-// var TouchSpin 		= require("bootstrap-touchspin");
-// var bootstrap 		= require("bootstrap");
-// var jquery 			= require("jquery");
+var mongoose      = require('mongoose');
+var flash         = require('express-flash');
+var session       = require('express-session');
+var Highcharts    = require('highcharts');
+var pg 						= require('pg');
+var conString 		= 'postgres://azlcouzh:O0bcU3qJvmcWssmDPnbT6QKfMksPRZBw@elmer.db.elephantsql.com:5432/azlcouzh';
 
+pg.connect(conString, function(err, client, done) {
+	if (err) {
+		return console.error('error fetching client from pool', err);
+	}
+	client.query('SELECT $1::int AS number', ['1'], function(err, result) {
+		done();
+		if (err) {
+			return console.error('error running query', err);
+		}
+		console.log('Resultado conexão postgres: '+result.rows[0].number);
+	});
+});
 
 var app = express();
-
-
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

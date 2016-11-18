@@ -1,0 +1,9 @@
+http://sisweb.tesouro.gov.br/apex/COSIS_SISTD.obtem_arquivo?p_id=248:9319
+http://sisweb.tesouro.gov.br/apex/COSIS_SISTD.obtem_arquivo?p_id=249:93861
+http://sisweb.tesouro.gov.br/apex/COSIS_SISTD.obtem_arquivo?p_id=250:788771
+http://sisweb.tesouro.gov.br/apex/COSIS_SISTD.obtem_arquivo?p_id=251:82537
+http://sisweb.tesouro.gov.br/apex/COSIS_SISTD.obtem_arquivo?p_id=148:6333
+http://sisweb.tesouro.gov.br/apex/COSIS_SISTD.obtem_arquivo?p_id=252:83213
+
+
+FONTE: http://www.tesouro.gov.br/tesouro-direto-balanco-e-estatisticas
