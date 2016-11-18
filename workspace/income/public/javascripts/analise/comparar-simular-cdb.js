@@ -34,8 +34,8 @@
 			arrayMesMin[9] = "Out";
 			arrayMesMin[10] = "Nov";
 			arrayMesMin[11] = "Dez";
-	var pg = require('pg');
-	var conString = 'postgres://azlcouzh:O0bcU3qJvmcWssmDPnbT6QKfMksPRZBw@elmer.db.elephantsql.com:5432/azlcouzh';	
+	// var pg = require('pg');
+	// var conString = 'postgres://azlcouzh:O0bcU3qJvmcWssmDPnbT6QKfMksPRZBw@elmer.db.elephantsql.com:5432/azlcouzh';	
 
 	function atualizaResultado(){
 		// calculandoRendimentosPorProdutos(valorInvestido, tempoInvestindo, taxaIndicador, percentual, IR)
@@ -48,19 +48,19 @@
 																										79);
 		tableDrawComparativo(retorno1);
 
-		pg.connect(conString, function(err, client, done) {
-			if (err) {
-				return console.error('error fetching client from pool', err);
-			}
-			client.query('SELECT $1::int AS number', ['1'], function(err, result) {
-				done();
-				if (err) {
-					return console.error('error running query', err);
-				}
-				// console.log('Resultado conexão postgres: '+result.rows[0].number);
-				alert('Resultado conexão postgres: '+result.rows[0].number);
-			});
-		});
+		// pg.connect(conString, function(err, client, done) {
+		// 	if (err) {
+		// 		return console.error('error fetching client from pool', err);
+		// 	}
+		// 	client.query('SELECT $1::int AS number', ['1'], function(err, result) {
+		// 		done();
+		// 		if (err) {
+		// 			return console.error('error running query', err);
+		// 		}
+		// 		// console.log('Resultado conexão postgres: '+result.rows[0].number);
+		// 		alert('Resultado conexão postgres: '+result.rows[0].number);
+		// 	});
+		// });
 
 
 
